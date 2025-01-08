@@ -1,0 +1,629 @@
+%             Exemple d'utilisation de la classe thesul
+%             ------------------------------------------
+%
+%
+% (de manière generale, les commandes de thesul sont celles
+% qui ne sont pas complètement en minuscules)
+%
+% Voir la documentation complète pour plus de détails.
+%
+%
+% D. Roegel, 30 mars 2013
+%
+\documentclass[11pt, nofrench]{thesul}
+\usepackage{tgpagella}
+% tgpagella/palatino/charter/utopia/fourier
+%----------------------------------------------------------------------
+%                     Chargement de quelques packages
+%----------------------------------------------------------------------
+
+% Si l'on veut produire une version PDF avec des hyperliens :
+\usepackage[pageanchor=false]{tulhypref}
+
+% Si on veut le style de bibliographie named :
+%\usepackage{named}
+
+
+
+
+% Define "definition" environment
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+
+% For math
+% math symbol
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{bbm}
+
+% Pour les figures :
+\usepackage{graphicx}
+
+% Si on veut des mini-tables des matières (utiliser minitoc-hyper 
+% en conjonction avec tulhypref) :
+\usepackage{minitoc-hyper}
+
+% Acronym packages
+\usepackage{acronym}
+% Redefine the acronym list style to include dotted lines
+\renewcommand{\aclabelfont}[1]{\makebox[5cm][l]{#1\dotfill}}
+
+% Citation packages
+\usepackage[square,numbers]{natbib}
+%\bibliographystyle{abbrvnat}
+\bibliographystyle{unsrt}
+%\setcitestyle{authoryear,open={((},close={))}} %Citation-related commands
+%-------------------------------------------------------------------
+%                             Chapter heading font
+%-------------------------------------------------------------------
+
+\usepackage{titlesec}
+
+
+\newcommand*{\selectfontchapheads}{\fontfamily{phv}\selectfont} % Font style used chapter headings
+
+
+% Define a new chapter format
+\titleformat{\chapter}
+  [display] % shape
+  {\scshape\normalsize\filleft} % format applied to label
+  {\chaptertitlename\ \thechapter} % label
+  {20pt} % horizontal separation between label and title body
+  {\selectfontchapheads\Huge\bfseries\filleft} % before-code (applied to title)
+  [\vspace{1ex}\titlerule] % after-code
+
+
+% % Define a new chapter format
+% \titleformat{\chapter}
+%   [display] % shape
+%   {\normalfont\Huge\bfseries\filleft} % format applied to label+text
+%   {\chaptertitlename\ \thechapter} % label
+%   {20pt} % horizontal separation between label and title body
+%   {\Huge} % before-code
+%   [\vspace{1ex}\titlerule] % after-code
+
+% Adjust spacing around chapter title
+\titlespacing*{\chapter}{0pt}{-30pt}{20pt}
+
+%-------------------------------------------------------------------
+%                             Abstract des chapitres
+%-------------------------------------------------------------------
+
+% Define the abstract command
+\newcommand{\chapterabstract}[1]{
+\textbf{Summary:} \textit{#1}
+  \vspace{2ex} % Add some space after the abstract
+}
+
+%-------------------------------------------------------------------
+%                             Définition de couleurs
+%-------------------------------------------------------------------
+\usepackage[svgnames]{xcolor}
+\definecolor{mypurple}{RGB}{204,88,212}
+
+
+%-------------------------------------------------------------------
+%                             Définition de tables
+%-------------------------------------------------------------------
+
+\usepackage{booktabs,ragged2e}
+\usepackage{multicol, multirow}
+\usepackage[flushleft]{threeparttable}
+
+
+%-------------------------------------------------------------------
+%                             Définition des listings
+%-------------------------------------------------------------------
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+  language=Python,            % Setting language to Python for pseudocode style
+  basicstyle=\ttfamily\footnotesize, % Font style and size
+  keywordstyle=\bfseries\color{blue}, % Keywords color
+  commentstyle=\itshape\color{green!50!black}, % Comments color
+  stringstyle=\color{red}, % Strings color
+  numbers=left, % Line numbers
+  numberstyle=\tiny, % Line number style
+  stepnumber=1, % Line number step
+  frame=single, % Frame around the code
+  captionpos=b, % Caption position
+  breaklines=true, % Automatic line breaking
+  tabsize=2, % Tab size
+}
+
+
+%-------------------------------------------------------------------
+%                             Box de couleurs
+%-------------------------------------------------------------------
+
+\usepackage[breakable]{tcolorbox}
+
+% Define a new command for a rounded color box
+\newcommand{\roundedbox}[3][yellow]{
+  \begin{tcolorbox}[
+    width=\textwidth,
+    %colback=#1!10!white, % lighter background color
+    colback=#1!10, % lighter background color
+    colframe=#1!80!white, % border color
+    %colbacktitle=#1!30!white, % bolder title background color
+    colbacktitle=#1!40, % bolder title background color
+    coltitle=black, % title text color
+    title={\centering #2}, % box title
+    fonttitle=\bfseries, % bold title font
+    boxrule=0.5mm, % border thickness
+    arc=2mm, % corner radius
+    breakable, % allows the box to split across pages
+    %auto outer arc,
+    %sharp corners=false % south to make the bottom corners sharp
+  ]
+    #3 % box content
+  \end{tcolorbox}
+}
+
+% Define a new command for a square color box
+\newcommand{\squarebox}[2][yellow]{
+  \begin{tcolorbox}[
+    width=\textwidth,
+    colback=#1!10!white, % background color
+    colframe=#1!80!black, % border color
+    boxrule=0.5mm, % border thickness
+    sharp corners, % square corners
+    coltext=black, % text color
+    fontupper=\normalfont, % normal font for content
+    breakable, % allows the box to split across pages
+  ]
+    #2 % box content
+  \end{tcolorbox}
+}
+
+
+\newcommand{\contributions}[1]{
+    \roundedbox[Gray]{Contributions}{#1}
+}
+
+% LightBlue, MediumSlateBlue,FireBrick
+\newcommand{\background}[1]{
+    \roundedbox[MediumSlateBlue]{Chapter's background}{#1}
+}
+
+\newcommand{\usage}[1]{
+    \roundedbox[FireBrick]{Connection to the thesis objectives}{#1}
+}
+
+\newcommand{\takeaway}[1]{
+    \roundedbox[MediumSlateBlue]{Takeaways}{#1}
+}
+
+% \newcommand{\abstractbox}[1]{
+%     \roundedbox[MediumSlateBlue]{Takeaways}{#1}
+% }
+
+%-------------------------------------------------------------------
+%                             Marges
+%-------------------------------------------------------------------
+
+% pour positionner les vraies marges:
+%\SetRealMargins{1mm}{1mm}
+
+%-------------------------------------------------------------------
+%                             En-têtes
+%-------------------------------------------------------------------
+
+% Les en-têtes: quelques exemples
+%\UppercaseHeadings 
+%\UnderlineHeadings
+%\newcommand\bfheadings[1]{{\bf #1}}
+%\FormatHeadingsWith{\bfheadings}
+%\FormatHeadingsWith{\uppercase}
+%\FormatHeadingsWith{\underline}
+\newcommand\upun[1]{\uppercase{\underline{\underline{#1}}}}
+\FormatHeadingsWith\upun
+
+\newcommand\itheadings[1]{\textit{#1}}
+\FormatHeadingsWith{\itheadings}
+
+% pour avoir un trait sous l'en-tete:
+\setlength{\HeadRuleWidth}{0.4pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%For collaborative comments
+%% To add a comment use the command [\firstname{}] to add your comment in a color to make other contributors aware of who write the comment. The comments will appear in color in the PDF.
+
+% Use the command for each comment or use the newline command [\\] within the same comment.
+
+% Example:
+%\joel{this is my first comment. \\
+%      This is my last comment.}
+
+
+\newcount\Comments  % 0 suppresses notes to selves in text
+\Comments=1   % TODO: set to 0 for final version
+
+% You can define your custom color with \definecolor{colorname}{rgb}{red_value, green_value, blue_value}
+
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+\definecolor{purple}{rgb}{1,0,1}
+
+
+% \kibitz{color}{comment} inserts a colored comment in the text
+\newcommand{\kibitz}[2]{\ifnum\Comments=1\textcolor{#1}{#2}\fi}
+% add yourself here:
+\newcommand{\joel}[1]{\kibitz{red}      {[Joel: #1]}}
+\newcommand{\bertrand}[1]  {\kibitz{purple}   {[Bertrand: #1]}}
+\newcommand{\abdelkader}[1]{\kibitz{cyan}     {[Abdelkader: #1]}}
+\newcommand{\minqi}[1]  {\kibitz{darkgreen}{[Minqi: #1]}}
+
+%-------------------------------------------------------------------
+%                         Les références
+%-------------------------------------------------------------------
+
+\NoChapterNumberInRef
+\NoChapterPrefix
+
+%-------------------------------------------------------------------
+%                           Brouillons
+%-------------------------------------------------------------------
+
+% ceci ajoute une marque « brouillon » et la date
+%\ThesisDraft
+
+%-------------------------------------------------------------------
+%                   Pour collecter un glossaire et un index
+%-------------------------------------------------------------------
+\makeglossary
+\makeindex
+
+\begin{document}
+
+    % A revoir pour la numerotation des pages paires et impaires
+
+      \OddHead={{\leftmark\rightmark}{\hfil\slshape\rightmark}}
+      \EvenHead={{\leftmark}{{\slshape\leftmark}\hfil}}
+      \OddFoot={\hfil\thepage}
+      \EvenFoot={\thepage\hfil}
+      \pagestyle{ThesisHeadingsII}
+      %\pagestyle{ThesisHeadingsII}
+
+%-------------------------------------------------------------------
+%                          Encadrements
+%-------------------------------------------------------------------
+
+% encadre les chapitres dans la table des matières:
+% (ces commandes doivent figurer apres \begin{document}
+
+\FrameChaptersInToc  
+\FramePartsInToc
+\AlignTitlesRight
+
+
+%-------------------------------------------------------------------
+%            Réinitialisation de la numérotation des chapitres
+%-------------------------------------------------------------------
+
+% Si la commande suivante est présente,
+% elle doit figurer APRÈS \begin{document}
+% et avant la première commande \part
+\ResetChaptersAtParts 
+
+%-------------------------------------------------------------------
+%               mini-tables des matières par chapitre
+%-------------------------------------------------------------------
+
+% préparer les mini-tables des matières par chapitre.
+% (commande de minitoc.sty)
+\dominitoc
+
+%-------------------------------------------------------------------
+%                         Page de titre:
+%-------------------------------------------------------------------
+
+\ThesisTitle{Comment j'ai r\'eussi \`a prouver mon existence}
+\ThesisDate{28 janvier 1986}
+\ThesisAuthor{Auteur anonyme}
+
+% Type de la these
+\ThesisUL
+
+% Jury:
+
+% (ne pas mettre de \\ apres la dernière entree)
+
+% Exemple de création d'une nouvelle catégorie dans le jury:
+
+\NewJuryCategory{family}{\it Membre de la famille :}
+                        {\it Membres de la famille :}
+
+\family={Mon frère\\Ma sœur}
+
+\def\blanc{\hspace*{1cm}}
+
+\President    = {Le président}
+\Rapporteurs  = {Le rapporteur 1&de Paris\\
+                 Le rapporteur 2\\
+                 \blanc suite&taratata\\
+                 Le rapporteur 3}
+\Examinateurs = {L'examinateur 1&d'ici\\
+                 L'examinateur 2}
+%\Invites=       {}
+
+% Création de la page de titre:
+\MakeThesisTitlePage
+
+% on peut en faire plusieurs:
+%\MakeThesisTitlePage
+
+%-------------------------------------------------------------------
+
+
+%-------------------------------------------------------------------
+%                          remerciements
+%-------------------------------------------------------------------
+
+%\DontFrameThisInToc
+\begin{ThesisAcknowledgments}
+Les remerciements.
+\end{ThesisAcknowledgments}
+
+%-------------------------------------------------------------------
+%                            dédicace
+%-------------------------------------------------------------------
+
+\begin{ThesisDedication}
+Je dédie cette thèse\\
+à ma machine.\\
+Oui, à Pandore,\\
+qui fut la première de toutes.
+\end{ThesisDedication}
+
+
+%-------------------------------------------------------------------
+%                  écriture de `Chapitre' et `Partie' 
+%                      dans la table des matières
+%-------------------------------------------------------------------
+
+\WritePartLabelInToc
+\WriteChapterLabelInToc
+
+%-------------------------------------------------------------------
+%                        table des matières
+%-------------------------------------------------------------------
+
+\tableofcontents
+\mainmatter
+
+
+
+
+%-------------------------------------------------------------------
+%              Exemple d'utilisation de \SpecialSection
+%-------------------------------------------------------------------
+
+%\SpecialSection{Introduction générale}
+
+
+
+%\chapter*{Introduction}\label{chap:intro}
+\SpecialSection{Introduction}\label{chap:intro}
+\input{chapters/chapter_0/main}
+
+\chapter{Background and Related work}\label{chap:related_work}
+\input{chapters/chapter_1/main}
+
+\chapter{Measurements studies and data collection}\label{chap:measurements}
+\input{chapters/chapter_2/main}
+
+\chapter{Evaluation of unsupervised ML models for QoE degradation detection in CG applications}\label{chap:ml_evaluation}
+\input{chapters/chapter_3/main}
+
+% \chapter{Cloud Gaming traffic detection with unsupervised machine learning}\label{chap:cg_detection}
+% \input{chapters/chapter_4/main}
+
+\chapter{Contrastive learning for anomaly detection in time series}\label{chap:cats}
+\input{chapters/chapter_5/main}
+
+\chapter{Diagnosis and classification of Virtual Reality Gaming degradation causes}\label{chap:diagnosis}
+\input{chapters/chapter_6/main}
+
+%\chapter{Conclusion}
+\SpecialSection{Conclusion}\label{chap:conclusion}
+\input{chapters/chapter_7/main}
+
+
+\Annexes
+
+\Annex{Résumé en français}\label{french_summary}
+\input{chapters/annexes/french_resume}
+
+\Annex{Annex 2.}
+
+
+%-------------------------------------------------------------------
+%               Bibliography
+%-------------------------------------------------------------------
+\nocite{*}
+\Urlmuskip=0mu plus 2mu\relax
+% \bibliographystyle{unsrt}
+%\bibliographystyle{abbrvnat}
+\bibliography{references} %%% Remove comment to use the external .bib file (using bibtex).
+%%% and comment out the ``thebibliography'' section.
+
+%\FrameThisInToc
+%\DontNumberThisInToc
+
+\listoffigures
+\listoftables
+
+%-------------------------------------------------------------------
+%               List of Acronyms
+%-------------------------------------------------------------------
+
+
+% Include the file containing acronyms
+%\chapter{Acronym}
+\SpecialSection{Acronyms}\label{chap:acronyms}
+\input{chapters/acronyms}
+
+\end{document}
+
+
+
+ @article{Wang2012CloudMG,
+  title={Cloud mobile gaming: modeling and measuring user experience in mobile wireless networks},
+  author={Shaoxuan Wang and Sujit Dey},
+  journal={ACM SIGMOBILE Mob. Comput. Commun. Rev.},
+  year={2012},
+  volume={16},
+  pages={10-21}
+}
+
+@inproceedings{Zadtootaghaj2022QualityOE,
+  title={Quality of Experience Modeling for Cloud Gaming Services},
+  author={Saman Zadtootaghaj},
+  booktitle={T-Labs Series in Telecommunication Services},
+  year={2022},
+}
+
+@inproceedings{kamarainen2018cloudvr,
+  title={CloudVR: Cloud accelerated interactive mobile virtual reality},
+  author={K{\"a}m{\"a}r{\"a}inen, Teemu and Siekkinen, Matti and Eerik{\"a}inen, Jukka and Yl{\"a}-J{\"a}{\"a}ski, Antti},
+  booktitle={Proceedings of the 26th ACM international conference on Multimedia},
+  pages={1181--1189},
+  year={2018}
+}
+
+@article{penaherrera2022kqi,
+  title={KQI assessment of VR services: A case study on 360-video over 4G and 5G},
+  author={Pe{\~n}aherrera-Pulla, Oswaldo Sebastian and Baena, Carlos and Fortes, Sergio and Baena, Eduardo and Barco, Raquel},
+  journal={IEEE Transactions on Network and Service Management},
+  volume={19},
+  number={4},
+  pages={5366--5382},
+  year={2022},
+  publisher={IEEE}
+}
+
+@article{rukh2023measuring,
+  title={Measuring and Localising Congestion in Mobile Broadband Networks},
+  author={Rukh, Mah and Elmokashfi, Ahmed},
+  journal={Authorea Preprints},
+  year={2023},
+  publisher={Authorea}
+}
+
+@inproceedings{sundqvist2022uncovering,
+  title={Uncovering latency anomalies in 5G RAN-A combination learner approach},
+  author={Sundqvist, Tobias and Bhuyan, Monowar and Elmroth, Erik},
+  booktitle={2022 14th International Conference on COMmunication Systems \& NETworkS (COMSNETS)},
+  pages={621--629},
+  year={2022},
+  organization={IEEE}
+}
+
+@article{zhao2024fault,
+  title={A Fault Diagnosis Method for 5G Cellular Networks Based on Knowledge and Data Fusion},
+  author={Zhao, Lingyu and He, Chuhong and Zhu, Xiaorong},
+  journal={Sensors},
+  volume={24},
+  number={2},
+  pages={401},
+  year={2024},
+  publisher={MDPI}
+}
+
+@article{galeano2004outlier,
+  title={Outlier detection in multivariate time series via projection pursuit},
+  author={Galeano, Pedro and Pea, Daniel and Tsay, Ruey S},
+  journal={Statistics and Econometrics Working Papers ws044211, Universidad Carlos III, Departamento de Estad{\i}stica y Econometr{\i}ca. Sep},
+  year={2004}
+}
+
+ @article{Boutaba2018ACS,
+  title={A comprehensive survey on machine learning for networking: evolution, applications and research opportunities},
+  author={Raouf Boutaba and Mohammad Ali Salahuddin and Noura Limam and Sara Ayoubi and Nashid Shahriar and Felipe Estrada Solano and Oscar Mauricio Caicedo Rendon},
+  journal={Journal of Internet Services and Applications},
+  year={2018},
+  volume={9},
+  pages={1-99}
+}
+
+ @article{Fernandes2019ACS,
+  title={A comprehensive survey on network anomaly detection},
+  author={Gilberto Fernandes and Joel J.P.C. Rodrigues and Luiz Fernando Carvalho and Jalal Al-Muhtadi and Mario Lemes Proença},
+  journal={Telecommunication Systems},
+  year={2019},
+  volume={70},
+  pages={447-489}
+}
+
+ @article{BlazquezGarcia2021ARO,
+@article{blazquez2021review,
+  title={A review on outlier/anomaly detection in time series data},
+  author={Bl{\'a}zquez-Garc{\'\i}a, Ane and Conde, Angel and Mori, Usue and Lozano, Jose A},
+  journal={ACM computing surveys (CSUR)},
+  volume={54},
+  number={3},
+  pages={1--33},
+  year={2021},
+  publisher={ACM New York, NY, USA}
+}
+
+@inproceedings{Wang2022DeepCO,
+  title={Deep Contrastive One-Class Time Series Anomaly Detection},
+  author={Wang, Rui and Liu, Chongwei and Mou, Xudong and Gao, Kai and Guo, Xiaohui and Liu, Pin and Wo, Tianyu and Liu, Xudong},
+  booktitle={Proceedings of the 2023 SIAM International Conference on Data Mining (SDM)},
+  pages={694--702},
+  year={2023},
+  organization={SIAM}
+}
+
+@misc{P4_N2NET,
+      title={In-network Neural Networks}, 
+      author={Giuseppe Siracusano and Roberto Bifulco},
+      year={2018},
+      eprint={1801.05731},
+      archivePrefix={arXiv},
+      primaryClass={cs.DC}
+}
+
+@inproceedings{Zhou2019BeatGANAR,
+  title={BeatGAN: Anomalous Rhythm Detection using Adversarially Generated Time Series},
+  author={Bin Zhou and Shenghua Liu and Bryan Hooi and Xueqi Cheng and Jing Ye},
+  booktitle={International Joint Conference on Artificial Intelligence},
+  year={2019},
+}
+
+@ARTICLE{tsagen_wang,
+  author={Wang, Chengyu and Wu, Kui and Zhou, Tongqing and Yu, Guang and Cai, Zhiping},
+  journal={IEEE Transactions on Network and Service Management}, 
+  title={TSAGen: Synthetic Time Series Generation for KPI Anomaly Detection}, 
+  year={2022},
+  volume={19},
+  number={1},
+  pages={130-145},
+  doi={10.1109/TNSM.2021.3098784}}
+
+@ARTICLE{gan_ids_araujo,
+  author={de Araujo-Filho, Paulo Freitas and Naili, Mohamed and Kaddoum, Georges and Fapi, Emmanuel Thepie and Zhu, Zhongwen},
+  journal={IEEE Transactions on Network and Service Management}, 
+  title={Unsupervised GAN-Based Intrusion Detection System Using Temporal Convolutional Networks and Self-Attention}, 
+  year={2023},
+  volume={20},
+  number={4},
+  pages={4951-4963},
+  doi={10.1109/TNSM.2023.3260039}}
+
+
+@ARTICLE{iot_ad,
+  author={Yin, Chunyong and Zhang, Sun and Wang, Jin and Xiong, Neal N.},
+  journal={IEEE Transactions on Systems, Man, and Cybernetics: Systems}, 
+  title={Anomaly Detection Based on Convolutional Recurrent Autoencoder for IoT Time Series}, 
+  year={2022},
+  volume={52},
+  number={1},
+  pages={112-122},
+  keywords={Feature extraction;Time series analysis;Anomaly detection;Internet of Things;Deep learning;Monitoring;Anomaly detection;deep learning;Internet of Things (IoT);time series},
+  doi={10.1109/TSMC.2020.2968516}}
+

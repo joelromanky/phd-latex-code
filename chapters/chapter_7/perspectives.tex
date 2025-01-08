@@ -1,0 +1,58 @@
+
+
+
+% More data collection for Cloud VR experiments : use more impairments scenarios like congestion, hidden terminal
+
+% Collect data in more challenging real-word scenarios where many causes may be intertwined
+
+% Cloud VR applications were evaluated over Wi-Fi networks to facilitates controlled experiments, RCD on 5G networks should also be considered as this network may presents many impairments. Experiments to create realisitic impairments should be done in future work and see if our RCD framework may apply to these environements
+
+% Few shot learning to learn efficiently with low labels ?
+
+% Improve anomaly detection on time series ?
+
+% Multi view clustering for use of all ldata collected ? PCAP, endpoints and client-side to enhance the performance of root cause diagnosis ?
+
+% Novel class discovery to enable the discovery of unknown causes of degradation
+
+% Causal discovery to understand the link between each metric that lead to the impaorment ?
+
+
+
+This thesis has addressed the challenges of anomaly detection and root cause diagnosis for low-latency applications such as Cloud Gaming and Cloud VR. While the proposed contributions offer substantial advances, certain limitations remain, which provide opportunities for insightful future research. Below, we outline several promising directions for further exploration and development.
+
+
+\subsection*{QoE models for LL applications}
+This work focused on diagnosing network issues impacting the QoE of LL applications. In QoE degradation detection for Cloud Gaming (CG), platform-specific recommendations were used to identify poor QoE sessions. For Cloud VR RCD, Wi-Fi impairment scenarios that impact our perceived session quality in lab were simulated.
+
+Although existing QoE models for CG and Cloud VR are available in the literature \cite{lee2023modeling, huang2023practical, islam2023predicting}, these models rely on features not available in our testbed and are not open-sourced. Since building QoE models was not the primary goal of this thesis, we use the aforementioned simplifications to conduct experiments. However, future work should explore the integration of QoE models for LL applications. By relabeling the CG and Cloud VR KPI datasets collected in this thesis and released as OpenData, and by retraining the anomaly detection and RCD performance of the frameworks developed in this thesis, better evaluations could be achieved.
+
+\subsection*{Improving Anomaly Detection on time series}
+The proposed CATS model for anomaly detection in time series demonstrated strong performance but also revealed limitations. The core innovation, a temporal contrastive loss based on\ac{DTW} similarity, incurs a high computational cost due to the quadratic complexity of Soft-DTW divergence. This restricts its efficiency, particularly as only one negative pair for contrastive learning is used in this loss to limit computational costs. Future research could develop optimized loss functions that preserve the benefits of DTW-like metrics while reducing computational overhead. This would enable faster model training for efficient AD in time series. 
+
+Additionally, despite outperforming other methods in presence of data contamination, CATS performance is still impacted by the presence of anomalies in the training set. This sensitivity to data contamination in training could be mitigated by advanced negative data augmentations or incorporating contamination estimation methods and model uncertainty in AD \cite{xu2024calibrated, perini2023estimating}. Moreover CATS being model-agnostic, exploring advanced architectures, such as \ac{GNN} \cite{jin2024survey}, could further enhance its ability to capture temporal dependencies in time series data.
+
+\subsection*{Further data collection for Cloud VR experiments}
+The proposed RCD framework was validated on Cloud VR datasets collected under Wi-Fi networks with limited impairment scenarios. Future studies should expand this by including scenarios such as congestion, hidden terminals, or non-Wi-Fi interference, which are also commonly encountered in real-world Wi-Fi network environments. Emulating such impairments would improve the framework’s generalizability.
+
+Moreover, collecting data from real-world environments, such as enterprise networks, large-scale public Wi-Fi (e.g., campuses) or home Wi-Fi, would provide insights into more complex, intertwined causes of performance issues. Evaluating the RCD framework in these settings would further validate its robustness and effectiveness.
+
+\subsection*{Root Cause Diagnostic over 5G networks}
+This thesis focused on Wi-Fi networks due to their accessibility for realistic lab-based experimentation. However, 5G networks, particularly standalone (SA) deployments, present new opportunities and challenges for RCD. With their lower latency and higher reliability, 5G networks are critical for Industry 5.0 applications that benefit from immersive technologies like Cloud VR \cite{fernandez2024forging}. 
+
+Future work should explore RCD in 5G networks, addressing impairments such as congestion, handover failures, signal attenuation or RAN misconfigurations. Collecting data through a 5G-to-Wi-Fi gateway \cite{penaherrera2024cloud}—as most current \ac{HMDs} lack cellular connectivity—would enable testing the adaptability of the framework to 5G-specific challenges.
+
+\subsection*{Few-shot learning for efficient labeling}
+A major challenge in applying machine learning to RCD tasks is the scarcity of labeled data, particularly for rare anomalies. As shown in Chapter \ref{chap:diagnosis}, having more labeled data improves model performance. Few-shot learning approaches, such as Prototypical Networks \cite{snell2017prototypical} or \ac{MAML} \cite{finn2017model}, that aim at training models to achieve high performance on new tasks with only limited labeled examples (usually with $k=5$ examples per class) could help in circumventing this challenge. Such methods are increasingly used in fault diagnosis to reduce labeling efforts while enabling quicker adaptation and improved performance in new environments \cite{wang2022few, yang2023generalized}.
+
+\subsection*{Leveraging multiple sources of data for RCD}
+In Chapter \ref{chap:measurements}, data from multiple source including \ac{PCAP} traffic, Livebox metrics, and client-side application metrics, was collected to provide a multi-view perspective on Cloud VR performance. However, only one Livebox metrics were utilized in Chapter \ref{chap:diagnosis} for RCD due to the simplier accessibility to these metrics for \ac{ISP}. Integrating these data sources in future research can be insightful and a promising way to do so is \ac{MVL} \cite{xu2013survey, li2018survey} that combines features and structural information from diverse sources to extract shared properties that enhance learning performance. For unsupervised settings, \ac{MVC} \cite{chao2017survey, zhou2024survey}, a subdomain of MVL, could be employed to cluster samples with shared patterns across different data sources, enabling improved RCD performance by leveraging the complementarity of diverse perspectives.
+
+\subsection*{Novel Class Discovery}
+Current RCD approaches, including our own, assume a fixed set of degradation causes. However, in real-world scenarios, new, previously unseen causes may emerge. \ac{NCD} techniques \cite{troisemaine2023novel} could address this challenge by learning to categorize unlabeled data into appropriate new classes. These methods leverage prior knowledge from known classes (e.g., existing causes of degradation) to infer new, unknown categories.
+
+\subsection*{Causal Discovery}
+Understanding the causal relationships between KPIs could provide deeper insights into the mechanisms driving performance impairments in LL applications. Causal discovery techniques \cite{hasan2023survey, gong2024causal} uncover cause-effect relationships and represent this underlying causal structure of the set of KPIs observed in causal graphs (with directed arrows from the cause to the effect). They can hence help identifying the root sources of faults in the network. Incorporating causal discovery into RCD frameworks would enhance their robustness, explainability, and utility for network operators by revealing how certain network metrics lead to impairments.
+
+In conclusion, although the contributions presented here have their limitations and much remains to be explored, a Ph.D. marks the beginning of a research journey. It is a foundation upon which we aspire to build further, aiming to deliver more constructive, impactful, and meaningful advancements in the future.
+

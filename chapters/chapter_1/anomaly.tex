@@ -1,0 +1,152 @@
+
+% Intro sentence
+Large amounts of multivariate time series data are generated across various domains, such as monitoring systems, finance, healthcare, networking, and security. The presence of anomalies in these time series can indicate malicious activity, fraud, cyber threats, system malfunctions, or diseases in healthcare. Consequently, detecting anomalies in time series data is becoming increasingly critical and has become a prominent area of research. Before delving into existing anomaly detection methods, we define the problem and introduce some key definitions.
+
+
+% Define what a time series
+\begin{definition}[Time series]
+    A time series is a sequence of data points chronologically collected and equally-time spaced. Time series can be univariate or multivariate.
+\end{definition}
+A multivariate time series is formally defined as $X = \{ x_1, x_2, ..., x_T\}$ where $x_t \in \mathbb{R}^m$ denotes a $m$-dimensional vector corresponding to the observations of the $m$-features at a specific time $t$. A univariate time series is the special case when $m=1$. In this thesis, we focus on multivariate time series.
+
+% Challenge of time series
+
+
+% Define what is an anomaly
+\begin{definition}[Anomaly]
+    "\textit{An anomaly is an observation that deviates considerably from some concept of normality.}" \cite{ruff2021unifying}.
+\end{definition}
+Chandola et al. \cite{chandola2009anomaly} proposed a taxonomy of anomalies based on their nature:
+\begin{itemize}
+    \item \textbf{Point anomalies.} An individual data point that significantly differs from the rest of the data. This is the simplest type of anomaly. For instance, in fraud detection, an unusually high transaction amount compared to typical spending patterns is a point anomaly.
+    \item \textbf{Contextual anomalies.}  A data point, anomalous in one context but normal in another. For instance, a temperature of 30°C is normal in the summer but anomalous in winter.
+    \item \textbf{Collective anomalies.} A set of data points that, when considered together, represent an anomaly. Individually, each point may not be anomalous, but as a group, they indicate abnormal behavior. For instance, in a network monitoring system that typically processes 200–500 packets per minute, a steady rate of 450 packets per minute over 10 minutes might signal a collective anomaly.
+\end{itemize}
+
+
+\ac{AD} encompasses techniques for identifying data that deviate from normal patterns. While the terms \textit{anomaly}, \textit{outlier}, and \textit{novelty detection} are often used interchangeably, they have distinct meanings depending on the context. According to Ruff et al. \cite{ruff2021unifying}, given the distribution $\mathbb{P}^+$, of normal samples, an anomaly is an observation from a distribution different from $\mathbb{P}^+$. An outlier is a rare or a low-probability instance drawn from $\mathbb{P}^+$ while a novelty is an instance drawn from a new region of a non-stationary distribution of $\mathbb{P}^+$. For example, if $\mathbb{P}^+$ denotes the distribution of dogs, a cat would be an anomaly, a rare breed of dog an outlier and a newly discovered dog breed would be a novelty.  Despite their differences, these concepts share common detection methods, and this thesis collectively refers to them under the term anomaly detection.
+
+For a multivariate time-series dataset $X = \{ x_1, x_2, ..., x_T\}$ with $x_t \in \mathbb{R}^m$, AD involves learning a model $f_{\theta}$ that assigns, for each unseen observation $\tilde{x_t}$, a label $y_t \in \{0, 1\}$ indicating whether the new observation is anomalous ($y_t = 1$) or not ($y_t = 0$). Depending on the learning setting, time series AD algorithms can be supervised, semi-supervised or unsupervised. This thesis focuses on reviewing unsupervised and self-supervised AD algorithms as supervised and semi-supervised algorithms require labels which is unavailable or expensive to obtain in real-world scenarios.
+
+\subsection{Unsupervised AD}
+Unsupervised anomaly detection is the most commonly used approach due to the challenges of obtaining sufficient labeled normal and anomalous samples for supervised training. In the unsupervised setting, we assume that the training data is \textit{free} of anomalies (i.e., the training data consists solely of normal data). Since the model is trained exclusively on normal data, anomalies are expected to deviate significantly from normal data. This deviation is quantified using an anomaly score; if the score exceeds a predefined threshold, the data is classified as anomalous. However, this assumption may be violated in practice due to \textit{data contamination}, where some anomalous samples may be present in the training set. 
+
+Unsupervised AD methods can be broadly categorized into machine learning (ML)-based and deep learning (DL)-based approaches.
+
+\subsubsection{ML-based}
+\begin{itemize}
+
+     \item \textbf{Traditional statistical algorithms.}  Statistical techniques operate on the assumption that normal data lie in high-probability regions of a stochastic model, while anomalies are located in low-probability regions \cite{chandola2009anomaly}. % revoir 
+     Parametric methods assume that normal data follows a Gaussian distribution \cite{luo2017gas} or an underlying linear statistical model, such as \ac{VAR} or \ac{ARIMA} \cite{yaacob2010arima}. Non-parametric methods use kernel functions to estimate the probability density function, as in \ac{KDE} \cite{cao2016one} or are based on Kalman filters \cite{knorn2008adaptive}. 
+        
+    \item \textbf{Distance-based algorithms.} These algorithms detect anomalies by measuring the distance between data points. The core idea is that sequences with large distances from the majority of the data are considered anomalous. Methods like \ac{KNN} \cite{chaovalitwongse2007time} calculate the distance between a time series instance and its nearest neighbors, using this distance as the anomaly score. Alternatively, \ac{LOF} \cite{breunig2000lof} measures the relative density of each time series instance, considering instances in low-density neighborhoods as anomalous and those in high-density neighborhoods as normal. Some distance-based methods perform calculations relative to clusters, rather than individual neighbors. Clustering-based approaches, such as k-Means \cite{kiss2014data} and \ac{DBSCAN} \cite{ester1996density}, are typically faster than nearest-neighbor methods, as the number of clusters is smaller than the number of instances.
+    
+    
+    \item \textbf{Miscellaneous algorithms.} This category includes AD techniques based on spectral analysis, such as \ac{PCA}, RobustPCA \cite{paffenroth2018robust}, and \ac{ICA} \cite{zonglin2009multi}. These algorithms project data into a lower-dimensional space defined by the principal components (PCA) or decompose time series into statistically independent components (ICA). Anomalies are identified based on reconstruction errors (PCA) or the degree of non-Gaussianity (ICA). \ac{IF} \cite{liu2008isolation} is an isolation-based technique that recursively isolates anomalies from normal data using randomly features selection and split values. \ac{OC-SVM} \cite{scholkopf1999support} learns the smallest hypersphere that encapsulates all normal data, with anomalies being points lying outside the hypersphere.
+\end{itemize}
+
+
+
+\subsubsection{DL-based}
+\begin{itemize}
+    \item \textbf{Reconstruction-based algorithms.} These techniques identify anomalies by learning to reconstruct normal data. The underlying assumption is that a model trained on normal data will exhibit high reconstruction errors when attempting to reconstruct anomalous data, using these errors as anomaly scores.  The most common deep learning architecture in this category is the \ac{AE}, and numerous AE-based AD techniques have been proposed in the literature.
+    % DAGMM
+    \ac{DAGMM} \cite{zong2018deep} combines a deep AE with a \ac{GMM}, which estimates sample likelihoods based on their low-dimensional representations. The model computes an energy score, which, along the reconstruction error, identifies anomalies.
+    % MSCRED
+    \ac{MSCRED} \cite{zhang2019deep} addresses temporal patterns in time series using an attention-based convolutional LSTM encoder to construct multi-scale signature matrices that the decoder reconstructs. These signature matrices capture inter-correlations between different pairs of time series, enhancing AD.
+    % USAD
+    \ac{USAD} \cite{audibert2020usad} employs adversarial training on two AEs with a shared encoder. The first AE reconstructs normal data, while the second attempts to distinguish the reconstructions, forcing the first AE to improve its reconstructions.
+
+    %%% VAE
+    \ac{VAE}, a probabilistic extension of AE, integrates to autoencoders, Bayesian inference modeling latent spaces as a probability distribution.
+    % Donut
+    Donut \cite{xu2018unsupervised} is a \ac{VAE}-based AD method introducing techniques like modified \ac{ELBO}, missing data injection, and \ac{MCMC} imputation, outperforming previous VAE-based AD algorithms.
+    % LSTM-VAE
+    LSTM-VAE \cite{park2018multimodal} extends AEs with a denoising autoencoder that utilizes LSTM to capture temporal dependencies and Bayesian inference to reconstruct input data based on a learned latent distribution.
+    % Omni Anomaly
+    Omni-Anomaly \cite{su2019robust} combines a VAE with a stochastic RNN to model temporal dependencies and uses planar normalizing flows to handle non-Gaussian latent spaces distributions.
+
+    % Transformers
+    Transformer architectures known for their ability to handle long sequences, have also been adapted for time series AD. 
+    % Anomalyy transformer
+    Anomaly Transformer \cite{xu2022anomaly} adapts the transformer architecture for time series AD by leveraging attention mechanisms to capture both prior and series associations, combined with a min-max optimization strategy that highlights the association discrepancy between normal and anomalous data.
+    % TranAD
+    TranAD \cite{tuli2022tranad} combines a transformer-based encoder-decoder architecture with adversarial training. It introduces self-conditioning to enhance robust feature extraction, training stability, and better generalization.
+
+    % Generative
+    Generative models like GAN have shown great promise in generating realistic images and time series, and have been applied to time series AD as well.
+    % MAD GAN \cite{li2019mad}
+    MADGAN \cite{li2019mad} employs an LSTM-RNN as the core model in a GAN framework for time series AD. It introduces a novel anomaly score based on reconstruction error and discrimination loss to identify anomalies.
+    % BeatGAN \cite{zhou2019beatgan}
+    BeatGAN \cite{zhou2019beatgan} applies GANs to perform robust time series reconstruction for AD using adversarial regularization.
+    
+
+    \item \textbf{Forecasting algorithms.}
+    These approaches predict future values based on past dat and identify anomalies by comparing the predicted  values with and actual observations. LSTM-PRED \cite{goh2017anomaly} uses LSTM-RNN to learn temporal dependencies and applies a cumulative sum method for anomaly detection. Telemanom \cite{hundman2018detecting} employs LSTM-RNN for forecasting and introduces a dynamic thresholding scheme for anomaly identification. AD-LTI \cite{wu2020developing} uses a GRU network to forecast seasonal trends in time series and identifies anomalies based on a probability score calculated using the Local Trend Inconsistency (LTI) metric, which quantifies deviations between the predicted and actual sequence. DeepAnt \cite{munir2018deepant} predicts future timestamps using a deep CNN network, detecting anomalies based on the Euclidean distance between predicted and actual values. 
+    % TimesNet \cite{wu2023timesnet} extract multi-periodicity of time series through a 2D representation of time series using convolutional network architectures.
+    
+    \item \textbf{Miscellaneous algorithms.}
+    \ac{Deep-SVDD} \cite{pmlr-v80-ruff18a} is a one-class classification algorithm that leverages deep learning for one-class classification, overcoming the limitations of kernel and feature selection in traditional OC-SVMs. \ac{DIF} \cite{xu2023deep} utilizes deep learning to learn random representations from input data, applying a novel isolation method for non-linear partitioning on subspaces to detect anomalies. \ac{COUTA} \cite{xu2024calibrated} proposes a calibrated one-class classifier based on uncertainty modeling and the injection of synthetic anomalies, which reduces the impact of data contamination and improves detection performance.
+
+\end{itemize}
+
+\subsection{Self-supervised AD}
+The growing success of \ac{SSL} across various tasks and domains has led many research efforts to adopt these techniques to improve the performance of anomaly detection (AD) algorithms. This section focuses on contrastive AD approaches, as they are widely adopted and studied in the literature.
+
+
+\subsubsection{Contrastive AD} % revoir les temps
+\ac{COCA} framework \cite{wang2023deep} introduces a contrastive one-class framework for anomaly detection that does not rely on negative samples. It trains on positive pairs consisting of low-dimensional time series representations and their reconstructed counterparts (via an LSTM-based Seq2Seq model). The combined contrastive and one-class loss functions mitigate collapse issues and enhance AD performance.  
+
+ContrastAD \cite{li2023contrastive} defines both positive and negative temporal transformations. Positive pairs are formed by the embeddings of a subsequence and its positive transformation, while negative pairs consist of the embeddings of the positive transformations of two different subsequences, along with a window's embedding and its negative transformations. These positive/negative pairs help ContrastAD achieve improved AD performance across various benchmark datasets.
+
+\ac{CTAD} \cite{kim2023contrastive} employs time series data augmentation to generate two views of a time series window: a semantic-preserving view and synthetic anomalies. By contrasting each window segment with 2N-1 positive samples and 2N negative samples, CTAD enhances representation learning, even with a simple encoder architecture.
+
+TimeAutoAD \cite{jiao2022timeautoad} leverages AutoML to automatically tune the framework's hyperparameters. It also employs negative samples generation and a contrastive loss that leverages these generated negative samples to improve AD performance.
+
+CARLA \cite{DARBAN2025110874} is a two-stage framework. The first stage learns representations from triplets (original, previous, and anomaly-injected windows). The second stage uses a self-supervised classification loss that forces the model to distinguish between normal samples and anomalies using a custom loss function, where positive pairs are nearest neighbors and negative pairs are furthest neighbors.
+
+DCdetector \cite{yang2023dcdetector} uses a multi-scale dual attention network to capture both spatial and temporal dependencies. Using a negative-sample-free contrastive loss based on representations of different views of the time series, it identifies anomalies by applying a representation discrepancy criterion.
+
+
+
+\subsection{Evaluation metrics for time series anomaly detection}
+It is crucial to evaluate AD algorithms to assess their performance. The commonly used metrics are listed below.
+
+\begin{itemize}
+    \item \textbf{Precision.} The fraction of anomalies correctly detected among all the instances classified as anomalies by the model. It indicates the accuracy of the model for detecting anomaly.
+    \begin{equation}\label{eq:precision}
+        \text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}
+    \end{equation}
+    \item \textbf{Recall.} The fraction of actual anomalies that were correctly detected. It indicates the ability of model to detect all existing anomalies.
+    \begin{equation}\label{eq:recall}
+        \text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}
+    \end{equation}
+    \item \textbf{F1-Score.} It is the harmonic mean of precision and recall indicating a balance between both metrics.
+    \begin{equation}\label{eq:f1}
+        \text{F1} = 2 . \frac{\text{Precision} . \text{Recall}}{\text{Precision} + \text{Recall}}
+    \end{equation}
+    % rajouter le MCC
+    \item \textbf{MCC.} \ac{MCC} is a binary classification metric that addresses the class invariance limitation of the F1-score. It evaluates model performance by equally rewarding accurate predictions for both the positive and negative classes.
+    \begin{equation}
+        MCC = \frac{TP . TN - FP . FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}
+    \end{equation}
+    \item \textbf{TPR} \ac{TPR} is equivalent to recall.
+    \item \textbf{FPR} \ac{FPR} is the fraction of normal instance that are classified as anomalies.
+    \begin{equation}\label{eq:fpr}
+        \text{FPR} = \frac{\text{FP}}{\text{FP} + \text{TN}}
+    \end{equation}
+    \item \textbf{AU-ROC.} \ac{AU-ROC} indicates the area under the ROC curve which is a chart that visualizes the trade-off between the TPR and FPR. A value close to 1 suggests better performance while a value of 0.5 implies random guessing.
+    \begin{equation}\label{eq:auroc}
+        \text{AU-ROC} = \int_{0}^{1} \text{TPR}(t) \frac{d(\text{FPR}(t))}{dt} \,dt
+    \end{equation}
+    \item \textbf{AU-PR.} \ac{AU-PR} correspond to the area under the Precision-Recall curve and is more informative than AU-ROC for imbalanced datasets. The PR curve visualizes the trade-off between precision and recall.
+    \begin{equation}\label{eq:aupr}
+        \text{AU-PR} = \int_{0}^{1} \text{Precision}(t) \frac{d(\text{Recall}(t))}{dt} \,dt
+    \end{equation}
+\end{itemize}
+
+%\takeaway{\ac{AD} techniques are used to identify deviations in data, often relying on unsupervised methods such as statistical, clustering, and reconstruction-based approaches to detect anomalies without labeled data. Recently, contrastive learning-based AD methods have shown significant improvements in detecting anomalies in time series, demonstrating enhanced performance across various tasks.}
+
+% \takeaway{\ac{AD} techniques in time series involves identifying deviations from normal patterns, often crucial in monitoring systems like networking. Multivariate time series data pose unique challenges, addressed by unsupervised methods leveraging statistical models, clustering, reconstruction-based approaches, or forecasting. Recent advancements in self-supervised learning, particularly contrastive learning, have further improved detection capabilities. Evaluating AD techniques relies on metrics like F1-score, MCC or AU-PR to better assess the AD accuracy.}
+
+% \usage{In this thesis, we perform AD on time series to identify QoE degradation on CG KPIs. This section serves as the basis for methods evaluated on Chapter \ref{chap:ml_evaluation} and \ref{chap:cats}.}

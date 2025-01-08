@@ -1,0 +1,73 @@
+\begin{table*}[!t]
+
+    \caption{Comparison of the P4-based solution performance with application-level solution}
+    \label{tab:chap_4:usad_p4_performance}
+    \setlength\tabcolsep{1pt} 
+    
+    \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}} llcccccccccc}
+    \toprule
+         & & \multicolumn{2}{c}{\bf Performance with P4} & & \multicolumn{2}{c}{\bf Performance with application} & & \multicolumn{2}{c}{\bf Difference (\%)}\\
+    \cmidrule{3-4}  \cmidrule{6-7} \cmidrule{9-10}
+        \bf Traffic & \bf Type & \bf Accuracy & \bf F1-score && \bf Accuracy & \bf F1-score && \bf Accuracy & \bf F1-score\\
+    
+    \cmidrule{1-10}
+        \multirow{5}{*}{\rotatebox[origin=c]{0}{\bf Normal CG}} & \bf STD & 0.965 & 0.983 && 0.984 & 0.992 && -1.90 & -0.97\\
+                                                                & \bf GFN & 0.990 & 0.995 && 0.979 & 0.989 && 1.16 & 0.58\\
+                                                                & \bf XC & 0.903 & 0.942 && 0.966 & 0.981 && -6.35 & -3.85 \\
+                                                                & \bf PSN & 0.981 & 0.990 && 0.966 & 0.983 && 1.46 & 0.76 \\
+        \cmidrule{2-4} \cmidrule{6-7} \cmidrule{9-10}
+                                                                & \bf Overall & \bf 0.958$_{\bf \pm0.054}$ & \bf 0.979$_{\bf \pm0.03}$ && \bf 0.973$_{\bf \pm0.021}$ & \bf 0.986$_{\bf \pm0.011}$ && \bf -1.44 & \bf -0.74\\
+    \addlinespace    
+    \cmidrule{1-10}
+    
+        \multirow{4}{*}{\rotatebox[origin=c]{0}{\parbox{15mm}{\bf CG with network constraints}}} & \bf STD & 0.999 & 0.999 && 1.000 & 1.000 && -0.01 & -0.01\\
+                                                            & \bf XC & 0.954 & 0.977 && 0.992 & 0.996 && 3.33 & 1.55\\
+                                                            & \bf PSN & 0.995 & 0.998 && 0.961 & 0.983 && -3.73 & -1.91\\
+        \cmidrule{2-4} \cmidrule{6-7} \cmidrule{9-10}
+                                                                    & \bf Overall & \bf 0.983$_{\bf \pm0.035}$ & \bf 0.993$_{\bf \pm0.019}$ && \bf 0.984$_{\bf \pm0.019}$ & \bf 0.992$_{\bf \pm0.010}$ && \bf -0.14 & \bf 0.05\\
+
+    \addlinespace
+    \cmidrule{1-10}
+    
+       \multirow{5}{*}{\rotatebox[origin=c]{0}{\bf Non CG}} & \bf VC & 0.938 & 0.971 && 0.867 & 0.941 && 7.18 & 3.00\\
+                                                                    & \bf LV & 0.980 & 0.990 && 0.978 & 0.989 && 0.17 & 0.10\\
+                                                                    & \bf VS & 0.993 & 0.996 && 0.991 & 0.996 && 0.14 & 0.01\\
+                                                                    & \bf FB & 0.988 & 0.994 && 0.989 & 0.995 && -0.10 & -0.04\\
+        \cmidrule{2-4} \cmidrule{6-7} \cmidrule{9-10}
+                                                                    & \bf Overall & \bf 0.959$_{\bf \pm0.056}$ & \bf 0.983$_{\bf \pm0.031}$ && \bf 0.918$_{\bf \pm0.114}$ & \bf 0.970$_{\bf \pm0.066}$ && \bf 4.13 & \bf 1.30\\
+
+    \addlinespace
+    \cmidrule{1-10}
+    
+        \multirow{4}{*}{\rotatebox[origin=c]{0}{\parbox{15mm}{\bf New games CG learned platforms}}} & \bf GFN & 0.973 & 0.986 && 0.995 & 0.997 && -2.15 & -1.10\\
+                                                                & \bf XC & 0.969 & 0.984 && 0.979 & 0.989 && -0.97 & -0.50\\
+                                                                & \bf PSN & 0.980 & 0.990 && 0.999 & 1.000 && -1.97 & -1.00\\
+   
+        \cmidrule{2-4} \cmidrule{6-7} \cmidrule{9-10}
+                                                                    & \bf Overall & \bf 0.974$_{\bf \pm0.010}$ & \bf 0.987$_{\bf \pm0.005}$ && \bf 0.991$_{\bf \pm0.011}$ & \bf 0.996$_{\bf \pm0.006}$ && \bf -1.70 & \bf -0.84\\
+                                                                    &  &  &  &&  &  &&  & \\
+
+    \addlinespace
+    \cmidrule{1-10}
+    
+    \multirow{2}{*}{\rotatebox[origin=c]{0}{\parbox{13mm} {\bf New CG platforms}}} & \bf MoonLight & 0.999 & 0.999 && 1.00 & 1.00 && -0.01 & -0.01\\
+                                                                & \bf Steam & 0.999 & 0.999 && 1.00 & 1.00 && -0.01 & -0.01\\
+    \cmidrule{2-4} \cmidrule{6-7} \cmidrule{9-10}
+                                                                & \bf Overall & \bf 0.999$_{\bf \pm0.00}$ & \bf 0.999$_{\bf \pm0.00}$ && \bf 1.00$_{\bf \pm0.00}$ & \bf 1.00$_{\bf \pm0.00}$ && \bf -0.01 & \bf -0.01\\
+    \addlinespace
+    \bottomrule
+    \end{tabular*}
+    \end{table*}
+    
+
+In this section, we present the findings of our experiments using the whole chain. The observed traffic passes through our P4 hardware switch, which extracts the features (excluding the four based on standard deviation) and then fed them to our unsupervised ML model trained without the standard deviation features.
+%\bertrand{Je trouve que cela fait redite, donc je supprime}%The P4 Extractor module computes the features per packet and every 33 ms (or approximately as discussed in section \ref{chap_4:sec:limitations_P4}) sends reports to the controller, which formats them to the expected format and sends them to the NFV compute Node. The Python receiver module gets the features per time window and sends them to the ML node module to be injected in the trained ML model. The output score is forwarded to the Aggregator module which makes the decision about the session, being a cloud gaming one or not and saved all decision in a local file. 
+
+Tab.\ref{tab:chap_4:usad_p4_performance} shows our evaluation results and compares them with the results obtained with an application-level computation in Python of all the features, including the standard deviations. The two classification scores are very close and remains excellent. In conclusion, having the feature extraction in a P4 module does not alter the performance of the ML model, although having simplified processing tasks and limitations as presented in the previous section.
+
+%% Figure ou tableau global des tests CG, CG perturbes, NCG
+
+This paper does not focus on the performance evaluation of the hardware switch because its line-rate processing performance is guaranteed in silico as long as the P4 code can be compiled and deployed. The hardware we use is a commercial switch\footnote{\url{https://www.edge-core.com/_upload/images/2022-051-DCS800_Wedge100BF-32X-R10-20220705.pdf}} used in operational networks that can manage up to 6.4 Tbit/s (32x100G ports) enabling thousands of simultaneous sessions (being cloud gaming or not). Furthermore, Edgecore has recently launched a 12.8 Tb/s P4-programmable open switch, the DCS810, hosting an Intel Tofino 2 chipset.
+
+Our evaluation proves that our P4 hardware module performs very well and can be considered %a very valuable module for this task and
+as a candidate for possible ISP-level deployment.

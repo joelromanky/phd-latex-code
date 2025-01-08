@@ -1,0 +1,37 @@
+\subsection*{Context}
+This thesis is conducted under a \ac{CIFRE} agreement \footnote{\url{https://www.anrt.asso.fr/fr/le-dispositif-cifre-7844}} with the identification number 2022/0010. It is funded by Orange S.A. and the \ac{ANRT}, and the research is carried out collaboratively in two organizations: Orange Innovation Lannion and the INRIA research center at the University of Lorraine. At Orange Innovation, the work is conducted within the \textit{ITEQ team}, which focuses on network evolution, protocols, and mechanisms to improve connectivity and user experience. At INRIA, the research is conducted within the \textit{RESIST team}, dedicated to developing algorithms and tools for designing elastic, resilient, scalable, and secure networked systems.
+
+Furthermore, this research is carried out within the French research project \textit{ANR MOSAICO} \footnote{\url{https://www.mosaico-project.org/}} No ANR-19-CE25-0012. The MOSAICO project focus on enhancing the quality of service and security of networks, making them better equipped to support the requirements of \ac{LL} applications. 
+
+Orange S.A. is a leading French (\ac{ISP}) offering a broad portfolio of services, including fixed and mobile telecommunications and IT solutions for businesses. Through its research and development branch, Orange Innovation, the company is at the forefront of technological advancements in areas such as 5G, optical fiber networks, artificial intelligence and so on. The telecommunications industry is undergoing a transformative phase marked by rapid advancements like network softwarization, cloudification, artificial intelligence and evolving user demands. These shifts are not only reshaping the technical landscape but also driving the creation of new economic models. In this dynamic environment, Orange want to position itself as a pioneer, aspiring to become the operator of choice for both individual consumers and enterprises by fostering innovation and delivering state-of-the-art connectivity solutions.
+
+\roundedbox[FireBrick]{
+\textbf{The aim of this thesis}}{Aligned with this strategy, the objective of this thesis is to design novel methodologies for detecting and diagnosing the causes of performance degradation in emerging \ac{LL} applications.}
+
+The outcomes of this research will provide valuable insights into \ac{LL} applications, enabling Orange to optimize resources and potentially implement network solutions that ensure optimal performance and deliver high-quality experiences to both individual users and industrial clients.
+
+\subsection*{Thesis's challenges}
+Achieving the objectives of this thesis presents several significant challenges that need to be addressed systematically to ensure robust and actionable outcomes.
+
+The first challenge lies in the lack of existing datasets tailored to \ac{LL} applications, which are critical for anomaly detection and root-cause diagnosis. Although some studies have explored \ac{LL} applications, no comprehensive datasets exist that capture the full spectrum of performance metrics under realistic network conditions. Such datasets must account for various scenarios prone to performance degradation to accurately reflect the challenges faced by applications like cloud gaming and cloud-based VR. The collection and preparation of these datasets, monitored at different points in the network, represent a foundational step in the research.
+
+\roundedbox[MediumSlateBlue]{
+\textbf{Research Question 1:}} {How can comprehensive datasets for \ac{LL} applications be collected to capture diverse performance metrics under realistic network conditions ?
+}
+
+The second challenge is implementing efficient \ac{AD} methods. Early AD techniques relied on rule-based systems designed by experts, which were effective in simpler network environments but proved inadequate for modern, complex networks characterized by vast amounts of data and diverse \ac{KPIs}. The transition to data-driven methods introduced \ac{AI}-based solutions, particularly supervised \ac{ML}. While these approaches offer automation and scalability, they rely on annotated datasets, which require extensive labeling by network experts. Given the growing complexity and scale of network environments, this manual labeling process is impractical. Unsupervised ML techniques, which do not require labeled data, have emerged as a solution, but their effectiveness varies significantly depending on the chosen model and dataset.
+
+A related challenge is ensuring the robustness of unsupervised AD models against \textit{data contamination}, where anomalies are inadvertently present in the training data. Such contamination can severely degrade the performance of AD models, making it critical to account for this phenomenon during model training and evaluation. Considering the impact of contaminated data adds an extra layer of complexity to the research.
+
+\roundedbox[MediumSlateBlue]{
+\textbf{Research Question 2:}} {Among the wide array of existing unsupervised AD techniques, which models are best suited for anomaly detection in \ac{LL} application scenarios in terms of performance, computational efficiency, and robustness to data contamination ? }
+
+\roundedbox[MediumSlateBlue]{
+\textbf{Research Question 3:}} {Can we propose an AD model that outperforms existing solutions and remain efficient under data contamination ?
+}
+
+Finally, the thesis aims to identify the root causes of performance degradation in \ac{LL} applications, a task traditionally performed using expert-defined rules. However, as networks grow in complexity and anomalies evolve, these rule-based methods have become insufficient. ML-based approaches have been proposed for root-cause diagnosis, with most relying on supervised learning. These methods require labeled datasets of anomalous scenarios, which are challenging to obtain, especially for new or unforeseen anomalies. Developing efficient root-cause diagnosis techniques that rely on minimal labeling would be a significant advancement, enabling more scalable and adaptable solutions.
+
+\roundedbox[MediumSlateBlue]{
+\textbf{Research Question 4: }} {How can efficient root-cause diagnosis of performance degradation be achieved with minimal or no reliance on labeled data, while ensuring adaptability to emerging types of anomalies?}
+

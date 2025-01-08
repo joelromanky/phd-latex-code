@@ -1,0 +1,121 @@
+While detecting anomalies is crucial for maintaining network performance, \ac{RCD} represents the essential next step for enabling network providers to design and optimize networks that support low-latency applications effectively. Root-cause diagnosis, often referred to as "root-cause analysis" or "fault diagnosis" in the literature, focuses on identifying the specific causes of performance degradation or anomalies.
+
+To provide a comprehensive understanding of root-cause diagnosis, in this section, we will present for cellular network and WiFi networks respectively, the common factors leading to performance issues in these networks and review the approaches for root-cause diagnosis in the literature.
+
+
+% Restructurez en cause et techniques
+
+\subsection{Causes of performance degradation on time varying networks}
+
+RCD in time-varying capacity networks presents significant challenges due to following factors. Performance degradation can arise from diverse causes such as congestion, interference, signal attenuation, hardware failures, or software misconfigurations. These issues often manifest through similar symptoms, including increased packet loss, higher delays, or reduced throughput, making it difficult to pinpoint the root cause. Time varying networks also generate an enormous volume of KPIs from various network elements, including the RAN, APs, core network or user devices. We present in the following the common causes of performance degradation in time varying network.
+ 
+\subsubsection{Cellular networks}
+Performance degradation in cellular networks arises from a variety of sources, some of which are highlighted below:
+\begin{itemize}
+    \item \textbf{Congestion :} Congestion in cellular networks is often caused by bufferbloat, which occurs when excessive queuing delays arise due to packets arriving at a node faster than it can process them. This issue is particularly prevalent in the \ac{RAN}, where multiple flows are aggregated, often resulting in large queues \cite{ronteix2022reduction, zhang2019analysis}. Congestion leads to increased delays and packet loss, significantly impacting network performance.
+    \item \textbf{Handovers:}  
+    High-speed mobility scenarios, such as users traveling in vehicles or trains, can result in frequent handovers. These handovers cause fluctuations in link capacity and introduce additional latency in the RAN \cite{tan2018supporting, pan2022first, xu2020understanding}.  
+    
+    \item \textbf{Coverage:}  
+    Network coverage is influenced by factors such as the distance from the base station, environmental obstacles, and weather conditions. Poor coverage often results in higher delays due to retransmissions and reduced throughput \cite{pan2022first}.  
+    
+    \item \textbf{Interference:}  
+    Cellular networks are susceptible to interference, with inter-cell interference being a primary factor. This occurs when the same frequency is reused across multiple cells, leading to degraded signal quality and degrease the throughput \cite{zhou2014overview}.  
+    
+    \item \textbf{Other Factors:}  
+    Additional sources of performance degradation include various types of delays, as categorized in the taxonomy by Briscoe et al. \cite{briscoe2014reducing} (e.g., propagation and scheduling delays), device-induced delays \cite{Kmrinen2017AMS}, and software bugs in the RAN.  
+\end{itemize}
+
+\subsubsection{WiFi networks}
+
+Several phenomena can lead to performance degradation in WiFi networks, impacting QoS parameters such as bandwidth, latency, and packet loss. The most common sources of degradation mentioned in the literature include:
+
+\begin{itemize} 
+    \item \textbf{WiFi Interference:} Interference can be caused by nearby APs using the same or adjacent channels. This can lead to collisions and degraded signal quality \cite{pei2016wifi, pefkianakis2015characterizing, syrigos2019employment}. 
+    \item \textbf{Non-WiFi Interference:} Non-WiFi devices operating in the 2.4 GHz (e.g., Bluetooth devices, microwaves, baby monitors) or 5 GHz (e.g., media converters) frequency bands can cause interference, leading to packet loss \cite{kim2014wislow, pefkianakis2015characterizing, salik2023non}. 
+    \item \textbf{Congestion:} High traffic volumes from many devices connecting to the same AP or the use of bandwidth-intensive applications can cause congestion, resulting in increased latency and packet loss \cite{kanuparthy2012can, pei2016wifi, salinas2018home}.
+    \item \textbf{Signal Attenuation:} Signal attenuation can occur due to the distance between the device and the AP (the greater the distance, the weaker the signal) or obstacles like walls, furniture, and humans that absorb the signal and reduce its strength. This can lead to packet loss and retransmissions, causing higher delays \cite{rayanchu2008diagnosing, pei2016wifi, kanuparthy2012can, salinas2018home, syrigos2019employment}.
+    \item \textbf{Hidden Terminal Problem:} This problem occurs when two devices can communicate with an AP but cannot directly communicate with each other due to being out of range or obstructed by physical barriers. This can lead to simultaneous transmissions to the AP, causing collisions (when two devices transmit data at the same time and the data gets corrupted) which lead to retransmissions and/or packet loss \cite{kanuparthy2012can, syrigos2019employment}. 
+    \item \textbf{Contention:} When multiple devices compete for access to the same wireless channel, contention arises, leading to collisions, increased latency, and reduced throughput \cite{rayanchu2008diagnosing, kim2014wislow, syrigos2019employment}.
+\end{itemize}
+
+
+
+
+\subsection{Root cause diagnosis techniques}
+
+Traditionally, RCD relies on expert domain expertise to identify potential causes. While these techniques are effective for diagnosing well-understood and recurring issues, they face significant challenges in dynamic and modern cellular and Wi-Fi networks. The primary limitation lies in their scalability: expert-based rules must be updated manually to account for new faults, which is impractical given the large volume and complexity of KPIs generated by these networks. This limitation has driven the adoption of automated, data-driven approaches that can adapt to evolving network environments. Data-driven techniques, particularly those leveraging machine learning, have become the dominant approach for root-cause diagnosis in cellular networks. These methods analyze vast amounts of telemetry data to identify patterns and correlations indicative of network faults.
+
+\subsubsection{RCD techniques on cellular networks}
+
+Diagnosis techniques for cellular networks are diverse and span a range of methodologies, targeting different parts of the network, such as the Radio Access Network (RAN) or the core network. These techniques can broadly be categorized into expert-based approaches and data-driven methods.
+
+Expert-based techniques rely on predefined rules and domain knowledge to analyze KPIs or network topology for identifying impairments. For example, Watanabe et al. \cite{watanabe2008utran} and Kane et al. \cite{kane2015system} used such methods to identify fault scenarios based on rule-based systems. 
+
+Data-driven techniques are mainly based on ML techniques. For instance, Dimopoulos et al. \cite{dimopoulos2015identifying} conducted root-cause analysis for video streaming QoE using supervised ML models trained on features collected across multiple network layers.
+Chen et al. \cite{chen2019machine} combined neural networks and SVM to detect fault causes on a 4G network based on network KPIs.
+Liu et al. \cite{liu2019kqis} proposed a framework for QoE anomaly detection and root-cause analysis for LTE networks. Their method utilized QoE-driven  \ac{KQIs} extracted from RAN KPIs to diagnose faults affecting applications such as video streaming and instant messaging. 
+Shi et al. \cite{shi2022towards} developed NeTExp, a dual-classifier system based on deep learning, which used \ac{GNN} to analyze network-side KPIs and CNNs for UE-side KPIs.
+Fida et al. \cite{fida2023bottleneck} proposed a two-stage method for bottleneck identification in cloudified mobile networks. Their approach combined VAE for anomaly detection with MLPs for classifying faults based on KPIs collected from UE, RAN, and network nodes. 
+Hasan et al. \cite{hasan2024root} proposed Simba, a model combining \ac{GNN} and transformers to capture spatiotemporal dependencies in time-series KPI data to diagnose faults in 5G RAN environments. 
+ 
+
+\subsubsection{RCD techniques on WiFi networks}
+
+% % WiFi troubleshooting
+
+There are in the literature numerous works on troubleshooting on WiFi networks.
+Primary works leveraged user-level network probes for WiFi impairments detection. Kim et al. \cite{kim2014wislow} proposed WiSlow to detect channel contention and non-WiFi interference. Kanuparthy et al. \cite{kanuparthy2012can} employed active probing techniques to identify impairments like congestion, hidden terminals, and low signal through access delay and packet loss analysis.
+
+Statistical and clustering methods were also employed. Da Hora et al. \cite{da2018predicting} utilized K-means clustering to identify poor \ac{QoE} for web browsing, video streaming, and WebRTC applications. Rayanchu et al. \cite{rayanchu2008diagnosing} adopted a statistical-based method to differentiate packet loss causes, such as collisions or weak signals.
+
+Recent works leveraged ML for causes classification using KPIs. Salinas et al. \cite{salinas2018home} identified common WiFi impairments, such as interference and congestion, and proposed a supervised ML tool to diagnose these issues in home networks. Similarly, Salik et al. \cite{salik2023non} developed ML models to detect non-WiFi interference in the 2.4GHz and 5GHz bands, which significantly impact WiFi performance. Syrigos et al. \cite{syrigos2019employment} proposed ML-based tools to detect common impairments, including hidden terminals and low signal strength.
+
+
+%\takeaway{\ac{RCD} aims to pinpoint specific factors causing performance degradation in networks. Most of the RCD approaches in cellular networks and WiFi networks are based on ML to identify the impairments affecting the QoE of applications used on these networks.}
+
+% \takeaway{\ac{RCD} aims to pinpoint specific factors causing performance degradation in networks, such as congestion, interference, signal attenuation... Traditional expert-based methods are increasingly complemented by automated, ML-driven approaches. Time varying network RCD often employs clustering, statistical methods, supervised \ac{ML} and deep neural networks to analyze vast telemetry data and classify impairments. These techniques enhance network performance by addressing underlying issues efficiently.}
+
+
+% \usage{In this thesis, we propose in Chapter \ref{chap:diagnosis} a novel approach for RCD of QoE degradation in CloudVR applications used on WiFi networks.} % in contrast with the sota solutions 
+
+% #### 3. **Summary and Trends**
+% Expert-based techniques provided a foundation for early fault diagnosis but are increasingly outpaced by the complexity of modern networks. Data-driven methods, particularly those employing supervised and deep learning, have shown superior adaptability and scalability, enabling accurate and automated root-cause diagnosis. However, these methods often require high-quality labeled datasets, computational resources, and effective handling of spatiotemporal dependencies, which remain active areas of research. This thesis builds on these advancements by exploring novel contrastive learning approaches to overcome current limitations and enhance root-cause diagnosis for low-latency applications.
+
+    % Define latency according to 3GPP or other sources
+    
+    % List different sources of latency for Wifi and cellular
+
+    % Focus on queue latency
+
+    
+    % Parvez et al. A Survey on Low Latency Towards 5G: RAN, Core Network and Caching Solutions
+    
+    % Xu et al. Understanding Operational 5G: A First Measurement Study on Its Coverage, Performance and Energy Consumption
+    
+    % Pan et al. The First 5G-LTE Comparative Study in Extreme Mobility
+
+       % % Zhang et al. ANalysis of cellular network latency edge based....
+    % Zhang et al. \cite{zhang2019analysis} enhance the works of Tan by breaking down the network latency of remote rendering applications (like VR) on a LTE over a real LTE instead of an emulated one. They show that network latency represent 77\% of the overall latency for remote rendering applications but this is due to TCP retransmissions due to packets loss over the core network and congestion scenarios that could be alleviate by traffic differentiation/prioritization (by configuring radio configurations for example).
+
+
+
+
+% Salinas et al. \cite{salinas2018home} mention that signal attenuation, interference and congestion are the common WiFi bottlenecks and the cause of poor home WiFi experience. They proposed a supervised ML tool to identify wireless impairment.
+
+% Salik et al. \cite{salik2023non} identifies the impact of non-WiFi interference on WiFi quality and develop supervised ML models to detect non-WiFi interference on 2.4GHz and 5GHz.
+
+% Syrigos et al. \cite{syrigos2019employment} develop ML-based troubleshooting tools to detect the most common impairment in WiFi like contention, interference, hidden terminal, low signal strength.
+
+% Da Hora et al. \cite{da2018predicting} used a K-means clustering to identify poor WiFi QoE quality when using applications like web browsing, video streaming or WebRTC applications.
+
+% Rayanchu et al. \cite{rayanchu2008diagnosing} identify packet loss on WiFi that may occur due to collisions or weak signal using a statistical-based approach.
+
+% Kim et al. \cite{kim2014wislow} propose WiSlow a tool based on user-level network probes to detect channel contention and non-WiFi interferences on 2.4GHz.
+
+% Kanuparthy et al. \cite{kanuparthy2012can} use a user-level active probing to detect WiFi impairments like congestion, hidden terminals or low signal through the level of access delay and packet loss.
+
+% Zhao et al. \cite{zhao2024fault} introduced a graph-based convolutional network (GCN) method for 5G networks, leveraging user-side KPIs and synthetic data generated by GANs. Their approach also incorporated expert-based correlation graphs to enhance model training and interpretability
+
+% Zhang et al. \cite{zhang2018wifi} WiFi and Multiple Interfaces: Adequate for Virtual Reality? 
+% Burbano et al. \cite{burbano2024impact} Impact of Network Factors on QoE-sensitive Virtual Reality Environments: An Experimental Analysis Perspective using VR-based Mindfulness

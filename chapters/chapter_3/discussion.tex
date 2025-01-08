@@ -1,0 +1,66 @@
+
+\subsection{ML Models recommendation}
+
+\newcommand*\rot{\rotatebox{0}}
+\newcommand{\good}{{\bf \large{++}}}
+\newcommand{\sgood}{{\bf \large{+}}}
+\newcommand{\sbad}{{\bf \large{-}}}
+\newcommand{\bad}{{\bf \large{- -}}}
+
+
+\begin{table}[t]
+\begin{threeparttable}
+\caption{ML models recommendation}
+\label{tab:discussion}
+\setlength\tabcolsep{0pt} 
+\begin{tabular*}{\hsize}{@{\extracolsep{\fill}} lcccc}
+    \bf Model & \rot{\bf Performance} & \rot{\bf Robustness} & \rot{\bf Deployment} & \rot{\bf Explainability}  \\
+\midrule
+        \bf iForest & \sgood & \good & \sbad & \sbad  \\
+        \addlinespace
+        \bf OC-SVM & \sbad & \sgood & \bad & \bad  \\
+        \addlinespace
+        \bf Deep-SVDD & \good & \bad & \good & \bad  \\
+        \addlinespace
+        \bf PCA & \bad & \good & \good & \good  \\
+        \addlinespace
+        \bf AE & \sgood & \sbad & \good & \bad  \\
+        \addlinespace
+        \bf LSTM-VAE & \good & \bad & \sbad & \bad \\
+        \addlinespace
+        \bf DAGMM & \good & \good & \sgood & \bad \\
+        \addlinespace
+        \bf USAD & \good & \good & \sgood & \bad  \\
+        \addlinespace
+        \bottomrule
+\end{tabular*}
+\begin{tablenotes}
+\item \good \small{: good}; \sgood \small{: somewhat good}; \sbad \small{: somewhat bad}; \bad \small{: bad}.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+Based on our comparative study, we highlight the advantages and benefits of the models and provide recommendations to network operators according to the following requirements (summarized in Tab \ref{tab:discussion}):
+
+
+\textbf{Performance:} Deep-SVDD and LSTM-VAE are the models with the best performance without data contamination. They achieve near-optimal detection of anomalies in the dataset with low false alarms. However, they present performance degradation when anomalies are present in the training set. The performance instability of Deep-SVDD in the face of anomalies makes it unreliable. The LSTM-VAE model based on LSTM neural networks has high computing cost during training and testing (e.g., requiring more GPUs) incurring high costs in energy consumption in deployment.
+
+
+\textbf{Robustness:} There is no guarantee that data from production network environments are free of anomalies and removing them for training the models is a difficult task. Therefore, we recommend the use of algorithms such as iForest, DAGMM and USAD in such situations since they are robust to data contamination and will ensure reasonable performance when data contamination is not too high. 
+
+\textbf{Deployment:} For deployment recommendations, we consider the training and inference time. All the models used in this work are trained \textit{offline}. Neural networks are trained during several epochs and take a long time for their training phase while PCA and iForest are fast to train. In production, deep learning models like DAGMM and USAD can be used for \textit{real-time} prediction since they have low inference latency. Real-time inference with iForest or LSTM-VAE can be difficult due to their high inference time which also exacerbates scalability issues for the former and resource requirements for the latter.
+
+\textbf{Explainability:} Machine-learning techniques are known to suffer from the lack of transparency and explainability. Network experts in practice need to better understand the decisions taken by ML models to efficiently monitor and manage network systems. None of the algorithms used in this study achieve the trade-off between efficiency and explainability. iForest and neural networks-based algorithms (LSTM-VAE, DAGMM, USAD) are seen as \textit{black-box} and do not allow for easy interpretation of their anomaly detection. 
+
+
+\subsection{Limitations}
+
+This work presents some limitations worth discussing. First, the thresholding strategy used in this evaluation, which selects the threshold that lead to the best score, is not applicable in practice since it requires the use ground-truth test sets. Further investigations should be carried out to automatically determine and select the best threshold values. Some works \cite{Cao2020TheMC, Fourure2021AnomalyDH} advocate for the use of evaluation metrics insensitive to the selected threshold. Second, the chosen criteria to introduce anomalies in the collected datasets may result in introducing too many of them (cf. \ref{tab:chap_3:datasets}) which can raise questions worthy of further investigation. Additionally, as discussed in Section \ref{data_conta}, a PCA processing step was employed to decorrelate the features before utilizing the DAGMM model. It is worth noting that the performance of this model may differ when applied to datasets with correlated or uncorrelated features. Moreover, as mentioned in Section \ref{unsupervised_ad}, we could not include in our evaluation study, generative and predictive models since they may suffer from computational constraints.
+
+Furthermore, in our methodology, we used the DECAF tool \cite{Iqbal2021DissectingCG} to collect the QoE/QoS time-series features on the client-side. However, this tool is only compatible with CG platforms based on WebRTC and cannot be used with other CG platforms to collect the time-series features employed in our study. Finally, network operators may not always have the possibility to gather such information at the client-side. Consequently, they may need to develop QoE degradation detection algorithms based on features that can be readily collected at the network edge, such as network packets.
+
+
+
+
+

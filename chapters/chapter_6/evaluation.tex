@@ -1,0 +1,87 @@
+\subsection{Dataset Description}
+
+To evaluate our proposed solution, we utilize the time series datasets collected from the experimental testbed described in Chapter \ref{chap:measurements}. Although our setup gathers KPIs from both the VR headset and the CloudXR stack, which provide insights into QoS and QoE during VR sessions, this study focuses exclusively on data retrieved from the Livebox. This choice is motivated by the practical accessibility of these metrics for network operators, who own and manage the Livebox. Leveraging these metrics for RCD allows for the development of smarter APs and more intelligent network management solutions, aligning closely with the operational needs of network operators.
+
+The dataset consists of 112 time series features extracted from the Livebox. These features include signal strength indicators (e.g., RSRP, RSSI), transmission performance metrics (e.g., txops), channel utilization measures (e.g., air time), among others, offering a comprehensive view of Wi-Fi performance in various conditions. Monitoring was performed at a frequency of one sample every three seconds. To facilitate analysis, the data is structured into overlapping time series windows, each spanning 10 time steps (30 seconds per window). 
+
+In total, the dataset contains 13,657 time series windows, which are partitioned into training and testing subsets using a 70:30 split ratio. The training set contains 9,524 windows, while the test set consists of 4,133 windows. The dataset is further categorized into three classes, corresponding to distinct experimental scenarios during data collection:
+
+
+A summary of the dataset, including the class-wise breakdown of training and test samples, is presented in Table \ref{tab:chap_6:datasets}.
+
+\begin{table}[ht]
+\begin{threeparttable}
+\caption{Dataset Summary}
+\label{tab:chap_6:datasets}
+\setlength\tabcolsep{0pt} % make LaTeX figure out intercolumn spacing
+
+\begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}} l c c c c }
+\toprule
+
+\bf Class & \bf Train Size & \bf Test Size & \bf Number of Features & \bf Number of Time Steps \\
+\midrule
+\bf Normal & 4718 & 1924 & 112 & 10 \\
+\bf Attenuation & 2984 & 1270 & 112 & 10 \\
+\bf Interference & 1822 & 939 & 112 & 10 \\
+\midrule
+\bf Overall & 9524 & 4133 & 112 & 10 \\
+\bottomrule
+\end{tabular*}
+\end{threeparttable}
+\end{table}
+
+%The well-balanced representation of classes in the dataset supports robust evaluation of the proposed model. Furthermore, the high temporal resolution of the features ensures that our solution can capture subtle temporal patterns critical for accurately distinguishing between the classes.
+
+\subsection{Competing Solutions}
+To demonstrate the effectiveness of our proposed solution, we compare it against several baselines. These include both one-stage and two-stage time series classification (TSC) models. 
+
+\subsubsection{One-Stage Models}
+For the one-stage models, we include the following:
+\begin{itemize}
+    \item \textbf{1-NN-DTW:} The nearest neighbor classifier paired with a distance function. When combined with Dynamic Time Warping (DTW) as the distance measure, this model has proven to be a strong baseline for time series classification across numerous benchmarks \cite{bagnall2017great}. 
+\end{itemize}
+
+We also evaluate self-supervised time series representation learning methods, which have demonstrated efficiency in TSC. Following the protocol outlined in \cite{franceschi2019unsupervised}, these models undergo an unsupervised pre-training stage, after which an SVM classifier with an RBF kernel is trained on the learned representations for downstream classification. The selected methods are:
+\begin{itemize}
+    \item \textbf{T-Loss \cite{franceschi2019unsupervised}:} A self-supervised learning approach that uses a novel triplet loss with time-based negative sampling to obtain representations general enough for downstream tasks, even when dealing with variable-length, multivariate time series.
+    \item \textbf{TS-TCC \cite{Eldele2021TimeSeriesRL}:} A self-supervised framework for time series representation learning that employs weak and strong time series augmentations to create different views. These views are used in temporal and contextual contrastive modules to learn robust and discriminative representations.
+    \item \textbf{TS2Vec \cite{Yue2021TS2VecTU}:} A framework designed to learn both instance-wise and temporal-wise information for robust time series representations. It utilizes a hierarchical contrastive objective applied to augmented views of time series, achieving excellent results in TSC tasks.
+\end{itemize}
+
+\subsubsection{Two-Stage Models}
+For the two-stage models, we replace the CATS model in the first stage with unsupervised anomaly detection methods. The selected models are:
+\begin{itemize}
+    \item \textbf{iForest \cite{liu2008isolation}:} An isolation-based unsupervised anomaly detection model. It isolates anomalies by recursively performing random splits on the feature values. Anomalous samples are easier to isolate due to their significant deviation from the normal data, requiring fewer splits.
+    \item \textbf{USAD \cite{audibert2020usad}:} UnSupervised Anomaly Detection is a deep learning-based approach employing two autoencoders in a min-max game. The first autoencoder learns to reconstruct input data, while the second attempts to differentiate between true data and reconstructions.
+    \item \textbf{SimCLR \cite{chen2020simple}:} A contrastive learning framework originally proposed for computer vision and adapted for time series. It learns representations from augmented views of data and can be used for anomaly detection following a procedure similar to the CATS framework.
+\end{itemize}
+
+\subsection{Evaluation Metrics}
+We evaluate the performance of our root-cause diagnosis models using well-known multi-class classification metrics, including weighted Precision (P), weighted Recall (R), weighted F1-score (F1), Accuracy (Acc), and Normalized Accuracy (N-Acc). These metrics are defined as follows:
+\begin{itemize}
+    \item \textbf{Precision:} The macro-weighted precision is the weighted average of precision values computed for each class, $w_i$ being the proportion of class $i$:
+        \begin{equation}
+            P = \sum_{i=1}^{K} w_i \times P_i, \quad P_i = \frac{TP_i}{TP_i + FP_i}
+        \end{equation}
+    \item \textbf{Recall:} The macro-weighted recall is the weighted average of recall values computed for each class, $w_i$ being the proportion of class $i$:
+        \begin{equation}
+            R = \sum_{i=1}^{K} w_i \times R_i, \quad R_i = \frac{TP_i}{TP_i + FN_i}
+        \end{equation}
+    \item \textbf{F1-Score:} The macro-weighted F1-score is the harmonic mean of macro-weighted Precision and Recall. This metric coupled P and R are suitable for imbalanced datasets.
+        \begin{equation}
+            F1 = 2 \times \frac{P \times R}{P + R}
+        \end{equation}
+    \item \textbf{Accuracy:} The fraction of correctly classified samples over the total number of samples. This metric is widely used and easy to interpret.
+    \item \textbf{Normalized Accuracy (N-Acc):} This metric adjusts the balanced accuracy ($bac = \frac{1}{K} \sum_{i=1}^{K} w_i \times R_i$)  which is the weighted average of the recall of each class with respect to the accuracy of random guessing ($bac_{RG}$), ensuring that random predictions score 0 while perfect predictions score 1. It is more interpretable and suitable for imbalanced datasets.
+        \begin{equation}
+            \text{N-Acc} = \frac{bac - bac_{RG}}{1 - bac_{RG}}
+        \end{equation}
+\end{itemize}
+
+\subsection{Implementation details}
+The datasets collected are normalized and splits into training and test sets.
+For our detector solution, we use the same implementation details as CATS architecture. This consists in a dilated CNN module with ten residual blocks of 1D convolutional layers as encoder; a three-layer MLP with ReLU activation as projection head. The data augmentation techniques include \textit{jitter}, \textit{scaling} for positive views and \textit{masking} and \textit{trend} for negative views. The anomaly detection framework is trained with temporal and global contrastive loss optimized using the Adam optimizer with a learning rate of $10^{-3}$, the batch size is 512 and training is conducted for 100 epochs. The
+
+For competing solutions, we rely on publicly available implementations provided on Github. We use the same epochs, optimizer, learning rate and batch size. After pretraining of SSL competing solutions, classification is performed using a SVM with an RBF kernel. Hyper-parameters of the SVM are fine-tuned using a grid search procedure to achieve optimal performance.
+
+Experiments are performed on a Ubuntu 22.04 with AMD Ryzen 9 5900X 12-Core Processor and a NVIDIA RTX 3090 Ti of 24GB. Python 3.10.12 is used as programming language, PyTorch 2.2.0 as the deep learning framework and CUDA 12.1 for GPU acceleration. The code and datasets to reproduce all the experiments are provided. All details, implementation and hyper-parameters are included.
