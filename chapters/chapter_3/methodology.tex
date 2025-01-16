@@ -2,7 +2,7 @@ In this section, we describe our general methodology for evaluating ML models to
 
 
 \subsection{Problem statement}
-Our goal in this paper is to detect the end-users' QoE degradation in CG sessions. For this, we decided to base our detection analysis using windows of observations, instead of individual points of observation. Indeed, QoE degradation lasting 5ms is not perceptible by human beings for whom the perception of latency is around 150ms \cite{Amano2006EstimationOT}. Therefore, we evaluate the ML models with 3 window sizes $p \in \{10,20,30\}$ to perform a detection within $50, 100, 150$ ms respectively, and have a representative time of perception (i.e., very reactive people to less reactive ones, via mean value).
+Our goal is to detect the end-users' QoE degradation in CG sessions. For this, we decided to base our detection analysis using windows of observations, instead of individual points of observation. Indeed, QoE degradation lasting 5ms is not perceptible by human beings for whom the perception of latency is around 150ms \cite{Amano2006EstimationOT}. Therefore, we evaluate the ML models with 3 window sizes $p \in \{10,20,30\}$ to perform a detection within $50, 100, 150$ ms respectively, and have a representative time of perception (i.e., very reactive people to less reactive ones, via mean value).
 
 As such, we can formalize our problem as follows: we denote the time-series of our datasets as $x = \{x_1,x_2, ..., x_T\}$, where $T$ is the length of $x$ and $x_t \in \mathbb{R}^m$ denotes a $m$-dimensional vector corresponding to the values of our $m$ features at time $t$. For the representation of observations in windows, we split $x$ into sequences of windows $W = \{w_1, w_2, ..., w_{T-p+1}\}$ with stride 1 where $w_t = \{x_t, x_{t+1}, ..., x_{t+p-1}\}$, $p$ being the window size.
 
@@ -15,7 +15,7 @@ Given an unsupervised anomaly detection model $\mathcal{M}$, a set of parameters
     \end{cases}
 \end{equation}
 
-The goal of the window-based detection of anomalies is to correctly map the binary value of each observation within a window to a binary value for the whole window. Since we focus on perceptible end-users’s QoE degradation, a large part of the window observations should be anomalous so that the windows is classified as anomalous. In the remainder of the paper, we consider a window as anomalous if at least 80\% of observations in the window are anomalous.
+The goal of the window-based detection of anomalies is to correctly map the binary value of each observation within a window to a binary value for the whole window. Since we focus on perceptible end-users’s QoE degradation, a large part of the window observations should be anomalous so that the windows is classified as anomalous. In the remainder of the chapter, we consider a window as anomalous if at least 80\% of observations in the window are anomalous.
 
 % Include a tab of features
 \begin{table}[t]
@@ -101,7 +101,7 @@ The collected datasets are unlabelled (i.e., with no ground-truths). Consequentl
 \\
 
 
-We would like to stress here that the primary objective of this paper is to compare the performance of unsupervised ML models in detecting anomalies on a CG case study. The objective is not to detect degradation using simple rules, but rather to utilize such rules to establish ground-truths required for computing the ML metrics. Although being simple, there rules present a significant challenge for our tasks, particularly when they are unknown a-priori as shown later in the paper our results in Section \ref{chap_3:evaluation}.
+We would like to stress here that the primary objective of this chapter is to compare the performance of unsupervised ML models in detecting anomalies on a CG case study. The objective is not to detect degradation using simple rules, but rather to utilize such rules to establish ground-truths required for computing the ML metrics. Although being simple, there rules present a significant challenge for our tasks, particularly when they are unknown a-priori as shown later in the chapter our results in Section \ref{chap_3:evaluation}.
 
 Using these ground-truth labels as a reference, we define a ground-truth window as anomalous if at least $80\%$ of the labels of the window are anomalous.
 
@@ -245,7 +245,7 @@ In our experiments, we both considered F1-score and MCC to compare the ML models
 \subsection{Unsupervised anomaly detection models}\label{unsupervised_ad}
 We present below the descriptions of eight unsupervised AD models that are used in our comparative evaluation. We only focus on reconstruction-based, one-class classification and isolation-based algorithms because they are the most widely studied in the literature, while generative and predictive algorithms suffer from limitations such as higher computational complexity and expensive training due to instability and reproduction issues \cite{Ren2021DeepVA}. 
 
-The eight unsupervised models evaluated in this paper have been selected since they are used in many evaluations studies or to benchmark new approaches for various anomaly detection tasks \cite{han2022adbench, 9964447, Paparrizos2022TSBUADAE}.
+The eight unsupervised models evaluated in this chapter have been selected since they are used in many evaluations studies or to benchmark new approaches for various anomaly detection tasks \cite{han2022adbench, 9964447, Paparrizos2022TSBUADAE}.
 
 % \begin{table*}[!t]
 %     \caption{Comparison of WAD, PA, PA$\%K$ and RPA approaches with MCC and F1 score.}
@@ -348,7 +348,7 @@ The eight unsupervised models evaluated in this paper have been selected since t
 
 
 
-The aforementioned reconstruction-based algorithms require a threshold that needs to be carefully chosen. We found in our previous work \cite{Ky2022} that using the $3\sigma$ rule-of-thumb as a thresholding rule may lead to poor scores, due to a threshold too low to detect all the anomalies in the test set (i.e., low recall scores). In this paper, we use a different strategy: we randomly select $20\%$ of the test set and select the threshold $\delta$ that gives the best F1-score on this sample of the test set. This threshold is then kept and used for evaluation on the remaining $80\%$ of the test set. This thresholding strategy often used in AD \cite{zong2018deep, audibert2020usad} reports the best performance that the model can achieve. 
+The aforementioned reconstruction-based algorithms require a threshold that needs to be carefully chosen. We found in our previous work \cite{Ky2022} that using the $3\sigma$ rule-of-thumb as a thresholding rule may lead to poor scores, due to a threshold too low to detect all the anomalies in the test set (i.e., low recall scores). In this chapter, we use a different strategy: we randomly select $20\%$ of the test set and select the threshold $\delta$ that gives the best F1-score on this sample of the test set. This threshold is then kept and used for evaluation on the remaining $80\%$ of the test set. This thresholding strategy often used in AD \cite{zong2018deep, audibert2020usad} reports the best performance that the model can achieve. 
 
 We do not perform any hyper-parameters tuning in this study. Instead, we adopt the parameter settings documented in the respective papers of each model, as these configurations have been validated across multiple datasets and determined to be the optimal choices.
 We then train the neural network models using Adam optimizer with a learning rate of $10^{-3}$ and a batch size of 128 during 100 epochs. Early stopping is applied to avoid overfitting and longer training time, i.e., training is stopped when the validation loss do not decrease during 10 consecutive epochs. For each experiment, the models are evaluated five times to draw reliable conclusions except for OC-SVM which is run once due to its computational complexity. The details on our implementations are available on Github.\footnote{\url{https://github.com/mosaico-anr/unsupervised-ml-ad-qoe-deg}} % Add link

@@ -21,7 +21,7 @@ A summary of the dataset, including the class-wise breakdown of training and tes
 \bf Class & \bf Train Size & \bf Test Size & \bf Number of Features & \bf Number of Time Steps \\
 \midrule
 \bf Normal & 4718 & 1924 & 112 & 10 \\
-\bf Attenuation & 2984 & 1270 & 112 & 10 \\
+\bf Coverage & 2984 & 1270 & 112 & 10 \\
 \bf Interference & 1822 & 939 & 112 & 10 \\
 \midrule
 \bf Overall & 9524 & 4133 & 112 & 10 \\
@@ -33,7 +33,7 @@ A summary of the dataset, including the class-wise breakdown of training and tes
 %The well-balanced representation of classes in the dataset supports robust evaluation of the proposed model. Furthermore, the high temporal resolution of the features ensures that our solution can capture subtle temporal patterns critical for accurately distinguishing between the classes.
 
 \subsection{Competing Solutions}
-To demonstrate the effectiveness of our proposed solution, we compare it against several baselines. These include both one-stage and two-stage time series classification (TSC) models. 
+To demonstrate the effectiveness of RAID, we compare it against several baselines. These include both one-stage and two-stage time series classification (TSC) models. 
 
 \subsubsection{One-Stage Models}
 For the one-stage models, we include the following:
@@ -41,7 +41,7 @@ For the one-stage models, we include the following:
     \item \textbf{1-NN-DTW:} The nearest neighbor classifier paired with a distance function. When combined with Dynamic Time Warping (DTW) as the distance measure, this model has proven to be a strong baseline for time series classification across numerous benchmarks \cite{bagnall2017great}. 
 \end{itemize}
 
-We also evaluate self-supervised time series representation learning methods, which have demonstrated efficiency in TSC. Following the protocol outlined in \cite{franceschi2019unsupervised}, these models undergo an unsupervised pre-training stage, after which an SVM classifier with an RBF kernel is trained on the learned representations for downstream classification. The selected methods are:
+We also evaluate self-supervised time series representation learning methods, which have demonstrated efficiency in TSC. Following the protocol outlined in \cite{franceschi2019unsupervised}, these models undergo a self-supervised pre-training stage, after which an SVM classifier with an RBF kernel is trained on the learned representations for downstream classification. The selected methods are:
 \begin{itemize}
     \item \textbf{T-Loss \cite{franceschi2019unsupervised}:} A self-supervised learning approach that uses a novel triplet loss with time-based negative sampling to obtain representations general enough for downstream tasks, even when dealing with variable-length, multivariate time series.
     \item \textbf{TS-TCC \cite{Eldele2021TimeSeriesRL}:} A self-supervised framework for time series representation learning that employs weak and strong time series augmentations to create different views. These views are used in temporal and contextual contrastive modules to learn robust and discriminative representations.

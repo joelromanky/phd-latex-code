@@ -1,5 +1,6 @@
 In this section, we present our approach to root cause diagnosis for Cloud VR applications as a time series classification problem. The dataset of $T$ multivariate time series KPIs is represented as $\mathcal{D}_{train} =  \{(w_1, y_1), (w_2, y_2) \ldots, (w_T, y_T)\}$ where $w_t \in \mathbb{R}^{p \times m}$ is a $p \times m$-dimensional vector corresponding to the KPIs values for time steps $t, t+1, \ldots, t+p-1$, and $y_t$ is a one-hot encoded label vector of size $K$. $\forall j \in [|1, K|]$, $j=1$ if $w_t$ belongs to class $j$ and $y_{t,j}$ 0 otherwise.
-The task of root cause diagnosis is to learn a classification model $f_\theta$ on $\mathcal{D}_{train}$ that can assign the root cause $y_t$ for any newly observed time series $\tilde{w}_t$. To achieve this, we propose a two-stage architecture comprising i) an \textbf{anomaly detection stage} and ii) a \textbf{root cause classification stage}.
+
+The task of root cause diagnosis is to learn a classification model $f_\theta$ on $\mathcal{D}_{train}$ that can assign the root cause $y_t$ for any newly observed time series $\tilde{w}_t$. To achieve this, we propose RAID, a two-stage architecture comprising i) an \textbf{anomaly detection stage} and ii) a \textbf{root cause classification stage}.
 
 
 \subsection{Anomaly detection stage}
@@ -54,7 +55,7 @@ Once an anomaly is detected, the next step is to determine its underlying root c
 
 To ensure efficiency and simplicity, we use a shallow classifier, a \ac{SVM}. Despite the numerous techniques for supervised TSC proposed in the literature, this model is efficient enough for our task given the anomaly detection stage previously executed. 
 
-SVM are supervised learning algorithms designed to find the optimal hyperplane that separates data into distinct classes in a feature space. In the context of root cause classification, the input of time series flagged as anomalies ${(x_i, y_i)}_{i=1}^{N_{train}}$ are fed as input to the SVM classifier. The SVM employs a kernel trick (a kernel function $k$ satisfying $k(x_i, x_j) = \phi(x_i) \phi(x_j)$) to map inputs into a higher-dimensional space where a linear separation is possible. We use the \ac{RBF} kernel function ( $k(x_i, x_j) = \exp(-\gamma |x_i - x_j|^2)$) The classifier next identifies the hyperplane that maximizes the margin between the classes solving the dual problem.
+SVM are supervised learning algorithms designed to find the optimal hyperplane that separates data into distinct classes in a feature space. In the context of root cause classification, the input of time series flagged as anomalies ${(x_i, y_i)}_{i=1}^{N_{train}}$ are fed as input to the SVM classifier. The SVM employs a kernel trick (a kernel function $k$ satisfying $k(x_i, x_j) = \phi(x_i) \phi(x_j)$) to map inputs into a higher-dimensional space where a linear separation is possible. We use the \ac{RBF} kernel function ( $k(x_i, x_j) = \exp(-\gamma |x_i - x_j|^2)$). The classifier next identifies the hyperplane that maximizes the margin between the classes by solving the dual problem.
 
 \begin{equation}
 \begin{split}
@@ -88,8 +89,8 @@ For multi-class classification with $K > 2$, SVM is extended using one-vs-one st
 \begin{figure*}[!ht]
     \centering
     \includegraphics[width=\linewidth]{imgs/chapter_6/diagnostic_rcd.png}
-    \caption{Cloud VR RCD framework}
-    \label{fig:chap_6:rcd_framework}
+    \caption{RAID framework}
+    \label{fig:chap_6:raid}
 \end{figure*}
 
 % The rationale behind this choice is motivated by SSL-based classification setups: after learning representations using SSL, the encoder have can discriminate different class so that a shallow classifier trained on top of the representation is sufficient to make predictions.

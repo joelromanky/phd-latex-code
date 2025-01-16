@@ -116,23 +116,23 @@
 %                             Définition des listings
 %-------------------------------------------------------------------
 
-\usepackage{listings}
-\usepackage{xcolor}
+% \usepackage{listings}
+% \usepackage{xcolor}
 
-\lstset{
-  language=Python,            % Setting language to Python for pseudocode style
-  basicstyle=\ttfamily\footnotesize, % Font style and size
-  keywordstyle=\bfseries\color{blue}, % Keywords color
-  commentstyle=\itshape\color{green!50!black}, % Comments color
-  stringstyle=\color{red}, % Strings color
-  numbers=left, % Line numbers
-  numberstyle=\tiny, % Line number style
-  stepnumber=1, % Line number step
-  frame=single, % Frame around the code
-  captionpos=b, % Caption position
-  breaklines=true, % Automatic line breaking
-  tabsize=2, % Tab size
-}
+% \lstset{
+%   language=Python,            % Setting language to Python for pseudocode style
+%   basicstyle=\ttfamily\footnotesize, % Font style and size
+%   keywordstyle=\bfseries\color{blue}, % Keywords color
+%   commentstyle=\itshape\color{green!50!black}, % Comments color
+%   stringstyle=\color{red}, % Strings color
+%   numbers=left, % Line numbers
+%   numberstyle=\tiny, % Line number style
+%   stepnumber=1, % Line number step
+%   frame=single, % Frame around the code
+%   captionpos=b, % Caption position
+%   breaklines=true, % Automatic line breaking
+%   tabsize=2, % Tab size
+% }
 
 
 %-------------------------------------------------------------------
@@ -140,6 +140,7 @@
 %-------------------------------------------------------------------
 
 \usepackage[breakable]{tcolorbox}
+\usepackage{colortbl}
 
 % Define a new command for a rounded color box
 \newcommand{\roundedbox}[3][yellow]{
@@ -190,11 +191,12 @@
 }
 
 \newcommand{\usage}[1]{
-    \roundedbox[FireBrick]{Connection to the thesis objectives}{#1}
+    \roundedbox[MediumSlateBlue]{Connection to the thesis objectives}{#1}
 }
 
+
 \newcommand{\takeaway}[1]{
-    \roundedbox[MediumSlateBlue]{Takeaways}{#1}
+    \roundedbox[FireBrick]{Takeaways}{#1}
 }
 
 % \newcommand{\abstractbox}[1]{
@@ -249,12 +251,20 @@
 
 
 % \kibitz{color}{comment} inserts a colored comment in the text
-\newcommand{\kibitz}[2]{\ifnum\Comments=1\textcolor{#1}{#2}\fi}
-% add yourself here:
-\newcommand{\joel}[1]{\kibitz{red}      {[Joel: #1]}}
-\newcommand{\bertrand}[1]  {\kibitz{purple}   {[Bertrand: #1]}}
-\newcommand{\abdelkader}[1]{\kibitz{cyan}     {[Abdelkader: #1]}}
-\newcommand{\minqi}[1]  {\kibitz{darkgreen}{[Minqi: #1]}}
+% \newcommand{\kibitz}[2]{\ifnum\Comments=1\textcolor{#1}{#2}\fi}
+% % add yourself here:
+% \newcommand{\joel}[1]{\kibitz{red}      {[Joel: #1]}}
+% \newcommand{\bertrand}[1]  {\kibitz{purple}   {[Bertrand: #1]}}
+% \newcommand{\abdelkader}[1]{\kibitz{cyan}     {[Abdelkader: #1]}}
+% \newcommand{\minqi}[1]  {\kibitz{darkgreen}{[Minqi: #1]}}
+
+%\newcommand{\mynote}[3]{\fbox{\bfseries\sffamily\scriptsize #1}{\small\textsf{\emph{\color{#3}{ #2}}}}}
+\newcommand{\mynote}[3]{\ifnum\Comments=1\fbox{\bfseries\sffamily\color{#3} {#1}}{\small\textsf{\emph{\color{#3}{ #2}}}}\fi}
+
+\newcommand{\joel}[1]{\mynote{Joël}{#1}{red}}
+\newcommand{\bertrand}[1]{\mynote{Bertrand}{#1}{blue}}
+\newcommand{\abdelkader}[1]{\mynote{Abdelkader}{#1}{olive}}
+\newcommand{\minqi}[1]{\mynote{Minqi}{#1}{pink}}
 
 %-------------------------------------------------------------------
 %                         Les références
@@ -320,9 +330,9 @@
 %                         Page de titre:
 %-------------------------------------------------------------------
 
-\ThesisTitle{Comment j'ai r\'eussi \`a prouver mon existence}
-\ThesisDate{28 janvier 1986}
-\ThesisAuthor{Auteur anonyme}
+\ThesisTitle{Anomaly Detection and Root Cause Diagnosis for Low-Latency Applications in Time-varying capacity networks}
+\ThesisDate{XX mars 2025}
+\ThesisAuthor{Joël Roman Ky}
 
 % Type de la these
 \ThesisUL
@@ -333,21 +343,50 @@
 
 % Exemple de création d'une nouvelle catégorie dans le jury:
 
-\NewJuryCategory{family}{\it Membre de la famille :}
-                        {\it Membres de la famille :}
+% \NewJuryCategory{family}{\it Membre de la famille :}
+%                         {\it Membres de la famille :}
 
-\family={Mon frère\\Ma sœur}
+% \family={Mon frère\\Ma sœur}
+
+
+                        
+% \NewJuryCategory{industry}{\it Encadrant entreprise :}
+%                         {\it Encadrant entreprise :}
+
+% \NewJuryCategory{advisors}{\it Encadrant :}
+%                         {\it Encadrants :}
+
+\ClearJury
+\NewJuryCategory{President}{\textit{Président :}}{\textit{Présidents :}}
+\NewJuryCategory{Rapporteurs}{\textit{Rapporteur :}}{\textit{Rapporteurs :}}
+\NewJuryCategory{Examinateurs}{\textit{Examinateur :}}{\textit{Examinateurs :}}
+\NewJuryCategory{Directeur}{\textit{Directrice de thèse :}}{\textit{Directrice de thèse :}}
+\NewJuryCategory{Encadrants}{\textit{Encadrant :}}{\textit{Encadrants :}}
+\NewJuryCategory{Entreprise}{\textit{Encadrant entreprise :}}{\textit{Encadrant entreprise :}}
+\NewJuryCategory{Invites}{\textit{Invité :}}{\textit{Invités :}}
+
+
 
 \def\blanc{\hspace*{1cm}}
 
 \President    = {Le président}
-\Rapporteurs  = {Le rapporteur 1&de Paris\\
-                 Le rapporteur 2\\
-                 \blanc suite&taratata\\
-                 Le rapporteur 3}
+
+\Rapporteurs  = {Sandrine Vaton & Professeure, IMT Atlantique, France \\
+                 Nadjib Ait Saadi & Professeur, UVSQ Paris-Saclay, France}
+
 \Examinateurs = {L'examinateur 1&d'ici\\
                  L'examinateur 2}
+
+\Encadrants = {Raouf Boutaba & Professor, University of Waterloo, Canada \\
+                Abdelkader Lahmadi & Maître de conférences, Université de Lorraine, France}
+
+\Entreprise = {Bertrand Mathieu & Chercheur, HDR, Orange Innovation, France}
+
+\Directeur = {Isabelle Chrisment & Professeure, Université de Lorraine, France}
+
 %\Invites=       {}
+
+
 
 % Création de la page de titre:
 \MakeThesisTitlePage
@@ -364,7 +403,7 @@
 
 %\DontFrameThisInToc
 \begin{ThesisAcknowledgments}
-Les remerciements.
+\input{chapters/annexes/remerciements}
 \end{ThesisAcknowledgments}
 
 %-------------------------------------------------------------------
@@ -387,6 +426,15 @@ qui fut la première de toutes.
 \WritePartLabelInToc
 \WriteChapterLabelInToc
 
+
+
+
+%\SpecialSection{Résumé en Français}\label{french_summary}
+\chapter*{Résumé en Français}\label{french_summary}
+% \renewcommand\thesection{\arabic{section}}
+% \renewcommand\thesubsection{\arabic{section}.\arabic{subsection}}
+\input{chapters/annexes/french_resume}
+
 %-------------------------------------------------------------------
 %                        table des matières
 %-------------------------------------------------------------------
@@ -405,9 +453,13 @@ qui fut la première de toutes.
 
 
 
-%\chapter*{Introduction}\label{chap:intro}
-\SpecialSection{Introduction}\label{chap:intro}
+\chapter*{Introduction}\label{chap:intro}
+%\SpecialSection{Introduction}\label{chap:intro}
 \input{chapters/chapter_0/main}
+
+% % Change back the numerotation of section/subsections 
+% \renewcommand\thesection{\thechapter.\arabic{section}}
+% \renewcommand\thesubsection{\thechapter.\arabic{section}.\arabic{subsection}}
 
 \chapter{Background and Related work}\label{chap:related_work}
 \input{chapters/chapter_1/main}
@@ -424,20 +476,32 @@ qui fut la première de toutes.
 \chapter{Contrastive learning for anomaly detection in time series}\label{chap:cats}
 \input{chapters/chapter_5/main}
 
-\chapter{Diagnosis and classification of Virtual Reality Gaming degradation causes}\label{chap:diagnosis}
+\chapter{Root Cause Diagnosis of Cloud VR applications over Wi-Fi networks}\label{chap:diagnosis}
 \input{chapters/chapter_6/main}
 
-%\chapter{Conclusion}
-\SpecialSection{Conclusion}\label{chap:conclusion}
+
+\chapter*{Conclusion and Perspectives}\label{chap:conclusion}
+%\SpecialSection{Conclusion}\label{chap:conclusion}
 \input{chapters/chapter_7/main}
 
 
-\Annexes
 
-\Annex{Résumé en français}\label{french_summary}
-\input{chapters/annexes/french_resume}
 
-\Annex{Annex 2.}
+% % Change back the numerotation of section/subsections 
+% \renewcommand\thesection{\thechapter.\arabic{section}}
+% \renewcommand\thesubsection{\thechapter.\arabic{section}.\arabic{subsection}}
+
+% \DontFrameChaptersInToc
+
+% \Annexes
+
+\FrameChaptersInToc
+
+% \Annex{Résumé en français}\label{french_summary}
+% \input{chapters/annexes/french_resume}
+
+\Annex{Characterisation of Orange 4G transmission opportunities} \label{txops_annex}
+\input{chapters/annexes/txops_file}
 
 
 %-------------------------------------------------------------------
@@ -465,6 +529,37 @@ qui fut la première de toutes.
 %\chapter{Acronym}
 \SpecialSection{Acronyms}\label{chap:acronyms}
 \input{chapters/acronyms}
+
+
+%-------------------------------------------------------------------
+%               Abstract
+%-------------------------------------------------------------------
+
+\begin{ThesisAbstract}
+    \begin{FrenchAbstract}
+        L'évolution des réseaux a conduit à l'émergence d'applications à faible latence (FL) telles que le cloud gaming (CG) et la réalité virtuelle basée sur le cloud (Cloud VR), qui exigent des conditions réseau strictes, notamment une faible latence et une bande passante élevée. Cependant, les réseaux à capacité variable introduisent des dégradations, telles que du délai, des fluctuations de bande passante et des pertes de paquets, qui peuvent significativement altérer l'expérience utilisateur sur les applications LL. Cette thèse vise à concevoir des méthodologies pour détecter et diagnostiquer les anomalies de performance des applications FL fonctionnant sur des réseaux cellulaires et Wi-Fi.
+
+        Pour atteindre cet objectif, des bancs d'essai expérimentaux réalistes ont été mis en place pour collecter des bases de données caractérisant les performances du réseau et capturant les indicateurs clés de performance (KPI) des applications CG et Cloud VR dans des environnements 4G et Wi-Fi. Ces données constituent la base de l'évaluation et du développement d'algorithmes de détection d'anomalies et de diagnostic basés sur l'apprentissage automatique.
+
+        Les principales contributions de cette thèse incluent le développement de CATS, une solution de détection d'anomalies basé sur l'apprentissage contrastif, capable d'identifier efficacement les dégradations de l'expérience utilisateur dans les applications CG tout en restant robuste face à la contamination des données. De plus, cette thèse introduit RAID, un système de diagnostic en deux étapes conçu pour identifier les causes racines des problèmes de performance dans le Cloud VR. RAID a démontré une grande efficacité dans le diagnostic des dégradations Wi-Fi, même avec un nombre limité de données annotées.
+
+        Les résultats de ce travail font progresser les domaines de la détection d'anomalies et du diagnostic des causes racines, offrant des perspectives concrètes aux opérateurs de réseaux pour optimiser les performances de leurs réseaux et améliorer la fiabilité des services et mieux supporter les applications FL, qui sont appelées à révolutionner les technologies de communication et à stimuler l'innovation dans de nombreuses industries.
+        \KeyWords{Applications à faible latence, Réseaux à capacité variable, Détection d'anomalies, Diagnostic des causes, Apprentissage machine}
+        
+    \end{FrenchAbstract}
+    \newpage
+    \begin{EnglishAbstract}
+        The evolution of networks has driven the emergence of low-latency (LL) applications such as cloud gaming (CG) and cloud virtual reality (Cloud VR), which demand stringent network conditions, including low latency and high bandwidth. However, time-varying capacity networks introduce impairments such as delays, bandwidth fluctuations, and packet loss, which can significantly degrade user experience on LL applications. This research aims to design methodologies for detecting and diagnosing performance anomalies in LL applications operating over cellular and Wi-Fi networks.
+
+        To achieve this, realistic experimental testbeds were established to collect datasets that characterize network performance and capture key performance indicators (KPIs) of CG and Cloud VR applications over 4G and Wi-Fi environments. These datasets serve as the foundation for evaluating and developing machine learning-based anomaly detection and diagnostic frameworks.
+
+        The key contributions of this thesis include the development of CATS, a contrastive learning-based anomaly detection framework capable of efficiently identifying user experience degradation in CG applications while remaining robust to data contamination. Additionally, this research introduces RAID, a two-stage root causes diagnosis framework designed to pinpoint the root causes of performance issues in Cloud VR. RAID demonstrated high efficiency in diagnosing Wi-Fi impairments, even with limited labeled data.
+
+        The findings of this work advance the fields of anomaly detection and root cause diagnosis, offering actionable insights for network operators to optimize network performance and enhance service reliability to support LL applications, which are set to revolutionize communication technologies and drive innovation across various industries.
+        \KeyWords{Low-latency applications, Time-varying capacity networks, Anomaly Detection, Root Cause Diagnosis, Machine Learning}
+    \end{EnglishAbstract}
+\end{ThesisAbstract}
+
 
 \end{document}
 

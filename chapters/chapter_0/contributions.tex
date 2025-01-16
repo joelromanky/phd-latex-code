@@ -2,19 +2,30 @@ To address the research questions outlined in this thesis, several contributions
 
 \begin{itemize}
     \item \textbf{C1: Collecting datasets for \ac{LL} applications under realistic time-varying network conditions.} We collect the datasets necessary for subsequent research tasks. First, 4G network conditions are collected from Orange 4G commercial network to emulate realistic 4G scenarios. Then, we collect KPIs from three commercial CG platforms under the 4G conditions previously collected. Furthermore, we gather KPI data from Cloud VR applications operating over Wi-Fi networks. These datasets are the basis for evaluating and developing anomaly detection and root-cause diagnosis techniques in the subsequent chapters.
+    \squarebox[Gray]{
+    \textbf{An analysis of Cloud Gaming Platforms Behaviour under Synthetic Network Constraints and Real Cellular Networks Conditions.} 
+    
+    Xavier Marchal, Philippe Graff, Joël Roman Ky, Thibault Cholez, Stéphane Tuffin, Bertrand Mathieu and Olivier Festor.
+    
+    \textit{Journal of Network and Systems Management, 2023.} \cite{marchal2023analysis}
+    }
 
     \item \textbf{C2: Evaluation of unsupervised ML models for AD in \ac{CG} applications over cellular networks.} We evaluate unsupervised ML models for anomaly detection in time series using the CG KPI datasets collected earlier using a consistent framework. The evaluation emphasizes critical aspects such as performance accuracy, robustness to data contamination, and computational efficiency. Various evaluation metrics are employed to ensure comprehensive and reliable conclusions about the models' effectiveness. The findings provide insights and recommendations for selecting the most suitable models for AD on low-latency applications or whatever industrial tasks.
     
     \squarebox[Gray]{
-    \textbf{Assessing Unsupervised Machine Learning solutions for Anomaly Detection in Cloud Gaming Sessions.} Joël Roman Ky, Bertrand Mathieu, Abdelkader Lahmadi and Raouf Boutaba. 
+    \textbf{Assessing Unsupervised Machine Learning solutions for Anomaly Detection in Cloud Gaming Sessions.} 
     
-    Workshop on High-Precision, Predictable, and Low-Latency Networking (HiPNet ‘22), colocated with 18th International Conference on Network and Service Management (CNSM), Thessaloniki, Greece, October 31 - November 4, 2022.
+    Joël Roman Ky, Bertrand Mathieu, Abdelkader Lahmadi and Raouf Boutaba. 
+    
+    \textit{Workshop on High-Precision, Predictable, and Low-Latency Networking (HiPNet ‘22), colocated with 18th International Conference on Network and Service Management (CNSM), Thessaloniki, Greece, October 31 - November 4, 2022.} \cite{Ky2022}
     }
     
     \squarebox[Gray]{
-    \textbf{ML Models for Detecting QoE Degradation in Low-Latency Applications: A Cloud-Gaming Case Study.} Joël Roman Ky, Bertrand Mathieu, Abdelkader Lahmadi and Raouf Boutaba. 
+    \textbf{ML Models for Detecting QoE Degradation in Low-Latency Applications: A Cloud-Gaming Case Study.}
     
-    IEEE Transactions on Network and Service Management, 2023.
+    Joël Roman Ky, Bertrand Mathieu, Abdelkader Lahmadi and Raouf Boutaba. 
+    
+    \textit{IEEE Transactions on Network and Service Management, 2023.} \cite{Ky2023MLMF}
     }
     % \item \textbf{C3: CG traffic detection using unsupervised ML.} This contribution addresses a task indirectly related to the thesis's main objectives, contributing to the ANR project MOSAICO through collaborative work with project partners. It redefines the problem of CG traffic detection as an unsupervised learning task, addressing the limitations of supervised methods, which fail to generalize to new or unseen traffic flows. This work, by accurately identifying CG traffic, has implications in the MOSAICO project which aims at mitigating network latency for \ac{LL} applications. It thus demonstrate the broader applicability of insights derived from the previous chapter.
 
@@ -27,18 +38,22 @@ To address the research questions outlined in this thesis, several contributions
     \item \textbf{C3: Anomaly detection using contrastive learning.} We propose a novel unsupervised model for anomaly detection in time series, termed CATS. Leveraging contrastive learning to improve AD, CATS employs a novel loss function that exploits temporal similarities within time series windows to cluster similar windows while repelling dissimilar ones. This loss function, combined with negative data augmentations, allows CATS to outperform competing methods on public benchmark datasets as well as on the CG KPI datasets collected in this thesis and remains efficient even in presence of data contamination.
     
     \squarebox[Gray]{
-    \textbf{CATS: Contrastive learning for Anomaly detection on Time Series.} Joël Roman Ky, Bertrand Mathieu, Abdelkader Lahmadi and Raouf Boutaba.
+    \textbf{CATS: Contrastive learning for Anomaly detection on Time Series.}
     
-    2024 IEEE International Conference on Big Data (BigData 2024), Washington DC, USA, December 15 - December 18 2024.
+    Joël Roman Ky, Bertrand Mathieu, Abdelkader Lahmadi and Raouf Boutaba.
+    
+    \textit{2024 IEEE International Conference on Big Data (BigData 2024), Washington DC, USA, December 15 - December 18 2024.} \cite{ky2024cats}
     }
 
     \item \textbf{C4: Two-stage framework for root-cause diagnostic of CloudVR applications over Wi-Fi networks.} We propose a two-stage framework for root-cause diagnosis, applied to Orange Livebox KPIs collected from Cloud VR applications. Building on the CATS anomaly detection model, the framework first detects anomalies and then employs a lightweight classifier to classify the detected anomalies. This approach demonstrates superior performance compared to existing one-stage and two-stage techniques, even with minimal labeled data. This simple but effective solution can diagnose Wi-Fi performance issues in low-latency applications.
 
     \joel{TODO}
     \squarebox[Gray]{
-    \textbf{CATS: Contrastive learning for Anomaly detection on Time Series.} Joël Roman Ky, Bertrand Mathieu, Abdelkader Lahmadi and Raouf Boutaba.
+    \textbf{Root cause diagnosis in Cloud VR applications over Wi-Fi networks.}
     
-    2024 IEEE International Conference on Big Data (BigData 2024), Washington DC, USA, December 15 - December 18 2024.
+    Joël Roman Ky, Bertrand Mathieu, Abdelkader Lahmadi, Minqi Wang, Nicolas Marrot and Raouf Boutaba.
+    
+    \textit{Under review at XXX.}
     }
 
 \end{itemize}

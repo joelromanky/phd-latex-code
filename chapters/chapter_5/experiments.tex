@@ -84,189 +84,110 @@ We then report the performance results using AUC, F1 and MCC. Point Adjust (PA) 
 %Discussions about which metric is better or threshold selection is out of the scope of this paper \joel{Todo}.
 
 
-% \begin{table*}[t]
-% \caption{Performance comparison on the three benchmark datasets. Mean and standard deviation computed over all entities. Bold values indicate best results.}\label{tab:chap_5:benchmark}
-% \setlength\tabcolsep{2pt}
-% \footen
-% \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l | ccc | ccc | ccc }
-
-% \toprule
-%         & \multicolumn{3}{c}{\bf SMD} & \multicolumn{3}{c}{\bf MSL} & \multicolumn{3}{c}{\bf SMAP}\\
-% % \cmidrule{2-5} \cmidrule{6-9} \cmidrule{10-13}
-% \midrule
-% \bf Models & \bf AUC & \bf F1 & \bf MCC & \bf AUC & \bf F1 & \bf MCC & \bf AUC & \bf F1 & \bf MCC \\
-% \midrule
-% IForest & 77.10$_{(\pm11.9)}$ & 29.88$_{(\pm20.6)}$ & 29.62$_{(\pm20.8)}$ & 56.94$_{(\pm14.1)}$ & 21.24$_{(\pm21.4)}$ & 11.09$_{(\pm21.8)}$ & 56.98$_{(\pm17.3)}$ & 22.80$_{(\pm27.2)}$ & 11.38$_{(\pm29.0)}$ \\
-% \addlinespace    
-% \midrule
-% Deep-SVDD & 75.31$_{(\pm14.5)}$ & 34.75$_{(\pm21.5)}$ & 36.25$_{(\pm22.0)}$ & 61.38$_{(\pm17.1)}$ & 27.93$_{(\pm25.6)}$ & 19.24$_{(\pm29.2)}$ & 62.52$_{(\pm19.1)}$ & 29.20$_{(\pm33.0)}$ & 23.93$_{(\pm33.1)}$ \\
-% AE & 81.33$_{(\pm13.2)}$  & 46.00$_{(\pm24.3)}$ & 47.00$_{(\pm24.1)}$ & 62.30$_{(\pm16.1)}$ & 26.02$_{(\pm22.9)}$ & 16.49$_{(\pm24.4)}$ & \bf 64.30$_{(\bf\pm19.6)}$ & 28.93$_{(\pm33.5)}$ & 23.96$_{(\pm34.0)}$ \\
-% USAD & 81.08$_{(\pm12.5)}$ & 46.62$_{(\pm26.3)}$ & 47.98$_{(\pm25.1)}$ & 63.31$_{(\pm14.3)}$ & 27.16$_{(\pm23.0)}$ & 17.33$_{(\pm24.8)}$ & 61.11$_{(\pm19.4)}$ & \bf 30.10$_{(\bf\pm33.1)}$ & 23.66$_{(\pm34.9)}$ \\
-% \addlinespace    
-% \midrule
-% SimCLR & 80.83$_{(\pm14.7)}$ & 46.51$_{(\pm25.7)}$ & 48.06$_{(\pm24.2)}$ & 61.09$_{(\pm15.4)}$ & 25.72$_{(\pm23.1)}$ & 16.30$_{(\pm25.1)}$ & 63.99$_{(\pm17.7)}$ & 28.23$_{(\pm32.2)}$ & 22.52$_{(\pm32.2)}$ \\
-% SimSiam & 77.26$_{(\pm14.9)}$ & 41.82$_{(\pm25.3)}$ & 43.24$_{(\pm24.9)}$ & 62.07$_{(\pm14.3)}$ & 23.78$_{(\pm23.2)}$ & 14.11$_{(\pm24.0)}$ & 62.12$_{(\pm17.1)}$ & 27.46$_{(\pm33.2)}$ & 21.44$_{(\pm32.5)}$ \\
-% TS2Vec & 74.25$_{(\pm16.6)}$ & 43.18$_{(\pm25.9)}$ & 44.95$_{(\pm24.7)}$ & 63.95$_{(\pm15.0)}$ & 28.43$_{(\pm24.5)}$ & 19.86$_{(\pm24.8)}$ & 61.42$_{(\pm20.3)}$ & 28.26$_{(\pm33.2)}$ &  23.5$_{(\pm32.8)}$ \\
-% \addlinespace    
-% \midrule
-% \bf CATS & \bf 82.21$_{(\bf \pm14.3)}$ & \bf 50.65$_{(\bf \pm23.6)}$ & \bf 50.85$_{\bf(\pm23.6)}$ & \bf 64.98$_{(\bf\pm15.7)}$ & \bf 29.15$_{(\bf \pm24.2)}$ & \bf 20.14$_{(\bf \pm27.8)}$ & 64.07$_{(\pm18.6)}$ & 29.07$_{(\pm29.07)}$ & \bf 24.28$_{(\bf \pm32.7)}$ \\
-% \addlinespace    
-% \bottomrule
-% \end{tabular*}
-% \end{table*}
-
 
 \begin{table*}[t]
 \caption{Performance comparison on the datasets. Mean and standard deviation computed over all entities for benchmark datasets and over five runs for case-study datasets. Bold values indicate best results.}
 \label{tab:chap_5:benchmark}
 \setlength\tabcolsep{2pt}
 \footnotesize
-\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}c | ll | ccccccc | c }
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} l |c | ccccccc | >{\columncolor{FireBrick!40}}c }
 \toprule
-& & \bf Models & {\rotatebox{0}{\bf IForest}} &  {\rotatebox{0}{\bf Deep-SVDD}} &  {\rotatebox{0}{\bf AE}} &  {\rotatebox{0}{\bf USAD}} &  {\rotatebox{0}{\bf SimCLR}} &  {\rotatebox{0}{\bf SimSiam}} &  {\rotatebox{0}{\bf TS2Vec}} &  {\rotatebox{0}{\bf CATS}} \\
+ & \bf Models & {\rotatebox{0}{\bf IForest}} &  {\rotatebox{0}{\bf Deep-SVDD}} &  {\rotatebox{0}{\bf AE}} &  {\rotatebox{0}{\bf USAD}} &  {\rotatebox{0}{\bf SimCLR}} &  {\rotatebox{0}{\bf SimSiam}} &  {\rotatebox{0}{\bf TS2Vec}} &  {\rotatebox{0}{\bf CATS}} \\
 \midrule
-\multirow{9}{*}{\rotatebox{90}{\bf Benchmark datasets}} & \multirow{3}{*}{\bf SMD} & \bf AUC & 77.10$_{(\pm11.9)}$ & 75.31$_{(\pm14.5)}$ & 81.33$_{(\pm13.2)}$ & 81.08$_{(\pm12.5)}$ & 80.83$_{(\pm14.7)}$ & 77.26$_{(\pm14.9)}$ & 74.25$_{(\pm16.6)}$ & \bf 82.21$_{(\bf\pm14.3)}$ \\
-& & \bf F1 & 29.88$_{(\pm20.6)}$ & 34.75$_{(\pm21.5)}$ & 46.00$_{(\pm24.3)}$ & 46.62$_{(\pm26.3)}$ & 46.51$_{(\pm25.7)}$ & 41.82$_{(\pm25.3)}$ & 43.18$_{(\pm25.9)}$ & \bf 50.65$_{(\bf\pm23.6)}$ \\
-& & \bf MCC & 29.62$_{(\pm20.8)}$ & 36.25$_{(\pm22.0)}$ & 47.00$_{(\pm24.1)}$ & 47.98$_{(\pm25.1)}$ & 48.06$_{(\pm24.2)}$ & 43.24$_{(\pm24.9)}$ & 44.95$_{(\pm24.7)}$ & \bf 50.85$_{(\bf\pm23.6)}$ \\
+ \multirow{3}{*}{\bf SMD} & \bf AUC & 77.10$_{(\pm11.9)}$ & 75.31$_{(\pm14.5)}$ & 81.33$_{(\pm13.2)}$ & 81.08$_{(\pm12.5)}$ & 80.83$_{(\pm14.7)}$ & 77.26$_{(\pm14.9)}$ & 74.25$_{(\pm16.6)}$ & \bf 82.21$_{(\bf\pm14.3)}$ \\
+ & \bf F1 & 29.88$_{(\pm20.6)}$ & 34.75$_{(\pm21.5)}$ & 46.00$_{(\pm24.3)}$ & 46.62$_{(\pm26.3)}$ & 46.51$_{(\pm25.7)}$ & 41.82$_{(\pm25.3)}$ & 43.18$_{(\pm25.9)}$ & \bf 50.65$_{(\bf\pm23.6)}$ \\
+ & \bf MCC & 29.62$_{(\pm20.8)}$ & 36.25$_{(\pm22.0)}$ & 47.00$_{(\pm24.1)}$ & 47.98$_{(\pm25.1)}$ & 48.06$_{(\pm24.2)}$ & 43.24$_{(\pm24.9)}$ & 44.95$_{(\pm24.7)}$ & \bf 50.85$_{(\bf\pm23.6)}$ \\
 \addlinespace    
-\cmidrule{2-11}
+\cmidrule{1-10}
 
-& \multirow{3}{*}{\bf MSL} & \bf AUC & 56.94$_{(\pm14.1)}$ & 61.38$_{(\pm17.1)}$ & 62.30$_{(\pm16.1)}$ & 63.31$_{(\pm14.3)}$ & 61.09$_{(\pm15.4)}$ & 62.07$_{(\pm14.3)}$ & 63.95$_{(\pm15.0)}$ & \bf 64.98$_{(\bf\pm15.7)}$ \\
-& & \bf F1 & 21.24$_{(\pm21.4)}$ & 27.93$_{(\pm25.6)}$ & 26.02$_{(\pm22.9)}$ & 27.16$_{(\pm23.0)}$ & 25.72$_{(\pm23.1)}$ & 23.78$_{(\pm23.2)}$ & 28.43$_{(\pm24.5)}$ & \bf 29.15$_{(\bf\pm24.2)}$ \\
-& & \bf MCC & 11.09$_{(\pm21.8)}$ & 19.24$_{(\pm29.2)}$ & 16.49$_{(\pm24.4)}$ & 17.33$_{(\pm24.8)}$ & 16.30$_{(\pm25.1)}$ & 14.11$_{(\pm24.0)}$ & 19.86$_{(\pm24.8)}$ & \bf 20.14$_{(\bf\pm27.8)}$ \\
+ \multirow{3}{*}{\bf MSL} & \bf AUC & 56.94$_{(\pm14.1)}$ & 61.38$_{(\pm17.1)}$ & 62.30$_{(\pm16.1)}$ & 63.31$_{(\pm14.3)}$ & 61.09$_{(\pm15.4)}$ & 62.07$_{(\pm14.3)}$ & 63.95$_{(\pm15.0)}$ & \bf 64.98$_{(\bf\pm15.7)}$ \\
+ & \bf F1 & 21.24$_{(\pm21.4)}$ & 27.93$_{(\pm25.6)}$ & 26.02$_{(\pm22.9)}$ & 27.16$_{(\pm23.0)}$ & 25.72$_{(\pm23.1)}$ & 23.78$_{(\pm23.2)}$ & 28.43$_{(\pm24.5)}$ & \bf 29.15$_{(\bf\pm24.2)}$ \\
+ & \bf MCC & 11.09$_{(\pm21.8)}$ & 19.24$_{(\pm29.2)}$ & 16.49$_{(\pm24.4)}$ & 17.33$_{(\pm24.8)}$ & 16.30$_{(\pm25.1)}$ & 14.11$_{(\pm24.0)}$ & 19.86$_{(\pm24.8)}$ & \bf 20.14$_{(\bf\pm27.8)}$ \\
 
 \addlinespace    
-\cmidrule{2-11}
-& \multirow{3}{*}{\bf SMAP} & \bf AUC & 56.98$_{(\pm17.3)}$ & 62.52$_{(\pm19.1)}$ & \bf 64.30$_{(\bf\pm19.6)}$ & 61.11$_{(\pm19.4)}$ & 63.99$_{(\pm17.7)}$ & 62.12$_{(\pm17.1)}$ & 61.42$_{(\pm20.3)}$ & 64.07$_{(\pm18.6)}$ \\
-& & \bf F1 & 22.80$_{(\pm27.2)}$ & 29.20$_{(\pm33.0)}$ & 28.93$_{(\pm33.5)}$ & \bf 30.10$_{(\bf\pm33.1)}$ & 28.23$_{(\pm32.2)}$ & 27.46$_{(\pm33.2)}$ & 28.26$_{(\pm33.2)}$ & 29.07$_{(\pm29.07)}$ \\
-& & \bf MCC & 11.38$_{(\pm29.0)}$ & 23.93$_{(\pm33.1)}$ & 23.96$_{(\pm34.0)}$ & 23.66$_{(\pm34.9)}$ & 22.52$_{(\pm32.2)}$ & 21.44$_{(\pm32.5)}$ &  23.5$_{(\pm32.8)}$ & \bf 24.28$_{(\bf\pm32.7)}$ \\
+\cmidrule{1-10}
+ \multirow{3}{*}{\bf SMAP} & \bf AUC & 56.98$_{(\pm17.3)}$ & 62.52$_{(\pm19.1)}$ & \bf 64.30$_{(\bf\pm19.6)}$ & 61.11$_{(\pm19.4)}$ & 63.99$_{(\pm17.7)}$ & 62.12$_{(\pm17.1)}$ & 61.42$_{(\pm20.3)}$ & 64.07$_{(\pm18.6)}$ \\
+ & \bf F1 & 22.80$_{(\pm27.2)}$ & 29.20$_{(\pm33.0)}$ & 28.93$_{(\pm33.5)}$ & \bf 30.10$_{(\bf\pm33.1)}$ & 28.23$_{(\pm32.2)}$ & 27.46$_{(\pm33.2)}$ & 28.26$_{(\pm33.2)}$ & 29.07$_{(\pm29.07)}$ \\
+ & \bf MCC & 11.38$_{(\pm29.0)}$ & 23.93$_{(\pm33.1)}$ & 23.96$_{(\pm34.0)}$ & 23.66$_{(\pm34.9)}$ & 22.52$_{(\pm32.2)}$ & 21.44$_{(\pm32.5)}$ &  23.5$_{(\pm32.8)}$ & \bf 24.28$_{(\bf\pm32.7)}$ \\
 
 \addlinespace    
 \midrule
 
-\multirow{9}{*}{\rotatebox{90}{\bf Case-study datasets}} & \multirow{3}{*}{\bf STD} & \bf AUC & 74.57$_{(\pm1.63)}$ & 91.19$_{(\pm1.08)}$ & 96.04$_{(\pm0.27)}$ & 96.09$_{(\pm0.08)}$ & 95.78$_{(\pm0.39)}$ & 75.65$_{(\pm11.3)}$ & 95.63$_{(\pm1.94)}$ & \bf 97.93$_{(\bf\pm0.13)}$ \\
-& & \bf F1 & 75.79$_{(\pm1.42)}$ & 87.18$_{(\pm1.24)}$ & 90.35$_{(\pm0.51)}$ & 90.02$_{(\pm0.24)}$ & 90.15$_{(\pm0.52)}$ & 74.21$_{(\pm9.22)}$ & 92.83$_{(\pm1.92)}$ & \bf 94.06$_{(\bf\pm0.45)}$ \\
-& & \bf MCC & 39.56$_{(\pm3.66)}$ & 71.83$_{(\pm2.77)}$ & 78.93$_{(\pm1.14)}$ & 77.89$_{(\pm0.36)}$ & 78.48$_{(\pm1.17)}$ & 39.31$_{(\pm19.8)}$ & 84.33$_{(\pm4.12)}$ & \bf 86.72$_{(\bf\pm0.88)}$ \\
+ \multirow{3}{*}{\bf STD} & \bf AUC & 74.57$_{(\pm1.63)}$ & 91.19$_{(\pm1.08)}$ & 96.04$_{(\pm0.27)}$ & 96.09$_{(\pm0.08)}$ & 95.78$_{(\pm0.39)}$ & 75.65$_{(\pm11.3)}$ & 95.63$_{(\pm1.94)}$ & \bf 97.93$_{(\bf\pm0.13)}$ \\
+ & \bf F1 & 75.79$_{(\pm1.42)}$ & 87.18$_{(\pm1.24)}$ & 90.35$_{(\pm0.51)}$ & 90.02$_{(\pm0.24)}$ & 90.15$_{(\pm0.52)}$ & 74.21$_{(\pm9.22)}$ & 92.83$_{(\pm1.92)}$ & \bf 94.06$_{(\bf\pm0.45)}$ \\
+ & \bf MCC & 39.56$_{(\pm3.66)}$ & 71.83$_{(\pm2.77)}$ & 78.93$_{(\pm1.14)}$ & 77.89$_{(\pm0.36)}$ & 78.48$_{(\pm1.17)}$ & 39.31$_{(\pm19.8)}$ & 84.33$_{(\pm4.12)}$ & \bf 86.72$_{(\bf\pm0.88)}$ \\
 
 \addlinespace    
-\cmidrule{2-11}
+\cmidrule{1-10}
 
-& \multirow{3}{*}{\bf GFN} & \bf AUC & 61.97$_{(\pm0.87)}$ & 71.78$_{(\pm3.41)}$ & 74.05$_{(\pm0.84)}$ & 74.84$_{(\pm0.42)}$ & 78.50$_{(\pm1.95)}$ & 67.07$_{(\pm3.25)}$ & 74.91$_{(\pm4.32)}$ & \bf 84.35$_{(\bf\pm1.23)}$ \\
-& & \bf F1 & 74.12$_{(\pm0.71)}$ & 75.51$_{(\pm2.11)}$ & 74.05$_{(\pm0.84)}$ & 77.80$_{(\pm0.38)}$ & 81.20$_{(\pm2.61)}$ & 74.25$_{(\pm2.93)}$ & 76.76$_{(\pm2.71)}$ & \bf 82.88$_{(\bf\pm0.96)}$ \\
-& & \bf MCC & 17.07$_{(\pm1.27)}$ & 24.26$_{(\pm6.56)}$ & 28.08$_{(\pm0.14)}$ & 31.40$_{(\pm1.22)}$ & 37.46$_{(\pm3.87)}$ & 17.86$_{(\pm6.27)}$ & 28.19$_{(\pm8.39)}$ & \bf 47.27$_{(\bf\pm1.49)}$ \\
+\multirow{3}{*}{\bf GFN} & \bf AUC & 61.97$_{(\pm0.87)}$ & 71.78$_{(\pm3.41)}$ & 74.05$_{(\pm0.84)}$ & 74.84$_{(\pm0.42)}$ & 78.50$_{(\pm1.95)}$ & 67.07$_{(\pm3.25)}$ & 74.91$_{(\pm4.32)}$ & \bf 84.35$_{(\bf\pm1.23)}$ \\
+ & \bf F1 & 74.12$_{(\pm0.71)}$ & 75.51$_{(\pm2.11)}$ & 74.05$_{(\pm0.84)}$ & 77.80$_{(\pm0.38)}$ & 81.20$_{(\pm2.61)}$ & 74.25$_{(\pm2.93)}$ & 76.76$_{(\pm2.71)}$ & \bf 82.88$_{(\bf\pm0.96)}$ \\
+ & \bf MCC & 17.07$_{(\pm1.27)}$ & 24.26$_{(\pm6.56)}$ & 28.08$_{(\pm0.14)}$ & 31.40$_{(\pm1.22)}$ & 37.46$_{(\pm3.87)}$ & 17.86$_{(\pm6.27)}$ & 28.19$_{(\pm8.39)}$ & \bf 47.27$_{(\bf\pm1.49)}$ \\
 
 \addlinespace    
-\cmidrule{2-11}
+\cmidrule{1-10}
 
-& \multirow{3}{*}{\bf XC} & \bf AUC & 78.71$_{(\pm1.13)}$ & 67.32$_{(\pm6.52)}$ & 89.18$_{(\pm2.31)}$ & 89.97$_{(\pm0.26)}$ & 85.81$_{(\pm3.17)}$ & 83.35$_{(\pm10.6)}$ & \bf 96.96$_{(\bf\pm1.36)}$ & 96.10$_{(\pm0.41)}$ \\
-& & \bf F1 & 63.33$_{(\pm1.18)}$ & 50.83$_{(\pm7.69)}$ & 75.94$_{(\pm3.30)}$ & 77.59$_{(\pm0.58)}$ & 70.58$_{(\pm3.45)}$ & 69.09$_{(\pm13.4)}$ & \bf 89.60$_{(\bf\pm2.03)}$ & 86.69$_{(\pm0.83)}$ \\
-& & \bf MCC  & 43.42$_{(\pm2.43)}$ & 27.40$_{(\pm11.4)}$ & 63.95$_{(\pm4.63)}$ & 65.35$_{(\pm0.72)}$ & 56.59$_{(\pm4.89)}$ & 52.30$_{(\pm21.3)}$ & \bf 84.07$_{(\bf\pm2.94)}$ & 79.67$_{(\pm0.11)}$ \\
+\multirow{3}{*}{\bf XC} & \bf AUC & 78.71$_{(\pm1.13)}$ & 67.32$_{(\pm6.52)}$ & 89.18$_{(\pm2.31)}$ & 89.97$_{(\pm0.26)}$ & 85.81$_{(\pm3.17)}$ & 83.35$_{(\pm10.6)}$ & \bf 96.96$_{(\bf\pm1.36)}$ & 96.10$_{(\pm0.41)}$ \\
+ & \bf F1 & 63.33$_{(\pm1.18)}$ & 50.83$_{(\pm7.69)}$ & 75.94$_{(\pm3.30)}$ & 77.59$_{(\pm0.58)}$ & 70.58$_{(\pm3.45)}$ & 69.09$_{(\pm13.4)}$ & \bf 89.60$_{(\bf\pm2.03)}$ & 86.69$_{(\pm0.83)}$ \\
+ & \bf MCC  & 43.42$_{(\pm2.43)}$ & 27.40$_{(\pm11.4)}$ & 63.95$_{(\pm4.63)}$ & 65.35$_{(\pm0.72)}$ & 56.59$_{(\pm4.89)}$ & 52.30$_{(\pm21.3)}$ & \bf 84.07$_{(\bf\pm2.94)}$ & 79.67$_{(\pm0.11)}$ \\
 
 \bottomrule
 \end{tabular*}
 \end{table*}
 
 
+
 % \begin{table*}[t]
 % \caption{Performance comparison on the datasets. Mean and standard deviation computed over all entities for benchmark datasets and over five runs for case-study datasets. Bold values indicate best results.}
 % \label{tab:chap_5:benchmark}
 % \setlength\tabcolsep{2pt}
-% \small
-% \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} ll | ccccccc | c }
+% \footnotesize
+% \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}c | ll | ccccccc | >{\columncolor{FireBrick!40}}c }
 % \toprule
-%  & \bf Models & {\rotatebox{60}{\bf IForest}} &  {\rotatebox{60}{\bf Deep-SVDD}} &  {\rotatebox{60}{\bf AE}} &  {\rotatebox{60}{\bf USAD}} &  {\rotatebox{60}{\bf SimCLR}} &  {\rotatebox{60}{\bf SimSiam}} &  {\rotatebox{60}{\bf TS2Vec}} &  {\rotatebox{60}{\bf CATS}} \\
+% & & \bf Models & {\rotatebox{0}{\bf IForest}} &  {\rotatebox{0}{\bf Deep-SVDD}} &  {\rotatebox{0}{\bf AE}} &  {\rotatebox{0}{\bf USAD}} &  {\rotatebox{0}{\bf SimCLR}} &  {\rotatebox{0}{\bf SimSiam}} &  {\rotatebox{0}{\bf TS2Vec}} &  {\rotatebox{0}{\bf CATS}} \\
 % \midrule
-% \bf SMD & \bf AUC & 77.10$_{(\pm11.9)}$ & 75.31$_{(\pm14.5)}$ & 81.33$_{(\pm13.2)}$ & 81.08$_{(\pm12.5)}$ & 80.83$_{(\pm14.7)}$ & 77.26$_{(\pm14.9)}$ & 74.25$_{(\pm16.6)}$ & \bf 82.21$_{(\bf\pm14.3)}$ \\
-% & \bf F1 & 29.88$_{(\pm20.6)}$ & 34.75$_{(\pm21.5)}$ & 46.00$_{(\pm24.3)}$ & 46.62$_{(\pm26.3)}$ & 46.51$_{(\pm25.7)}$ & 41.82$_{(\pm25.3)}$ & 43.18$_{(\pm25.9)}$ & \bf 50.65$_{(\bf\pm23.6)}$ \\
-% & \bf MCC & 29.62$_{(\pm20.8)}$ & 36.25$_{(\pm22.0)}$ & 47.00$_{(\pm24.1)}$ & 47.98$_{(\pm25.1)}$ & 48.06$_{(\pm24.2)}$ & 43.24$_{(\pm24.9)}$ & 44.95$_{(\pm24.7)}$ & \bf 50.85$_{(\bf\pm23.6)}$ \\
+% \multirow{9}{*}{\rotatebox{90}{\bf Benchmark datasets}} & \multirow{3}{*}{\bf SMD} & \bf AUC & 77.10$_{(\pm11.9)}$ & 75.31$_{(\pm14.5)}$ & 81.33$_{(\pm13.2)}$ & 81.08$_{(\pm12.5)}$ & 80.83$_{(\pm14.7)}$ & 77.26$_{(\pm14.9)}$ & 74.25$_{(\pm16.6)}$ & \bf 82.21$_{(\bf\pm14.3)}$ \\
+% & & \bf F1 & 29.88$_{(\pm20.6)}$ & 34.75$_{(\pm21.5)}$ & 46.00$_{(\pm24.3)}$ & 46.62$_{(\pm26.3)}$ & 46.51$_{(\pm25.7)}$ & 41.82$_{(\pm25.3)}$ & 43.18$_{(\pm25.9)}$ & \bf 50.65$_{(\bf\pm23.6)}$ \\
+% & & \bf MCC & 29.62$_{(\pm20.8)}$ & 36.25$_{(\pm22.0)}$ & 47.00$_{(\pm24.1)}$ & 47.98$_{(\pm25.1)}$ & 48.06$_{(\pm24.2)}$ & 43.24$_{(\pm24.9)}$ & 44.95$_{(\pm24.7)}$ & \bf 50.85$_{(\bf\pm23.6)}$ \\
 % \addlinespace    
-% \cmidrule{1-10}
+% \cmidrule{2-11}
 
-% \multirow{3}{*}{\bf MSL} & \bf AUC & 56.94$_{(\pm14.1)}$ & 61.38$_{(\pm17.1)}$ & 62.30$_{(\pm16.1)}$ & 63.31$_{(\pm14.3)}$ & 61.09$_{(\pm15.4)}$ & 62.07$_{(\pm14.3)}$ & 63.95$_{(\pm15.0)}$ & \bf 64.98$_{(\bf\pm15.7)}$ \\
-% & \bf F1 & 21.24$_{(\pm21.4)}$ & 27.93$_{(\pm25.6)}$ & 26.02$_{(\pm22.9)}$ & 27.16$_{(\pm23.0)}$ & 25.72$_{(\pm23.1)}$ & 23.78$_{(\pm23.2)}$ & 28.43$_{(\pm24.5)}$ & \bf 29.15$_{(\bf\pm24.2)}$ \\
-% & \bf MCC & 11.09$_{(\pm21.8)}$ & 19.24$_{(\pm29.2)}$ & 16.49$_{(\pm24.4)}$ & 17.33$_{(\pm24.8)}$ & 16.30$_{(\pm25.1)}$ & 14.11$_{(\pm24.0)}$ & 19.86$_{(\pm24.8)}$ & \bf 20.14$_{(\bf\pm27.8)}$ \\
+% & \multirow{3}{*}{\bf MSL} & \bf AUC & 56.94$_{(\pm14.1)}$ & 61.38$_{(\pm17.1)}$ & 62.30$_{(\pm16.1)}$ & 63.31$_{(\pm14.3)}$ & 61.09$_{(\pm15.4)}$ & 62.07$_{(\pm14.3)}$ & 63.95$_{(\pm15.0)}$ & \bf 64.98$_{(\bf\pm15.7)}$ \\
+% & & \bf F1 & 21.24$_{(\pm21.4)}$ & 27.93$_{(\pm25.6)}$ & 26.02$_{(\pm22.9)}$ & 27.16$_{(\pm23.0)}$ & 25.72$_{(\pm23.1)}$ & 23.78$_{(\pm23.2)}$ & 28.43$_{(\pm24.5)}$ & \bf 29.15$_{(\bf\pm24.2)}$ \\
+% & & \bf MCC & 11.09$_{(\pm21.8)}$ & 19.24$_{(\pm29.2)}$ & 16.49$_{(\pm24.4)}$ & 17.33$_{(\pm24.8)}$ & 16.30$_{(\pm25.1)}$ & 14.11$_{(\pm24.0)}$ & 19.86$_{(\pm24.8)}$ & \bf 20.14$_{(\bf\pm27.8)}$ \\
 
 % \addlinespace    
-% \cmidrule{1-10}
-% \multirow{3}{*}{\bf SMAP} & \bf AUC & 56.98$_{(\pm17.3)}$ & 62.52$_{(\pm19.1)}$ & \bf 64.30$_{(\bf\pm19.6)}$ & 61.11$_{(\pm19.4)}$ & 63.99$_{(\pm17.7)}$ & 62.12$_{(\pm17.1)}$ & 61.42$_{(\pm20.3)}$ & 64.07$_{(\pm18.6)}$ \\
-% & \bf F1 & 22.80$_{(\pm27.2)}$ & 29.20$_{(\pm33.0)}$ & 28.93$_{(\pm33.5)}$ & \bf 30.10$_{(\bf\pm33.1)}$ & 28.23$_{(\pm32.2)}$ & 27.46$_{(\pm33.2)}$ & 28.26$_{(\pm33.2)}$ & 29.07$_{(\pm29.07)}$ \\
-% & \bf MCC & 11.38$_{(\pm29.0)}$ & 23.93$_{(\pm33.1)}$ & 23.96$_{(\pm34.0)}$ & 23.66$_{(\pm34.9)}$ & 22.52$_{(\pm32.2)}$ & 21.44$_{(\pm32.5)}$ &  23.5$_{(\pm32.8)}$ & \bf 24.28$_{(\bf\pm32.7)}$ \\
+% \cmidrule{2-11}
+% & \multirow{3}{*}{\bf SMAP} & \bf AUC & 56.98$_{(\pm17.3)}$ & 62.52$_{(\pm19.1)}$ & \bf 64.30$_{(\bf\pm19.6)}$ & 61.11$_{(\pm19.4)}$ & 63.99$_{(\pm17.7)}$ & 62.12$_{(\pm17.1)}$ & 61.42$_{(\pm20.3)}$ & 64.07$_{(\pm18.6)}$ \\
+% & & \bf F1 & 22.80$_{(\pm27.2)}$ & 29.20$_{(\pm33.0)}$ & 28.93$_{(\pm33.5)}$ & \bf 30.10$_{(\bf\pm33.1)}$ & 28.23$_{(\pm32.2)}$ & 27.46$_{(\pm33.2)}$ & 28.26$_{(\pm33.2)}$ & 29.07$_{(\pm29.07)}$ \\
+% & & \bf MCC & 11.38$_{(\pm29.0)}$ & 23.93$_{(\pm33.1)}$ & 23.96$_{(\pm34.0)}$ & 23.66$_{(\pm34.9)}$ & 22.52$_{(\pm32.2)}$ & 21.44$_{(\pm32.5)}$ &  23.5$_{(\pm32.8)}$ & \bf 24.28$_{(\bf\pm32.7)}$ \\
 
 % \addlinespace    
 % \midrule
 
-% \bf STD & \bf AUC & 74.57$_{(\pm1.63)}$ & 91.19$_{(\pm1.08)}$ & 96.04$_{(\pm0.27)}$ & 96.09$_{(\pm0.08)}$ & 95.78$_{(\pm0.39)}$ & 75.65$_{(\pm11.3)}$ & 95.63$_{(\pm1.94)}$ & \bf 97.93$_{(\bf\pm0.13)}$ \\
-%  & \bf F1 & 75.79$_{(\pm1.42)}$ & 87.18$_{(\pm1.24)}$ & 90.35$_{(\pm0.51)}$ & 90.02$_{(\pm0.24)}$ & 90.15$_{(\pm0.52)}$ & 74.21$_{(\pm9.22)}$ & 92.83$_{(\pm1.92)}$ & \bf 94.06$_{(\bf\pm0.45)}$ \\
-%  & \bf MCC & 39.56$_{(\pm3.66)}$ & 71.83$_{(\pm2.77)}$ & 78.93$_{(\pm1.14)}$ & 77.89$_{(\pm0.36)}$ & 78.48$_{(\pm1.17)}$ & 39.31$_{(\pm19.8)}$ & 84.33$_{(\pm4.12)}$ & \bf 86.72$_{(\bf\pm0.88)}$ \\
+% \multirow{9}{*}{\rotatebox{90}{\bf Case-study datasets}} & \multirow{3}{*}{\bf STD} & \bf AUC & 74.57$_{(\pm1.63)}$ & 91.19$_{(\pm1.08)}$ & 96.04$_{(\pm0.27)}$ & 96.09$_{(\pm0.08)}$ & 95.78$_{(\pm0.39)}$ & 75.65$_{(\pm11.3)}$ & 95.63$_{(\pm1.94)}$ & \bf 97.93$_{(\bf\pm0.13)}$ \\
+% & & \bf F1 & 75.79$_{(\pm1.42)}$ & 87.18$_{(\pm1.24)}$ & 90.35$_{(\pm0.51)}$ & 90.02$_{(\pm0.24)}$ & 90.15$_{(\pm0.52)}$ & 74.21$_{(\pm9.22)}$ & 92.83$_{(\pm1.92)}$ & \bf 94.06$_{(\bf\pm0.45)}$ \\
+% & & \bf MCC & 39.56$_{(\pm3.66)}$ & 71.83$_{(\pm2.77)}$ & 78.93$_{(\pm1.14)}$ & 77.89$_{(\pm0.36)}$ & 78.48$_{(\pm1.17)}$ & 39.31$_{(\pm19.8)}$ & 84.33$_{(\pm4.12)}$ & \bf 86.72$_{(\bf\pm0.88)}$ \\
 
 % \addlinespace    
-% \cmidrule{1-10}
+% \cmidrule{2-11}
 
-% \multirow{3}{*}{\bf GFN} & \bf AUC & 61.97$_{(\pm0.87)}$ & 71.78$_{(\pm3.41)}$ & 74.05$_{(\pm0.84)}$ & 74.84$_{(\pm0.42)}$ & 78.50$_{(\pm1.95)}$ & 67.07$_{(\pm3.25)}$ & 74.91$_{(\pm4.32)}$ & \bf 84.35$_{(\bf\pm1.23)}$ \\
-% & \bf F1 & 74.12$_{(\pm0.71)}$ & 75.51$_{(\pm2.11)}$ & 74.05$_{(\pm0.84)}$ & 77.80$_{(\pm0.38)}$ & 81.20$_{(\pm2.61)}$ & 74.25$_{(\pm2.93)}$ & 76.76$_{(\pm2.71)}$ & \bf 82.88$_{(\bf\pm0.96)}$ \\
-% & \bf MCC & 17.07$_{(\pm1.27)}$ & 24.26$_{(\pm6.56)}$ & 28.08$_{(\pm0.14)}$ & 31.40$_{(\pm1.22)}$ & 37.46$_{(\pm3.87)}$ & 17.86$_{(\pm6.27)}$ & 28.19$_{(\pm8.39)}$ & \bf 47.27$_{(\bf\pm1.49)}$ \\
+% & \multirow{3}{*}{\bf GFN} & \bf AUC & 61.97$_{(\pm0.87)}$ & 71.78$_{(\pm3.41)}$ & 74.05$_{(\pm0.84)}$ & 74.84$_{(\pm0.42)}$ & 78.50$_{(\pm1.95)}$ & 67.07$_{(\pm3.25)}$ & 74.91$_{(\pm4.32)}$ & \bf 84.35$_{(\bf\pm1.23)}$ \\
+% & & \bf F1 & 74.12$_{(\pm0.71)}$ & 75.51$_{(\pm2.11)}$ & 74.05$_{(\pm0.84)}$ & 77.80$_{(\pm0.38)}$ & 81.20$_{(\pm2.61)}$ & 74.25$_{(\pm2.93)}$ & 76.76$_{(\pm2.71)}$ & \bf 82.88$_{(\bf\pm0.96)}$ \\
+% & & \bf MCC & 17.07$_{(\pm1.27)}$ & 24.26$_{(\pm6.56)}$ & 28.08$_{(\pm0.14)}$ & 31.40$_{(\pm1.22)}$ & 37.46$_{(\pm3.87)}$ & 17.86$_{(\pm6.27)}$ & 28.19$_{(\pm8.39)}$ & \bf 47.27$_{(\bf\pm1.49)}$ \\
 
 % \addlinespace    
-% \cmidrule{1-10}
+% \cmidrule{2-11}
 
-% \multirow{3}{*}{\bf XC} & \bf AUC & 78.71$_{(\pm1.13)}$ & 67.32$_{(\pm6.52)}$ & 89.18$_{(\pm2.31)}$ & 89.97$_{(\pm0.26)}$ & 85.81$_{(\pm3.17)}$ & 83.35$_{(\pm10.6)}$ & \bf 96.96$_{(\bf\pm1.36)}$ & 96.10$_{(\pm0.41)}$ \\
-% & \bf F1 & 63.33$_{(\pm1.18)}$ & 50.83$_{(\pm7.69)}$ & 75.94$_{(\pm3.30)}$ & 77.59$_{(\pm0.58)}$ & 70.58$_{(\pm3.45)}$ & 69.09$_{(\pm13.4)}$ & \bf 89.60$_{(\bf\pm2.03)}$ & 86.69$_{(\pm0.83)}$ \\
-% & \bf MCC  & 43.42$_{(\pm2.43)}$ & 27.40$_{(\pm11.4)}$ & 63.95$_{(\pm4.63)}$ & 65.35$_{(\pm0.72)}$ & 56.59$_{(\pm4.89)}$ & 52.30$_{(\pm21.3)}$ & \bf 84.07$_{(\bf\pm2.94)}$ & 79.67$_{(\pm0.11)}$ \\
+% & \multirow{3}{*}{\bf XC} & \bf AUC & 78.71$_{(\pm1.13)}$ & 67.32$_{(\pm6.52)}$ & 89.18$_{(\pm2.31)}$ & 89.97$_{(\pm0.26)}$ & 85.81$_{(\pm3.17)}$ & 83.35$_{(\pm10.6)}$ & \bf 96.96$_{(\bf\pm1.36)}$ & 96.10$_{(\pm0.41)}$ \\
+% & & \bf F1 & 63.33$_{(\pm1.18)}$ & 50.83$_{(\pm7.69)}$ & 75.94$_{(\pm3.30)}$ & 77.59$_{(\pm0.58)}$ & 70.58$_{(\pm3.45)}$ & 69.09$_{(\pm13.4)}$ & \bf 89.60$_{(\bf\pm2.03)}$ & 86.69$_{(\pm0.83)}$ \\
+% & & \bf MCC  & 43.42$_{(\pm2.43)}$ & 27.40$_{(\pm11.4)}$ & 63.95$_{(\pm4.63)}$ & 65.35$_{(\pm0.72)}$ & 56.59$_{(\pm4.89)}$ & 52.30$_{(\pm21.3)}$ & \bf 84.07$_{(\bf\pm2.94)}$ & 79.67$_{(\pm0.11)}$ \\
 
 % \bottomrule
 % \end{tabular*}
 % \end{table*}
 
 
-
-% \begin{table*}[t]
-% \caption{Performance comparison on the three use-case datasets. Mean and standard deviation over five runs. Bold values indicate best results.}\label{tab:chap_5:benchmark_cg}
-% \setlength\tabcolsep{2pt}
-% \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l | ccc | ccc | ccc }
-
-% \toprule
-%         & \multicolumn{3}{c}{\bf STD} & \multicolumn{3}{c}{\bf GFN} & \multicolumn{3}{c}{\bf XC}\\
-% % \cmidrule{2-5} \cmidrule{6-9} \cmidrule{10-13}
-% \midrule
-% \bf Models & \bf AUC & \bf F1 & \bf MCC & \bf AUC & \bf F1 & \bf MCC & \bf AUC & \bf F1 & \bf MCC \\
-% \midrule
-% IForest & 74.57$_{(\pm1.63)}$ & 75.79$_{(\pm1.42)}$ & 39.56$_{(\pm3.66)}$ & 61.97$_{(\pm0.87)}$ & 74.12$_{(\pm0.71)}$ & 17.07$_{(\pm1.27)}$ & 78.71$_{(\pm1.13)}$ & 63.33$_{(\pm1.18)}$ & 43.42$_{(\pm2.43)}$ \\
-% \addlinespace    
-% \midrule
-% Deep-SVDD & 91.19$_{(\pm1.08)}$ & 87.18$_{(\pm1.24)}$ & 71.83$_{(\pm2.77)}$ & 71.78$_{(\pm3.41)}$ & 75.51$_{(\pm2.11)}$ & 24.26$_{(\pm6.56)}$ & 67.32$_{(\pm6.52)}$ & 50.83$_{(\pm7.69)}$ & 27.40$_{(\pm11.4)}$ \\
-% AE & 96.04$_{(\pm0.27)}$  & 90.35$_{(\pm0.51)}$ & 78.93$_{(\pm1.14)}$ & 74.05$_{(\pm0.84)}$ & 74.05$_{(\pm0.84)}$ & 28.08$_{(\pm0.14)}$ & 89.18$_{(\pm2.31)}$ & 75.94$_{(\pm3.30)}$ & 63.95$_{(\pm4.63)}$ \\
-% USAD & 96.09$_{(\pm0.08)}$ & 90.02$_{(\pm0.24)}$ & 77.89$_{(\pm0.36)}$ & 74.84$_{(\pm0.42)}$ & 77.80$_{(\pm0.38)}$ & 31.40$_{(\pm1.22)}$ & 89.97$_{(\pm0.26)}$ & 77.59$_{(\pm0.58)}$ & 65.35$_{(\pm0.72)}$ \\
-% \addlinespace    
-% \midrule
-% SimCLR & 95.78$_{(\pm0.39)}$ & 90.15$_{(\pm0.52)}$ & 78.48$_{(\pm1.17)}$ & 78.50$_{(\pm1.95)}$ & 81.20$_{(\pm2.61)}$ & 37.46$_{(\pm3.87)}$ & 85.81$_{(\pm3.17)}$ & 70.58$_{(\pm3.45)}$ & 56.59$_{(\pm4.89)}$ \\
-% SimSiam & 75.65$_{(\pm11.3)}$ & 74.21$_{(\pm9.22)}$ & 39.31$_{(\pm19.8)}$ & 67.07$_{(\pm3.25)}$ & 74.25$_{(\pm2.93)}$ & 17.86$_{(\pm6.27)}$ & 83.35$_{(\pm10.6)}$ & 69.09$_{(\pm13.4)}$ & 52.30$_{(\pm21.3)}$ \\
-% TS2Vec & 95.63$_{(\pm1.94)}$ & 92.83$_{(\pm1.92)}$ & 84.33$_{(\pm4.12)}$ & 74.91$_{(\pm4.32)}$ & 76.76$_{(\pm2.71)}$ & 28.19$_{(\pm8.39)}$ & \bf 96.96$_{(\bf\pm1.36)}$ & \bf 89.60$_{(\bf\pm2.03)}$ & \bf 84.07$_{(\bf\pm2.94)}$ \\
-% \addlinespace    
-% \midrule
-% \bf CATS & \bf 97.93$_{(\bf \pm0.13)}$ & \bf 94.06$_{(\bf \pm0.45)}$ & \bf 86.72$_{\bf(\pm0.88)}$ & \bf 84.35$_{(\bf\pm1.23)}$ & \bf 82.88$_{(\bf \pm0.96)}$ & \bf 47.27$_{(\bf \pm1.49)}$ & 96.10$_{(\pm0.41)}$ & 86.69$_{(\pm0.83)}$ & 79.67$_{(\pm0.11)}$ \\
-% \addlinespace    
-% \bottomrule
-% \end{tabular*}
-% \end{table*}
-
-% \begin{figure}[t]
-%   \centering
-%   \begin{tabular}{@{}c@{}}
-%   %\label{fig:chap_5:f1_cdd}
-%     \includegraphics[width=\linewidth]{imgs/chapter_5/f1-cdd.png} \\[\abovecaptionskip]
-%     \small (a) F1-score
-%   \end{tabular}
-
-%   \vspace{\floatsep}
-
-%   \begin{tabular}{@{}c@{}}
-%   %\label{fig:chap_5:mcc_cdd}
-%     \includegraphics[width=\linewidth]{imgs/chapter_5/mcc-cdd.png} \\[\abovecaptionskip]
-%     \small (b) MCC score
-%   \end{tabular}
-
-%   \caption{Critical Diagram Difference of the models with all the six datasets using (a) F1-score and (b) MCC.}\label{fig:chap_5:cdd}
-% \end{figure}
 
 
 \subsection{Performance comparison}
@@ -280,13 +201,15 @@ Since the benchmark datasets consist of multiple sub-datasets, we report the ave
 
 
 
-\subsubsection{Case-study datasets}
+\subsubsection{Case-study datasets: Cloud Gaming KPIs}
 
 The reported outcomes on the case study datasets represent the average of five independent runs, ensuring fair comparisons across methods using the same evaluation metrics as previously mentioned. CATS achieves the best performance on all datasets, except for the XC dataset, where it ranks second.
 
 
 %We present in Fig. \ref{fig:chap_5:cdd} the average ranks of the compared models on different datasets using the F1-score and MCC scores. These results demonstrate that our model performs on average better than the other methods on all the datasets. However the Critical Difference is large due to the limited numbers of datasets used. 
 The experimental results show that our model performs on average better than the other methods on all datasets. It also suggests that traditional contrastive learning only is not sufficient for AD since unsupervised models like AE and USAD perform on average better than SimCLR or SimSiam. However, by considering temporal dependencies and introducing knowledge of the anomaly class, the AD performance is enhanced as shown through CATS results.
+
+\takeaway{CATS achieves superior performance across benchmark and Cloud Gaming KPIs datasets, outperforming other methods on most datasets and ranking second on SMAP and XC. By integrating temporal dependencies and anomaly class knowledge, CATS surpasses traditional contrastive learning and unsupervised ML baselines.}
 
 
 \subsection{Ablation studies}
@@ -318,7 +241,7 @@ $\mathcal{L}_{TCL}$ & 79.93$_{(\pm2.69)}$ & 38.12$_{(\pm8.32)}$ & 76.57$_{(\pm5.
 \addlinespace
 $\mathcal{L}_{w/o-crop}$ & 80.44$_{(\pm2.01)}$ & 33.45$_{(\pm1.96)}$ & 85.68$_{(\pm2.52)}$ & 78.31$_{(\pm3.67)}$ \\
 \addlinespace
-$\mathcal{L}_{GCL} + \mathcal{L}_{TCL}$ & \bf 82.88$_{(\bf\pm0.96)}$ & \bf 47.27$_{(\bf\pm1.49)}$ & \bf 86.69$_{(\bf\pm0.83)}$ & \bf 79.67$_{(\bf\pm0.11)}$ \\
+\rowcolor{FireBrick!40} $\mathcal{L}_{GCL} + \mathcal{L}_{TCL}$ & \bf 82.88$_{(\bf\pm0.96)}$ & \bf 47.27$_{(\bf\pm1.49)}$ & \bf 86.69$_{(\bf\pm0.83)}$ & \bf 79.67$_{(\bf\pm0.11)}$ \\
 
 % \midrule
 
@@ -378,6 +301,7 @@ $\mathcal{L}_{GCL} + \mathcal{L}_{TCL}$ & \bf 82.88$_{(\bf\pm0.96)}$ & \bf 47.27
     \label{fig:chap_5:data_augment}
 \end{figure}
 
+\takeaway{The ablation studies demonstrate that the combined loss $\mathcal{L}$ significantly improves CATS' performance, with each component playing a distinct role: GCL surpasses NT-Xent due to its use of multiple negative pairs, while TCL provides additional enhancements when integrated with GCL. Random cropping is a critical component of the framework, and fine-tuning data augmentation strategies for specific datasets further optimizes performance.}
 
 \subsection{Data contamination impact}
 
@@ -391,6 +315,7 @@ Among the compared models, with the exception of the iForest model, the performa
 We attribute CATS's behavior to the use of negative data augmentation during the learning process, which helps the model recognize anomalies. However, the extent of this improvement is limited due to the use of synthetic anomalies. Further experiments should be conducted in future work to explore the potential enhancements in robustness that can be achieved by incorporating more data-specific synthetic anomalies. 
 %\abdelkader{Plutôt more data-specific negative samples ?}.
 
+\takeaway{The robustness evaluation shows that while all models (except iForest) experience performance degradation as data contamination increases, CATS consistently outperforms its counterparts across all contamination levels, maintaining the highest F1-scores even at a contamination rate of 20\%. This robustness of CATS is attributed to the use of negative data augmentation.}
 
 \begin{figure}[!ht]
     \centering
@@ -411,3 +336,5 @@ We attribute CATS's behavior to the use of negative data augmentation during the
 We study here how some CATS hyperparameters, namely the temperature $\tau$, Soft-DTW smoothing parameter $\gamma$, the margin $m$, the embedding size, the projection size and the batch size may impact the performance. We illustrate that with Fig. \ref{fig:chap_5:sensitivity} on GFN dataset. Our experimental results reveal that the temperature parameter $\tau$ and the margin $m$ are the most influential hyperparameters. Lower $\tau$ values enable the model to enhance its learning by focusing on hard-negatives i.e., negative samples that are closer to the positive samples \cite{chen2020simple}. Conversely, the results show that larger margins lead to suboptimal performance. This is because larger margins penalize negatives that are not distant enough from the anchors and the positives. 
 
 Furthermore, our findings indicate that lower embedding sizes, projection sizes and batch sizes reduce the efficacy of CATS model to learn a good representation for AD. These results highlight the importance of the hyperparameters selection for CATS model.
+
+\takeaway{The hyperparameter sensitivity analysis reveals that the temperature parameter $\tau$ and margin $m$ have the most significant impact on CATS' performance.}
