@@ -56,24 +56,24 @@ For the two-stage models, we replace the CATS model in the first stage with unsu
     \item \textbf{SimCLR \cite{chen2020simple}:} A contrastive learning framework originally proposed for computer vision and adapted for time series. It learns representations from augmented views of data and can be used for anomaly detection following a procedure similar to the CATS framework.
 \end{itemize}
 
-\subsection{Evaluation Metrics}
-We evaluate the performance of our root-cause diagnosis models using well-known multi-class classification metrics, including weighted Precision (P), weighted Recall (R), weighted F1-score (F1), Accuracy (Acc), and Normalized Accuracy (N-Acc). These metrics are defined as follows:
+\subsection{Evaluation Metrics for Cause Classification}
+We evaluate the performance of our root-cause diagnosis models using well-known multi-class classification metrics which differ from the AD metrics presented in Chapter \ref{chap:related_work}. These metrics include weighted Precision (P), weighted Recall (R), weighted F1-score (F1), Accuracy (Acc), and Normalized Accuracy (N-Acc). These metrics are defined as follows:
 \begin{itemize}
     \item \textbf{Precision:} The macro-weighted precision is the weighted average of precision values computed for each class, $w_i$ being the proportion of class $i$:
-        \begin{equation}
+        \begin{equation}\label{w-precision}
             P = \sum_{i=1}^{K} w_i \times P_i, \quad P_i = \frac{TP_i}{TP_i + FP_i}
         \end{equation}
     \item \textbf{Recall:} The macro-weighted recall is the weighted average of recall values computed for each class, $w_i$ being the proportion of class $i$:
-        \begin{equation}
+        \begin{equation}\label{w-recall}
             R = \sum_{i=1}^{K} w_i \times R_i, \quad R_i = \frac{TP_i}{TP_i + FN_i}
         \end{equation}
     \item \textbf{F1-Score:} The macro-weighted F1-score is the harmonic mean of macro-weighted Precision and Recall. This metric coupled P and R are suitable for imbalanced datasets.
-        \begin{equation}
+        \begin{equation}\label{w-f1}
             F1 = 2 \times \frac{P \times R}{P + R}
         \end{equation}
     \item \textbf{Accuracy:} The fraction of correctly classified samples over the total number of samples. This metric is widely used and easy to interpret.
     \item \textbf{Normalized Accuracy (N-Acc):} This metric adjusts the balanced accuracy ($bac = \frac{1}{K} \sum_{i=1}^{K} w_i \times R_i$)  which is the weighted average of the recall of each class with respect to the accuracy of random guessing ($bac_{RG}$), ensuring that random predictions score 0 while perfect predictions score 1. It is more interpretable and suitable for imbalanced datasets.
-        \begin{equation}
+        \begin{equation}\label{n-acc}
             \text{N-Acc} = \frac{bac - bac_{RG}}{1 - bac_{RG}}
         \end{equation}
 \end{itemize}
@@ -84,4 +84,4 @@ For our detector solution, we use the same implementation details as CATS archit
 
 For competing solutions, we rely on publicly available implementations provided on Github. We use the same epochs, optimizer, learning rate and batch size. After pretraining of SSL competing solutions, classification is performed using a SVM with an RBF kernel. Hyper-parameters of the SVM are fine-tuned using a grid search procedure to achieve optimal performance.
 
-Experiments are performed on a Ubuntu 22.04 with AMD Ryzen 9 5900X 12-Core Processor and a NVIDIA RTX 3090 Ti of 24GB. Python 3.10.12 is used as programming language, PyTorch 2.2.0 as the deep learning framework and CUDA 12.1 for GPU acceleration. The code and datasets to reproduce all the experiments are provided. All details, implementation and hyper-parameters are included.
+Experiments are performed on a Ubuntu 22.04 with AMD Ryzen 9 5900X 12-Core Processor and a NVIDIA RTX 3090 Ti of 24GB. Python 3.10.12 is used as programming language, PyTorch 2.2.0 as the deep learning framework and CUDA 12.1 for GPU acceleration. The code and datasets to reproduce all the experiments are provided \footnote{\url{https://github.com/joelromanky/raid}}. All details, implementation and hyper-parameters are included.

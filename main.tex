@@ -23,7 +23,7 @@
 % Si on veut le style de bibliographie named :
 %\usepackage{named}
 
-
+\usepackage{mdframed}
 
 
 % Define "definition" environment
@@ -39,7 +39,7 @@
 
 % Pour les figures :
 \usepackage{graphicx}
-
+\usepackage{float}
 % Si on veut des mini-tables des matières (utiliser minitoc-hyper 
 % en conjonction avec tulhypref) :
 \usepackage{minitoc-hyper}
@@ -191,7 +191,7 @@
 }
 
 \newcommand{\usage}[1]{
-    \roundedbox[MediumSlateBlue]{Connection to the thesis objectives}{#1}
+    \roundedbox[MediumSlateBlue]{Link to the thesis objectives}{#1}
 }
 
 
@@ -330,13 +330,14 @@
 %                         Page de titre:
 %-------------------------------------------------------------------
 
-\ThesisTitle{Anomaly Detection and Root Cause Diagnosis for Low-Latency Applications in Time-varying capacity networks}
-\ThesisDate{XX mars 2025}
+\ThesisTitle{Anomaly Detection and Root Cause Diagnosis for Low-Latency Applications in Time-Varying Capacity Networks}
+\ThesisDate{XX avril 2025}
 \ThesisAuthor{Joël Roman Ky}
 
 % Type de la these
 \ThesisUL
 
+% \SetLab{LORIA}
 % Jury:
 
 % (ne pas mettre de \\ apres la dernière entree)
@@ -372,10 +373,10 @@
 \President    = {Le président}
 
 \Rapporteurs  = {Sandrine Vaton & Professeure, IMT Atlantique, France \\
-                 Nadjib Ait Saadi & Professeur, UVSQ Paris-Saclay, France}
+                 Nadjib Aitsaadi & Professeur, UVSQ Paris-Saclay, France}
 
-\Examinateurs = {L'examinateur 1&d'ici\\
-                 L'examinateur 2}
+\Examinateurs = {Claudia-Lavinia Ignat & Directrice de recherche, INRIA Nancy, France \\
+                Yacine Ghamri-Doudane & Professeur, Université de la Rochelle, France}
 
 \Encadrants = {Raouf Boutaba & Professor, University of Waterloo, Canada \\
                 Abdelkader Lahmadi & Maître de conférences, Université de Lorraine, France}
@@ -503,6 +504,9 @@ qui fut la première de toutes.
 \Annex{Characterisation of Orange 4G transmission opportunities} \label{txops_annex}
 \input{chapters/annexes/txops_file}
 
+\Annex{Supplemental results for Chapter 4} \label{wad-cats}
+\input{chapters/annexes/cats_wad}
+
 
 %-------------------------------------------------------------------
 %               Bibliography
@@ -530,13 +534,20 @@ qui fut la première de toutes.
 \SpecialSection{Acronyms}\label{chap:acronyms}
 \input{chapters/acronyms}
 
+\EmptyPageStyle{empty}
 
 %-------------------------------------------------------------------
 %               Abstract
 %-------------------------------------------------------------------
 
+
+
+%\footnotesize
 \begin{ThesisAbstract}
     \begin{FrenchAbstract}
+\begin{mdframed}
+    \textbf{\underline{Titre:}} Détection d'Anomalies et Diagnostic des Causes Racines des Applications à Faible-Latence sur les Réseaux à Capacité Variable. \\
+    
         L'évolution des réseaux a conduit à l'émergence d'applications à faible latence (FL) telles que le cloud gaming (CG) et la réalité virtuelle basée sur le cloud (Cloud VR), qui exigent des conditions réseau strictes, notamment une faible latence et une bande passante élevée. Cependant, les réseaux à capacité variable introduisent des dégradations, telles que du délai, des fluctuations de bande passante et des pertes de paquets, qui peuvent significativement altérer l'expérience utilisateur sur les applications LL. Cette thèse vise à concevoir des méthodologies pour détecter et diagnostiquer les anomalies de performance des applications FL fonctionnant sur des réseaux cellulaires et Wi-Fi.
 
         Pour atteindre cet objectif, des bancs d'essai expérimentaux réalistes ont été mis en place pour collecter des bases de données caractérisant les performances du réseau et capturant les indicateurs clés de performance (KPI) des applications CG et Cloud VR dans des environnements 4G et Wi-Fi. Ces données constituent la base de l'évaluation et du développement d'algorithmes de détection d'anomalies et de diagnostic basés sur l'apprentissage automatique.
@@ -545,10 +556,16 @@ qui fut la première de toutes.
 
         Les résultats de ce travail font progresser les domaines de la détection d'anomalies et du diagnostic des causes racines, offrant des perspectives concrètes aux opérateurs de réseaux pour optimiser les performances de leurs réseaux et améliorer la fiabilité des services et mieux supporter les applications FL, qui sont appelées à révolutionner les technologies de communication et à stimuler l'innovation dans de nombreuses industries.
         \KeyWords{Applications à faible latence, Réseaux à capacité variable, Détection d'anomalies, Diagnostic des causes, Apprentissage machine}
-        
+\end{mdframed}        
     \end{FrenchAbstract}
+    
     \newpage
-    \begin{EnglishAbstract}
+    
+\begin{EnglishAbstract}
+
+\begin{mdframed}
+    \textbf{\underline{Title:}} Anomaly Detection and Root Cause Diagnosis for Low-Latency Applications in Time-Varying Capacity Networks. \\
+    
         The evolution of networks has driven the emergence of low-latency (LL) applications such as cloud gaming (CG) and cloud virtual reality (Cloud VR), which demand stringent network conditions, including low latency and high bandwidth. However, time-varying capacity networks introduce impairments such as delays, bandwidth fluctuations, and packet loss, which can significantly degrade user experience on LL applications. This research aims to design methodologies for detecting and diagnosing performance anomalies in LL applications operating over cellular and Wi-Fi networks.
 
         To achieve this, realistic experimental testbeds were established to collect datasets that characterize network performance and capture key performance indicators (KPIs) of CG and Cloud VR applications over 4G and Wi-Fi environments. These datasets serve as the foundation for evaluating and developing machine learning-based anomaly detection and diagnostic frameworks.
@@ -557,7 +574,10 @@ qui fut la première de toutes.
 
         The findings of this work advance the fields of anomaly detection and root cause diagnosis, offering actionable insights for network operators to optimize network performance and enhance service reliability to support LL applications, which are set to revolutionize communication technologies and drive innovation across various industries.
         \KeyWords{Low-latency applications, Time-varying capacity networks, Anomaly Detection, Root Cause Diagnosis, Machine Learning}
-    \end{EnglishAbstract}
+\end{mdframed}
+\end{EnglishAbstract}
+    
+
 \end{ThesisAbstract}
 
 

@@ -4,7 +4,7 @@ In this section, we describe our general methodology for evaluating ML models to
 \subsection{Problem statement}
 Our goal is to detect the end-users' QoE degradation in CG sessions. For this, we decided to base our detection analysis using windows of observations, instead of individual points of observation. Indeed, QoE degradation lasting 5ms is not perceptible by human beings for whom the perception of latency is around 150ms \cite{Amano2006EstimationOT}. Therefore, we evaluate the ML models with 3 window sizes $p \in \{10,20,30\}$ to perform a detection within $50, 100, 150$ ms respectively, and have a representative time of perception (i.e., very reactive people to less reactive ones, via mean value).
 
-As such, we can formalize our problem as follows: we denote the time-series of our datasets as $x = \{x_1,x_2, ..., x_T\}$, where $T$ is the length of $x$ and $x_t \in \mathbb{R}^m$ denotes a $m$-dimensional vector corresponding to the values of our $m$ features at time $t$. For the representation of observations in windows, we split $x$ into sequences of windows $W = \{w_1, w_2, ..., w_{T-p+1}\}$ with stride 1 where $w_t = \{x_t, x_{t+1}, ..., x_{t+p-1}\}$, $p$ being the window size.
+As such, we can formalize our problem as follows: we denote the time-series of our datasets as $x = \{x_1,x_2, ..., x_T\}$, where $T$ is the length of $x$ and $x_t \in \mathbb{R}^m$ denotes a $m$-dimensional vector corresponding to the values of our $m$ features at time $t$. For the representation of observations in windows, we split $x$ into sequences of windows $W = \{w_1, w_2, ..., w_{T-p+1}\}$ with stride 1 (5ms) where $w_t = \{x_t, x_{t+1}, ..., x_{t+p-1}\}$, $p$ being the window size.
 
 Given an unsupervised anomaly detection model $\mathcal{M}$, a set of parameters $\mathcal{W}$ is learnt to output an anomaly score $s(\tilde{x_t})$ for each unseen observation $\tilde{x_t}$. From this anomaly score and a carefully chosen threshold $\delta$, a binary variable $\tilde{y_t} \in \{0,1\}$ is assigned for each observation as follows:
 \begin{equation}
@@ -15,7 +15,7 @@ Given an unsupervised anomaly detection model $\mathcal{M}$, a set of parameters
     \end{cases}
 \end{equation}
 
-The goal of the window-based detection of anomalies is to correctly map the binary value of each observation within a window to a binary value for the whole window. Since we focus on perceptible end-users’s QoE degradation, a large part of the window observations should be anomalous so that the windows is classified as anomalous. In the remainder of the chapter, we consider a window as anomalous if at least 80\% of observations in the window are anomalous.
+%The goal of the window-based detection of anomalies is to correctly map the binary value of each observation within a window to a binary value for the whole window. Since we focus on perceptible end-users’s QoE degradation, a large part of the window observations should be anomalous so that the windows is classified as anomalous. In the remainder of the chapter, we consider a window as anomalous if at least 80\% of observations in the window are anomalous.
 
 % Include a tab of features
 \begin{table}[t]
@@ -76,16 +76,16 @@ The goal of the window-based detection of anomalies is to correctly map the bina
 
 
 \subsection{Data collection}
-We rely on the datasets used in our previous work \cite{Ky2022}\footnote{Datasets are available as OpenData : \url{https://cloud-gaming-traces.lhs.loria.fr/ANR-19-CE25-0012_std_gfn_xc_cg_webrtc_metrics.7z}} which contain time-series features of QoE and QoS collected while playing racing games on public cloud gaming platforms:
+We rely on the CG datasets collected in Chapter \ref{chap:measurements} \footnote{Datasets are available as OpenData : \url{https://cloud-gaming-traces.lhs.loria.fr/ANR-19-CE25-0012_std_gfn_xc_cg_webrtc_metrics.7z}} which contain time-series features of QoE and QoS collected while playing racing games on public cloud gaming platforms:
 \begin{itemize}
     \item \textit{Dirt 4} for Google Stadia (STD);
     \item \textit{TrackMania} for Nvidia GeForce Now (GFN);
     \item \textit{F1 2021} for Microsoft Xbox Cloud (XC).
 \end{itemize}
 A set of 14 features (cf. Table \ref{tab:chap_3:datasets_description}) were collected through the Chromium WebRTC API adapted by the DECAF tool \cite{Iqbal2021DissectingCG}. The measurements were performed under 6 different 4G network conditions, with 5 differing in the average downlink throughput and 1 in a mobility scenario on a highway. 
-More details about the testbed, the network conditions and the datasets are available in \cite{Ky2022}.
+%More details about the testbed, the network conditions and the datasets are available in \cite{Ky2022}.
 
-The collected datasets are unlabelled (i.e., with no ground-truths). Consequently, evaluation of the models performance with well-known ML evaluation metrics, such as Precision, Recall or F1-score is not possible. We hence create ground-truth $(y_t)_{t\in \|1,T\|}$ (i.e., labels) for evaluation purposes (and intrinsically to split the data), but the labels are not used by ML algorithms during training. According to the CG platform's recommendations for high quality streaming,\footnote{\url{https://support.google.com/stadia/answer/9607891?hl=fr/}} \footnote{\url{https://www.nvidia.com/en-us/geforce/products/geforce-now/system-reqs/}} we define the ground-truths based on the following criteria ($\gamma = 1080$ for STD and XC and $\gamma = 768$ for GFN):
+The collected datasets are unlabeled (i.e., with no ground-truths). Consequently, evaluation of the models performance with well-known ML evaluation metrics, such as Precision, Recall or F1-score is not possible. We hence create ground-truth $(y_t)_{t\in \|1,T\|}$ (i.e., labels) for evaluation purposes (and intrinsically to split the data), but the labels are not used by ML algorithms during training. According to the CG platform's recommendations for high quality streaming,\footnote{\url{https://support.google.com/stadia/answer/9607891?hl=fr/}} \footnote{\url{https://www.nvidia.com/en-us/geforce/products/geforce-now/system-reqs/}} we define the ground-truths based on the following criteria ($\gamma = 1080$ for STD and XC and $\gamma = 768$ for GFN):
 
 \begin{equation}
     y_t = 
@@ -108,7 +108,7 @@ Using these ground-truth labels as a reference, we define a ground-truth window 
 \subsection{Data processing and splitting}
 The features of the datasets are resampled to have a fixed time-step of 5ms and they are normalized before training.
 We build the training and testing sets following the splitting strategy proposed by Zong et al. \cite{zong2018deep} which ensures consistency over different experiments and allow to perform a fair evaluation. The entire dataset is split as follows: $50\%$ of the normal samples are associated to the training set while the remaining $50\%$ are considered as a test set. The test set also contains $60\%$ of the anomalous samples. The remaining $40\%$ of the anomalous samples compose a set called the contamination set. The anomalous samples in the latter set, are actual instances of anomalies that occurred during gameplay, and were subsequently collected in our datasets. They serve to \textit{contaminate} the training set with anomalous samples (with a ratio $c\in\{0\%,4\%,8\%,12\%,20\%\}$) and study the robustness of ML algorithms to data contamination. The rationale behind this splitting strategy is to maintain consistency across various experiments and ensure fairness in evaluating model performance under conditions of data contamination.
- Table \ref{tab:chap_3:datasets} shows the summary of our datasets after the splitting step.
+ Table \ref{tab:chap_3:datasets} shows the summary of our datasets after the splitting step with the number of normal/anomalous windows in the train and test sets.
  
  % Add tab for datasets stats
 \begin{table}[t]
@@ -154,11 +154,11 @@ we therefore propose a Window Anomaly Decision (WAD) approach to accurately eval
 
 \begin{figure*}[!t]
   \centering
-  \begin{tabular}{ c @{\hspace{0pt}} c}
-  \includegraphics[width=0.5\textwidth]{imgs/chapter_3/window_comparison_1.png}
+  \begin{tabular}{ c @{\hspace{2pt}} c}
+  \includegraphics[width=0.49\textwidth]{imgs/chapter_3/window_comparison_1.png}
     &
   %\medskip
-    \includegraphics[width=0.5\textwidth]{imgs/chapter_3/window_comparison_2.png} \\
+    \includegraphics[width=0.49\textwidth]{imgs/chapter_3/window_comparison_2.png} \\
      \small \textbf{(a) Prediction on anomaly windows} &
     \small \textbf{(b) Prediction on normal windows}  \\
   \end{tabular}
@@ -210,36 +210,10 @@ Following the previous explanations, Fig \ref{fig:chap_3:window_comparison} pres
 
 
 \subsection{Performance evaluation metrics}
-The performance of the unsupervised ML algorithms is assessed using Precision (P), Recall (R) and F1-score (F1) which are defined as follows:
 
-\begin{equation}
-    P= \frac{TP}{TP+FP} 
-\end{equation}
+The performance of the unsupervised ML algorithms in our experiments is assessed using the F1-score (Eq. \ref{eq:f1}) and MCC (Eq. \ref{eq:mcc}), as described in Chapter \ref{chap:related_work}. We exclude the AUC score (Eq. \ref{eq:auroc}), which can produce misleading results when dealing with imbalanced datasets \cite{Saito2015ThePP, Ky2022}. MCC is preferred for a more balanced assessment of the model’s ability to predict both anomalous and normal instances.
 
-\begin{equation}
-    R= \frac{TP}{TP+FN}
-\end{equation}
-
-\begin{equation}
-    F1= 2. \frac{P.R}{P+R}
-\end{equation}
-
-\noindent
-where TP, FP, FN denote the number of True Positives, False Positives and False Negatives, respectively. Precision denotes the fraction of relevant anomalies among all the instances identified as anomalous by the model, while Recall denotes the fraction of relevant anomalies among all the actual anomalies in the dataset. F1-score is the harmonic mean of Precision and Recall. The aforementioned performance metrics have a score of $1$ (or 100\%) if the model is perfect, and $0$ (0\%) otherwise. 
-
-However, we note that F1-score presents some limitations: F1-score does not consider the number of True Negatives (TN) and is not invariant to class swapping (i.e., if the positive class becomes the negative class and vice versa). These limitations are highlighted and discussed in \cite{Chicco2020TheAO} and the Matthews Coefficient Correlation (MCC) score is recommended for a better evaluation of AD models.
-
-MCC score \cite{Matthews1975ComparisonOT} is a binary classification metric that is similar to the Pearson coefficient correlation. It gives a score of $+1$ (100\%) for a model that correctly predicts the anomalous and normal instances (i.e., positive and negative class, respectively), $0$ (0\%) for a model that is not better than a random guessing classifier, and $-1$ (-100\%) for the worst model. MCC is defined as follows:
-
-
-\begin{equation*}
-    MCC = \frac{TP . TN - FP . FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}
-\end{equation*}
-\\
-
-In AD tasks, taking the negative class (here the number of normal observations detected) into consideration can be seen as meaningless since the goal is to detect anomalies (the positive class). However, we experimentally show that ignoring the negative class while using the F1-score can lead to unreliable conclusions about the model performance.
-
-In our experiments, we both considered F1-score and MCC to compare the ML models. We do not include the AUC score which can lead to misleading results when the datasets are imbalanced \cite{Saito2015ThePP, Ky2022}.
+In AD tasks, the negative class (here the number of correctly detected normal instances) is often considered less relevant, as the primary goal is to detect anomalies (the positive class). However, we experimentally demonstrate that disregarding the negative class while relying solely on the F1-score can result in unreliable conclusions about the model’s performance.
 
 
 \subsection{Unsupervised anomaly detection models}\label{unsupervised_ad}
@@ -295,44 +269,6 @@ The eight unsupervised models evaluated in this chapter have been selected since
 %     \end{tabular*}
 %     \end{table*}
 
-\begin{table*}[!t]
-    \caption{Comparison of WAD, PA, PA$\%K$ and RPA approaches with MCC and F1 score.}
-    \label{tab:chap_3:wad_vs_rpa}
-    \setlength\tabcolsep{2pt} 
-
-    
-    \begin{tabular*}{\hsize}{@{\extracolsep{\fill}} lccccccc}
-    \toprule
-    \bf Metric & \bf 0.05 & \bf 0.1 & \bf 0.15 & \bf 0.2 & \bf 0.25 & \bf 0.3 & \bf 0.5 \\
-    \midrule
-    \multicolumn{8}{c}{\bf MCC-Score} \\
-    \midrule
-    \bf PA & 95.31$_{(\pm0.02)}$ & 90.70$_{(\pm0.03)}$ & 86.13$_{(\pm0.01)}$ & 81.60$_{(\pm0.01)}$ & 77.11$_{(\pm0.02)}$ & 72.62$_{(\pm0.02)}$ & 54.11$_{(\pm0.03)}$ \\
-    \bf RPA & 87.01$_{(\pm0.06)}$ & 76.34$_{(\pm0.07)}$ & 67.20$_{(\pm0.04)}$ & 59.17$_{(\pm0.08)}$ & 51.97$_{(\pm0.09)}$ & 43.35$_{(\pm0.09)}$ & 21.96$_{(\pm0.07)}$ \\
-    \bf WAD$_{\alpha=0.8}$ & 97.93$_{(\pm0.02)}$ & 91.36$_{(\pm0.03)}$ & 80.80$_{(\pm0.07)}$ & 68.60$_{(\pm0.11)}$ & 56.48$_{(\pm0.20)}$ & 45.23$_{(\pm0.15)}$ & 0.13$_{(\pm0.13)}$ \\
-    \bf PA$\%K_{K=80}$ & 93.38$_{(\pm0.03)}$ & 81.94$_{(\pm0.02)}$ & 65.74$_{(\pm0.07)}$ & 47.36$_{(\pm0.10)}$ & 28.66$_{(\pm0.16)}$ & 10.50$_{(\pm0.11)}$ & -46.37$_{(\pm0.07)}$ \\
-    \bf WAD$_{\alpha=0.9}$ & 90.62$_{(\pm0.07)}$ & 74.56$_{(\pm0.08)}$ & 59.19$_{(\pm0.08)}$ & 46.18$_{(\pm0.05)}$ & 35.51$_{(\pm0.06)}$ & 26.78$_{(\pm0.09)}$ & 0.15$_{(\pm0.06)}$ \\
-    \bf PA$\%K_{K=90}$ & 85.61$_{(\pm0.05)}$ & 63.81$_{(\pm0.07)}$ & 42.11$_{(\pm0.08)}$ & 22.09$_{(\pm0.03)}$ & 3.96$_{(\pm0.06)}$ & -12.09$_{(\pm0.09)}$ & -51.71$_{(\pm0.06)}$ \\
-    \bf WAD$_{\alpha=1}$ & 64.30$_{(\pm0.08)}$ & 44.79$_{(\pm0.11)}$ & 32.07$_{(\pm0.09)}$ & 23.03$_{(\pm0.05)}$ & 16.40$_{(\pm0.09)}$ & 11.39$_{(\pm0.08)}$ & 0.04$_{(\pm0.19)}$ \\
-    \bf PA$\%K_{K=100}$ & 58.97$_{(\pm0.05)}$ & 33.37$_{(\pm0.09)}$ & 13.37$_{(\pm0.09)}$ & -03.02$_{(\pm0.06)}$ & -16.08$_{(\pm0.10)}$ & -26.28$_{(\pm0.11)}$ & -52.06$_{(\pm0.09)}$ \\
-    \midrule
-    \multicolumn{8}{c}{\bf F1-Score} \\
-    \midrule
-    \bf PA & 98.06$_{(\pm0.01)}$ & 96.19$_{(\pm0.01)}$ & 94.36$_{(\pm0.01)}$ & 92.60$_{(\pm0.01)}$ & 90.89$_{(\pm0.02)}$ & 89.23$_{(\pm0.02)}$ & 82.99$_{(\pm0.02)}$ \\
-    \bf RPA & 89.29$_{(\pm0.06)}$ & 80.31$_{(\pm0.07)}$ & 72.63$_{(\pm0.06)}$ & 66.02$_{(\pm0.09)}$ & 60.28$_{(\pm0.10)}$ & 55.23$_{(\pm0.10)}$ & 39.88$_{(\pm0.08)}$ \\
-    \bf WAD$_{\alpha=0.8}$ & 99.04$_{(\pm0.01)}$ & 95.72$_{(\pm0.02)}$ & 89.34$_{(\pm0.05)}$ & 79.95$_{(\pm0.09)}$ & 68.05$_{(\pm0.19)}$ & 54.56$_{(\pm0.17)}$ & 10.00$_{(\pm0.07)}$ \\
-    \bf PA$\%K_{K=80}$ & 97.31$_{(\pm0.01)}$ & 92.44$_{(\pm0.01)}$ & 84.81$_{(\pm0.04)}$ & 74.63$_{(\pm0.06)}$ & 62.60$_{(\pm0.13)}$ & 49.79$_{(\pm0.11)}$ & 12.15$_{(\pm0.07)}$ \\
-    \bf WAD$_{\alpha=0.9}$ & 95.20$_{(\pm0.04)}$ & 84.42$_{(\pm0.06)}$ & 70.10$_{(\pm0.08)}$ & 54.23$_{(\pm0.06)}$ & 38.91$_{(\pm0.08)}$ & 25.75$_{(\pm0.12)}$ & 2.11$_{(\pm0.04)}$ \\
-    \bf PA$\%K_{K=90}$ & 93.72$_{(\pm0.03)}$ & 82.14$_{(\pm0.05)}$ & 67.79$_{(\pm0.06)}$ & 52.78$_{(\pm0.03)}$ & 39.04$_{(\pm0.07)}$ & 27.74$_{(\pm0.08)}$ & 7.48$_{(\pm0.05)}$ \\
-    \bf WAD$_{\alpha=1}$ & 74.89$_{(\pm0.08)}$ & 51.60$_{(\pm0.16)}$ & 32.85$_{(\pm0.13)}$ & 19.40$_{(\pm0.06)}$ & 10.69$_{(\pm0.10)}$ & 5.49$_{(\pm0.06)}$ & 0.19$_{(\pm0.02)}$ \\
-    \bf PA$\%K_{K=100}$ & 75.93$_{(\pm0.06)}$ & 54.66$_{(\pm0.13)}$ & 38.24$_{(\pm0.12)}$ & 26.74$_{(\pm0.06)}$ & 19.25$_{(\pm0.08)}$ & 14.53$_{(\pm0.09)}$ & 7.18$_{(\pm0.07)}$ \\
-    \addlinespace
-    \bottomrule
-    \end{tabular*}
-\end{table*}
-
-
-
 
 
 \begin{itemize}
@@ -351,5 +287,5 @@ The eight unsupervised models evaluated in this chapter have been selected since
 The aforementioned reconstruction-based algorithms require a threshold that needs to be carefully chosen. We found in our previous work \cite{Ky2022} that using the $3\sigma$ rule-of-thumb as a thresholding rule may lead to poor scores, due to a threshold too low to detect all the anomalies in the test set (i.e., low recall scores). In this chapter, we use a different strategy: we randomly select $20\%$ of the test set and select the threshold $\delta$ that gives the best F1-score on this sample of the test set. This threshold is then kept and used for evaluation on the remaining $80\%$ of the test set. This thresholding strategy often used in AD \cite{zong2018deep, audibert2020usad} reports the best performance that the model can achieve. 
 
 We do not perform any hyper-parameters tuning in this study. Instead, we adopt the parameter settings documented in the respective papers of each model, as these configurations have been validated across multiple datasets and determined to be the optimal choices.
-We then train the neural network models using Adam optimizer with a learning rate of $10^{-3}$ and a batch size of 128 during 100 epochs. Early stopping is applied to avoid overfitting and longer training time, i.e., training is stopped when the validation loss do not decrease during 10 consecutive epochs. For each experiment, the models are evaluated five times to draw reliable conclusions except for OC-SVM which is run once due to its computational complexity. The details on our implementations are available on Github.\footnote{\url{https://github.com/mosaico-anr/unsupervised-ml-ad-qoe-deg}} % Add link
+We then train the neural network models using Adam optimizer with a learning rate of $10^{-3}$ and a batch size of 128 during 100 epochs. Early stopping is applied to avoid overfitting and longer training time, i.e., training is stopped when the validation loss do not decrease during 10 consecutive epochs. For each experiment, the models are evaluated five times to draw reliable conclusions except for OC-SVM which is run once due to its computational complexity. The details on our implementations are available on Github.\footnote{\url{https://github.com/joelromanky/unsupervised-ml-ad-qoe-deg}} % Add link
 

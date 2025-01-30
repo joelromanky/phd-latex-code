@@ -72,6 +72,47 @@ Statistical and clustering methods were also employed. Da Hora et al. \cite{da20
 Recent works leveraged ML for causes classification using KPIs. Salinas et al. \cite{salinas2018home} identified common WiFi impairments, such as interference and congestion, and proposed a supervised ML tool to diagnose these issues in home networks. Similarly, Salik et al. \cite{salik2023non} developed ML models to detect non-WiFi interference in the 2.4GHz and 5GHz bands, which significantly impact WiFi performance. Syrigos et al. \cite{syrigos2019employment} proposed ML-based tools to detect common impairments, including hidden terminals and low signal strength.
 
 
+\subsection{Discussion}
+
+
+The RCD techniques reviewed in this paper, summarized in Table \ref{tab:chap_1:rcd_techniques}, represent significant advancements in network troubleshooting. However, they also present several limitations that can affect their scalability and performance in diverse network environments. Expert-based techniques, which rely on predefined rules and domain knowledge, struggle to adapt to evolving network conditions or new fault types. These methods often require frequent manual updates to remain effective. Additionally, techniques that depend on user-level probes or active measurements may introduce latency, reducing their ability to accurately detect network impairments.
+
+Data-driven techniques address some of the shortcomings of expert-based methods, yet they introduce their own challenges. Most RCD approaches are supervised and rely on large, labeled datasets, which are not always readily available or sufficiently diverse to capture the full spectrum of potential network faults. This limits their generalizability. Moreover, many of these techniques demand substantial computational resources for both training and inference, which can hinder their application in real-time and large-scale network environments.
+
+In this thesis, Chapter \ref{chap:diagnosis} proposes a two-stage approach for RCD of Cloud VR applications. By leveraging contrastive anomaly detection techniques, our approach achieves strong diagnostic results, even with minimal labeled data, while maintaining reasonable training and inference times.
+
+
+
+\begin{table*}[t]
+\caption{RCD Techniques for Cellular and WiFi Networks}
+\label{tab:chap_1:rcd_techniques}
+\setlength\tabcolsep{4pt}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l | l | l | p{10cm}}
+\toprule
+\bf Network & \bf Paper & \bf Year & \bf Summary \\
+\midrule
+\multirow{11}{*}{\rotatebox{90}{\bf Cellular networks}} & Watanabe et al. \cite{watanabe2008utran} & 2008 & Statistical rule-based system used for fault identification in cellular networks. \\
+& Kane et al. \cite{kane2015system} & 2015 & Expert-based technique to identify network faults using system rules. \\
+& Dimopoulos et al. \cite{dimopoulos2015identifying} & 2015 & Supervised ML for video streaming QoE root-cause analysis using multi-layer network features. \\
+& Chen et al. \cite{chen2019machine} & 2019 & Neural networks and SVM used for fault detection in 4G networks based on KPIs. \\
+& Liu et al. \cite{liu2019kqis} & 2019 & QoE-driven KQI framework for fault diagnosis in LTE networks, targeting video and messaging apps. \\
+& Shi et al. \cite{shi2022towards} & 2022 & NeTExp, a dual-classifier (GNN and CNN) system for analyzing network and UE-side KPIs. \\
+& Fida et al. \cite{fida2023bottleneck} & 2023 & Two-stage method with VAE and MLPs for bottleneck detection in cloudified mobile networks. \\
+& Hasan et al. \cite{hasan2024root} & 2024 & Simba, a GNN and transformer-based model for spatiotemporal KPI data analysis in 5G RAN. \\
+\midrule
+\multirow{11}{*}{\rotatebox{90}{\bf Wi-Fi networks}} & Rayanchu et al. \cite{rayanchu2008diagnosing} & 2008 & Statistical method to differentiate packet loss causes like collisions and weak signals in WiFi networks. \\
+& Kanuparthy et al. \cite{kanuparthy2012can} & 2012 & Active probing techniques to diagnose WiFi impairments. \\
+& Kim et al. \cite{kim2014wislow} & 2014 & WiSlow, an expert-based tool to detect channel contention and non-WiFi interference in WiFi networks. \\
+& Da Hora et al. \cite{da2018predicting} & 2018 & K-means clustering to detect poor QoE for web browsing, streaming, and WebRTC apps. \\
+& Salinas et al. \cite{salinas2018home} & 2018 & Supervised ML tool to diagnose WiFi impairments like interference and congestion in home networks. \\
+& Syrigos et al. \cite{syrigos2019employment} & 2019 & ML-based tools for detecting common WiFi impairments such as hidden terminals and low signal strength. \\
+& Salik et al. \cite{salik2023non} & 2023 & ML model to detect non-WiFi interference in 2.4GHz and 5GHz bands affecting WiFi performance. \\
+\bottomrule
+\end{tabular*}
+\end{table*}
+
+
 %\takeaway{\ac{RCD} aims to pinpoint specific factors causing performance degradation in networks. Most of the RCD approaches in cellular networks and WiFi networks are based on ML to identify the impairments affecting the QoE of applications used on these networks.}
 
 % \takeaway{\ac{RCD} aims to pinpoint specific factors causing performance degradation in networks, such as congestion, interference, signal attenuation... Traditional expert-based methods are increasingly complemented by automated, ML-driven approaches. Time varying network RCD often employs clustering, statistical methods, supervised \ac{ML} and deep neural networks to analyze vast telemetry data and classify impairments. These techniques enhance network performance by addressing underlying issues efficiently.}

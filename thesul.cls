@@ -127,11 +127,39 @@
 \newcommand{\DFD}[1]{\renewcommand\@DFD{#1}}
 \newcommand{\@TUL@cmn@head}{\vskip1mm\noindent\hrulefill\\}
 
+% \newcommand{\@ULhe@d}{{\UseEntryFont{ThesisFirstPageHead}\noindent
+%     \centerline{{\setbox0=\hbox{$\raise1.5cm\hbox{\ULLogo}$}%
+%                      \ht0=\baselineskip\box0}\hfill\@DFD}}%
+%     \@TUL@cmn@head\par
+%     }
+% \newcommand{\@ULhe@d}{{\UseEntryFont{ThesisFirstPageHead}\noindent
+%     \centerline{{\setbox0=\hbox{%
+%         $\raise1.5cm\hbox{\ULLogo}$}%
+%         \ht0=\baselineskip\box0}\hspace{1cm}
+%         {\setbox1=\hbox{%
+%         $\raise1.5cm\hbox{\LoriaLogo}$}%
+%         \ht1=\baselineskip\box1}}}%
+%       \@TUL@cmn@head\par
+%     }
+
 \newcommand{\@ULhe@d}{{\UseEntryFont{ThesisFirstPageHead}\noindent
-    \centerline{{\setbox0=\hbox{$\raise1.5cm\hbox{\ULLogo}$}%
-                     \ht0=\baselineskip\box0}\hfill\@DFD}}%
+    \makebox[14cm]{% Ensure everything stays within the page width
+        {\hbox{$\raise1.5cm\hbox{\ULLogo}$}%
+        \ht0=\baselineskip\box0}
+        \hfill% Flexible space
+        {\hbox{$\raise1.5cm\hbox{\LoriaLogo}$}%
+        \ht1=\baselineskip\box1}
+        \hfill% Flexible space
+        {\hbox{$\raise1.5cm\hbox{\DVDLogo}$}%
+        \ht2=\baselineskip\box2}
+    }%
     \@TUL@cmn@head\par
-    }
+}}
+
+
+
+
+    
 \newtoks\@lab@tok
 \newtoks\@lab@tokii
 \@lab@tok={Laboratoire Lorrain de Recherche en Informatique et
@@ -215,6 +243,9 @@
 \newcommand\ULLogo{%
     \vtop to0pt{\hbox{}\hbox to0pt{\includegraphics[scale=1]{tulul}\hss}\vss}%
                     }
+\newcommand\DVDLogo{%
+    \vtop to0pt{\hbox{}\hbox to0pt{\includegraphics[scale=.9]{logo_iaem}\hss}\vss}%
+                    }
 \newif\if@logos@
 \newif\if@logo@ul@
 \newif\if@logo@loria@
@@ -237,6 +268,7 @@
 \@onlypreamble\ShowLogLORIA
 \@onlypreamble\DontShowLogos
 \ShowLogoUL
+
 \newcommand\SetEntryFont[2]{\expandafter\def\csname @#1font\endcsname{#2}}
 \newcommand\SetTULFont[7]{\expandafter\def\csname @#1font\endcsname
                          {\TULusefont{#2}{#3}{#4}{#5}{#6}{#7}}}

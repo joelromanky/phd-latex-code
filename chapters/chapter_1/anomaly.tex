@@ -109,6 +109,84 @@ DCdetector \cite{yang2023dcdetector} uses a multi-scale dual attention network t
 
 
 
+\subsection{Discussion}
+
+Table \ref{tab:chap_1:ad_model_recap} summarizes the time series anomaly detection (AD) models reviewed in this thesis. It provides an overview of the contributions of each method and categorizes them accordingly.
+
+The AD techniques discussed in this thesis span various approaches, including ML, DL and SSL. Despite their effectiveness, these techniques exhibit several limitations that impact their performance in real-world environments. Traditional statistical and ML-based methods are lightweight, interpretable, and efficient for small, simple datasets. However, parametric methods that assume Gaussian distributions can struggle to detect anomalies when the data deviate from these assumptions, a common challenge in real-world applications. Additionally, distance-based methods, such as KNN and LOF, as well as parametric approaches like ARIMA, tend to become computationally expensive as the dataset grows, leading to inefficiencies when applied to high-dimensional data.
+
+Deep learning-based approaches leverage neural network architectures to handle large dimensional data for anomaly detection. While these methods are powerful, they demand significant computational resources and memory, which may limit their applicability in real-time systems. Furthermore, DL techniques, like their ML counterparts, are typically trained on normal data and may be compromised by the presence of anomalies in the training set. Another key limitation is their \textit{black box} nature, which makes it difficult for practitioners (e.g., network experts) to interpret the reasoning behind the model's predictions, reducing their transparency and trustworthiness in real-world scenarios.
+
+Contrastive learning techniques have been introduced to enhance AD performance by leveraging self-supervised learning strategies. However, these approaches heavily rely on data augmentation to generate positive and negative pairs for training. Bad choices of data augmentation techniques may result in poor performances. Furthermore, while some of the models reviewed in this thesis incorporate neural architectures that attempt to capture temporal dependencies, the contrastive learning process itself does not explicitly consider the temporal nature of the data, which may hinder their ability to detect anomalies that exhibit temporal correlations.
+
+In this thesis, we propose in Chapter \ref{chap:cats}, a novel contrastive learning-based approach that integrates temporal similarity to address these limitations and improve anomaly detection in time series data.
+
+\begin{table*}[!ht]
+\caption{Time series anomaly detection models}
+
+\label{tab:chap_1:ad_model_recap}
+\setlength\tabcolsep{1pt}
+\footnotesize
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}c | l | p{30mm} | p{85mm}}
+\toprule
+\bf Category & \bf Sub-Category & \bf Method & \bf Main contributions \\
+\midrule
+
+\multirow{11}{*}{\rotatebox{90}{\bf ML-based}} &  \multirow{3}{*}{Statistical} & Gaussian model \cite{luo2017gas} & Method assuming data follows a Gaussian distribution. \\
+                                                                & & VAR/ARIMA \cite{yaacob2010arima} & Method assuming data follows a linear model.  \\
+                                                                & & KDE, \cite{cao2016one} Kalman Filter \cite{knorn2008adaptive} & Method based on probability densities estimations. \\
+\cmidrule{2-4}
+\addlinespace
+                                & \multirow{4}{*}{Distance-based} & KNN \cite{chaovalitwongse2007time} & Method that uses the distance to nearest neighbors as an anomaly score. \\
+                                                                & &  LOF \cite{breunig2000lof} & Method that uses the density to the neighborhood. \\
+                                                                & & k-Means \cite{kiss2014data}, DBSCAN \cite{ester1996density} & Clustering methods that group data for faster AD. \\
+\cmidrule{2-4}
+\addlinespace
+                                & \multirow{3}{*}{Miscellaneous} & PCA/RobustPCA \cite{paffenroth2018robust}, ICA \cite{zonglin2009multi} & Spectral analysis methods using dimensionality reduction or independent components. \\
+                                                                & & IF \cite{liu2008isolation} & Method that recursively isolates anomalies through random splits. \\
+                                                                & & OC-SVM \cite{scholkopf1999support} & Method that separates normal data from anomalies using a hypersphere. \\
+
+\midrule
+\addlinespace
+
+\multirow{18}{*}{\rotatebox{90}{\bf DL-based}} & \multirow{11}{*}{Reconstruction} & DAGMM \cite{zong2018deep} & Combines AE and GMM to detect anomalies using reconstruction error and energy score. \\
+                                                                     & & MSCRED \cite{zhang2019deep} & Utilizes attention-based convolutional LSTM to capture time series correlations. \\
+                                                                     & & USAD \cite{audibert2020usad} & Adversarial AEs trained to reconstruct normal data and identify anomalies. \\
+                                                                     & & Donut \cite{xu2018unsupervised} & Probabilistic AE that models latent spaces as distributions for AD. \\
+                                                                     & & LSTM-VAE \cite{park2018multimodal} & VAE-based model combined with LSTM to capture temporal dependencies. \\
+                                                                     & & Omni-Anomaly \cite{su2019robust} & VAE combined with stochastic RNN and normalizing flows for AD. \\
+                                                                     & & Anomaly Transformer \cite{xu2022anomaly} & Leverages attention mechanisms to capture associations for AD. \\
+                                                                     & & TranAD \cite{tuli2022tranad} & Transformer with adversarial training and self-conditioning. \\
+                                                                     & & MADGAN \cite{li2019mad} & GAN-based time series reconstruction with LSTM-RNN for AD. \\
+                                                                     & & BeatGAN \cite{zhou2019beatgan} & GAN-based time series reconstruction using adversarial regularization. \\
+\cmidrule{2-4}
+\addlinespace
+                            & \multirow{4}{*}{Forecasting} & LSTM-PRED \cite{goh2017anomaly} & Forecasting-based LSTM combined with cumulative sum method for AD.  \\
+                                                         & & Telemanom \cite{hundman2018detecting} & LSTM-RNN forecasting method with dynamic thresholding. \\
+                                                         & & AD-LTI \cite{wu2020developing} & GRU for seasonal trends prediction and AD based on local trend inconsistency. \\
+                                                         & & DeepAnt \cite{munir2018deepant} & CNN-based forecasting method comparing predicted and actual values for AD. \\
+\cmidrule{2-4}
+\addlinespace
+                            & \multirow{3}{*}{Miscellaneous} & Deep-SVDD \cite{pmlr-v80-ruff18a} & DL-based one-class classification to overcome kernel selection limitations. \\
+                                                             & & DIF \cite{xu2023deep} & Isolation method using random representations and non-linear partitioning for AD. \\
+                                                             & & COUTA \cite{xu2024calibrated} & Calibrated one-class classifier with uncertainty modeling and synthetic anomaly injection. \\
+\midrule
+\addlinespace
+
+\multirow{6}{*}{\rotatebox{90}{\bf SSL-based}} & \multirow{6}{*}{Contrastive} & COCA \cite{wang2023deep} & Contrastive one-class framework for time series AD. \\
+                                                            & & ContrastAD \cite{li2023contrastive} & Uses positive and negative temporal transformations for contrastive AD. \\
+                                                            & & CTAD \cite{kim2023contrastive} & Augments time series data for contrastive learning using positive and synthetic anomalies. \\
+                                                            & & TimeAutoAD \cite{jiao2022timeautoad} & AutoML-based method with contrastive loss for AD. \\
+                                                            & & CARLA \cite{DARBAN2025110874} & Two-stage framework with triplet-based representation learning and anomaly classification. \\
+                                                            & & DCdetector \cite{yang2023dcdetector} & Multi-scale dual attention network using representation discrepancy for AD. \\
+
+\bottomrule
+\end{tabular*}
+\end{table*}
+
+ % \rowcolor{FireBrick!40} 
+
+
 \subsection{Evaluation metrics for time series anomaly detection}
 It is crucial to evaluate AD algorithms to assess their performance. The commonly used metrics are listed below.
 
@@ -126,8 +204,8 @@ It is crucial to evaluate AD algorithms to assess their performance. The commonl
         \text{F1} = 2 . \frac{\text{Precision} . \text{Recall}}{\text{Precision} + \text{Recall}}
     \end{equation}
     % rajouter le MCC
-    \item \textbf{MCC.} \ac{MCC} is a binary classification metric that addresses the class invariance limitation of the F1-score. It evaluates model performance by equally rewarding accurate predictions for both the positive and negative classes.
-    \begin{equation}
+    \item \textbf{MCC.} \ac{MCC} \cite{Matthews1975ComparisonOT} is a binary classification metric, similar to the Pearson coefficient, that addresses the class invariance limitation of the F1-score (i.e., if the positive class becomes the negative class and vice versa) as highlighted and discussed in  \cite{Chicco2020TheAO}. It evaluates model performance by equally rewarding accurate predictions for both the positive and negative classes.
+    \begin{equation}\label{eq:mcc}
         MCC = \frac{TP . TN - FP . FN}{\sqrt{(TP+FP)(TP+FN)(TN+FP)(TN+FN)}}
     \end{equation}
     \item \textbf{TPR} \ac{TPR} is equivalent to recall.

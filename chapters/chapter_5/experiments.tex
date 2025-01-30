@@ -42,9 +42,11 @@ This section begins by outlining the experimental setup, including the datasets 
 
 \subsection{Dataset description}
 
-We evaluate the performance of our technique on three public anomaly detection benchmark datasets to confirm that our approach maintains its effectiveness when applied to them. The selected datasets are listed as follows: i) SMD dataset (Server Machine Dataset) which consists of 38 sensors continuously monitored during 10 days collected on 28 servers. ii) MSL dataset (Mars Science Laboratory) and iii) SMAP (Soil Moisture Active Passive) are two datasets collected from a monitoring system. The benchmark datasets (SMD, MSL and SMAP) are multi-entity datasets (contain different subdatasets)
+We evaluate the model on the cloud gaming datasets collected in Chapter \ref{chap:measurements} over three cloud gaming platforms: i) STD (Stadia from Google), ii) GFN (GeForceNow from NVIDIA) and iii) XC (Xbox Cloud from Microsoft). These datasets consist of \ac{QoE} and \ac{QoS} time series.
 
-We also evaluate the model on case study datasets specifically collected for this purpose. The case study datasets are multivariate time-series features collected on a cloud gaming testbed for QoE degradation detection in low-latency applications  \cite{Ky2023MLMF}. These datasets consist of QoE (Quality of Experience) and QoS (Quality of Service) time series collected on three cloud gaming platforms: iv) STD (Stadia from Google), v) GFN (GeForceNow from NVIDIA) and vi) XC (Xbox Cloud from Microsoft).
+We also evaluate the performance of our technique on three public anomaly detection benchmark datasets to confirm that our approach maintains its effectiveness when applied to them. The selected datasets are listed as follows: iv) SMD dataset (Server Machine Dataset) which consists of 38 sensors continuously monitored during 10 days collected on 28 servers. v) MSL dataset (Mars Science Laboratory) and vi) SMAP (Soil Moisture Active Passive) are two datasets collected from a monitoring system. The benchmark datasets (SMD, MSL and SMAP) are multi-entity datasets (contain different subdatasets).
+
+
 
 
 
@@ -77,11 +79,11 @@ All experiments are performed on a workstation with the following specifications
 
 
 
-\subsection{Evaluation metrics}
-The performance of unsupervised anomaly detection models is usually assessed using well-known Precision (P), Recall (R) and F1-Score (F1) metrics. Since the values of those metrics are threshold-dependent, some studies prefer threshold-independant metrics like AUC (Area Under the Curve) or AUPR (Area Under Precision-Recall curve). Due to the limitations of F1-score \cite{Chicco2020TheAO} for binary classification, we also include MCC (Matthews Coefficient Correlation) metric in our evaluation. 
+% \subsection{Evaluation metrics}
+% The performance of unsupervised anomaly detection models is usually assessed using well-known Precision (P), Recall (R) and F1-Score (F1) metrics. Since the values of those metrics are threshold-dependent, some studies prefer threshold-independant metrics like AUC (Area Under the Curve) or AUPR (Area Under Precision-Recall curve). Due to the limitations of F1-score \cite{Chicco2020TheAO} for binary classification, we also include MCC (Matthews Coefficient Correlation) metric in our evaluation. 
 
-We then report the performance results using AUC, F1 and MCC. Point Adjust (PA) approach is not used in our evaluation, despite being very popular and used in several time series AD studies, since it was shown \cite{DARBAN2025110874, kim2023contrastive, Ky2023MLMF} to overestimate the effectiveness of time series models. 
-%Discussions about which metric is better or threshold selection is out of the scope of this paper \joel{Todo}.
+% We then report the performance results using AUC, F1 and MCC. Point Adjust (PA) approach is not used in our evaluation, despite being very popular and used in several time series AD studies, since it was shown \cite{DARBAN2025110874, kim2023contrastive, Ky2023MLMF} to overestimate the effectiveness of time series models. 
+% %Discussions about which metric is better or threshold selection is out of the scope of this paper \joel{Todo}.
 
 
 
@@ -94,42 +96,51 @@ We then report the performance results using AUC, F1 and MCC. Point Adjust (PA) 
 \toprule
  & \bf Models & {\rotatebox{0}{\bf IForest}} &  {\rotatebox{0}{\bf Deep-SVDD}} &  {\rotatebox{0}{\bf AE}} &  {\rotatebox{0}{\bf USAD}} &  {\rotatebox{0}{\bf SimCLR}} &  {\rotatebox{0}{\bf SimSiam}} &  {\rotatebox{0}{\bf TS2Vec}} &  {\rotatebox{0}{\bf CATS}} \\
 \midrule
- \multirow{3}{*}{\bf SMD} & \bf AUC & 77.10$_{(\pm11.9)}$ & 75.31$_{(\pm14.5)}$ & 81.33$_{(\pm13.2)}$ & 81.08$_{(\pm12.5)}$ & 80.83$_{(\pm14.7)}$ & 77.26$_{(\pm14.9)}$ & 74.25$_{(\pm16.6)}$ & \bf 82.21$_{(\bf\pm14.3)}$ \\
- & \bf F1 & 29.88$_{(\pm20.6)}$ & 34.75$_{(\pm21.5)}$ & 46.00$_{(\pm24.3)}$ & 46.62$_{(\pm26.3)}$ & 46.51$_{(\pm25.7)}$ & 41.82$_{(\pm25.3)}$ & 43.18$_{(\pm25.9)}$ & \bf 50.65$_{(\bf\pm23.6)}$ \\
- & \bf MCC & 29.62$_{(\pm20.8)}$ & 36.25$_{(\pm22.0)}$ & 47.00$_{(\pm24.1)}$ & 47.98$_{(\pm25.1)}$ & 48.06$_{(\pm24.2)}$ & 43.24$_{(\pm24.9)}$ & 44.95$_{(\pm24.7)}$ & \bf 50.85$_{(\bf\pm23.6)}$ \\
-\addlinespace    
-\cmidrule{1-10}
 
- \multirow{3}{*}{\bf MSL} & \bf AUC & 56.94$_{(\pm14.1)}$ & 61.38$_{(\pm17.1)}$ & 62.30$_{(\pm16.1)}$ & 63.31$_{(\pm14.3)}$ & 61.09$_{(\pm15.4)}$ & 62.07$_{(\pm14.3)}$ & 63.95$_{(\pm15.0)}$ & \bf 64.98$_{(\bf\pm15.7)}$ \\
- & \bf F1 & 21.24$_{(\pm21.4)}$ & 27.93$_{(\pm25.6)}$ & 26.02$_{(\pm22.9)}$ & 27.16$_{(\pm23.0)}$ & 25.72$_{(\pm23.1)}$ & 23.78$_{(\pm23.2)}$ & 28.43$_{(\pm24.5)}$ & \bf 29.15$_{(\bf\pm24.2)}$ \\
- & \bf MCC & 11.09$_{(\pm21.8)}$ & 19.24$_{(\pm29.2)}$ & 16.49$_{(\pm24.4)}$ & 17.33$_{(\pm24.8)}$ & 16.30$_{(\pm25.1)}$ & 14.11$_{(\pm24.0)}$ & 19.86$_{(\pm24.8)}$ & \bf 20.14$_{(\bf\pm27.8)}$ \\
-
-\addlinespace    
-\cmidrule{1-10}
- \multirow{3}{*}{\bf SMAP} & \bf AUC & 56.98$_{(\pm17.3)}$ & 62.52$_{(\pm19.1)}$ & \bf 64.30$_{(\bf\pm19.6)}$ & 61.11$_{(\pm19.4)}$ & 63.99$_{(\pm17.7)}$ & 62.12$_{(\pm17.1)}$ & 61.42$_{(\pm20.3)}$ & 64.07$_{(\pm18.6)}$ \\
- & \bf F1 & 22.80$_{(\pm27.2)}$ & 29.20$_{(\pm33.0)}$ & 28.93$_{(\pm33.5)}$ & \bf 30.10$_{(\bf\pm33.1)}$ & 28.23$_{(\pm32.2)}$ & 27.46$_{(\pm33.2)}$ & 28.26$_{(\pm33.2)}$ & 29.07$_{(\pm29.07)}$ \\
- & \bf MCC & 11.38$_{(\pm29.0)}$ & 23.93$_{(\pm33.1)}$ & 23.96$_{(\pm34.0)}$ & 23.66$_{(\pm34.9)}$ & 22.52$_{(\pm32.2)}$ & 21.44$_{(\pm32.5)}$ &  23.5$_{(\pm32.8)}$ & \bf 24.28$_{(\bf\pm32.7)}$ \\
-
-\addlinespace    
-\midrule
-
- \multirow{3}{*}{\bf STD} & \bf AUC & 74.57$_{(\pm1.63)}$ & 91.19$_{(\pm1.08)}$ & 96.04$_{(\pm0.27)}$ & 96.09$_{(\pm0.08)}$ & 95.78$_{(\pm0.39)}$ & 75.65$_{(\pm11.3)}$ & 95.63$_{(\pm1.94)}$ & \bf 97.93$_{(\bf\pm0.13)}$ \\
+ \multirow{4}{*}{\bf STD} & \bf AUPR & 75.16$_{(\pm1.28)}$ & 95.24$_{(\pm0.59)}$ & 97.57$_{(\pm0.16)}$ & 97.55$_{(\pm0.04)}$ & 97.46$_{(\pm0.21)}$ & 79.79$_{(\pm8.14)}$ & 97.65$_{(\pm0.99)}$ & \bf 98.72$_{(\bf\pm0.09)}$ \\
+ & \bf AUC & 74.57$_{(\pm1.63)}$ & 91.19$_{(\pm1.08)}$ & 96.04$_{(\pm0.27)}$ & 96.09$_{(\pm0.08)}$ & 95.78$_{(\pm0.39)}$ & 75.65$_{(\pm11.3)}$ & 95.63$_{(\pm1.94)}$ & \bf 97.93$_{(\bf\pm0.13)}$ \\
  & \bf F1 & 75.79$_{(\pm1.42)}$ & 87.18$_{(\pm1.24)}$ & 90.35$_{(\pm0.51)}$ & 90.02$_{(\pm0.24)}$ & 90.15$_{(\pm0.52)}$ & 74.21$_{(\pm9.22)}$ & 92.83$_{(\pm1.92)}$ & \bf 94.06$_{(\bf\pm0.45)}$ \\
  & \bf MCC & 39.56$_{(\pm3.66)}$ & 71.83$_{(\pm2.77)}$ & 78.93$_{(\pm1.14)}$ & 77.89$_{(\pm0.36)}$ & 78.48$_{(\pm1.17)}$ & 39.31$_{(\pm19.8)}$ & 84.33$_{(\pm4.12)}$ & \bf 86.72$_{(\bf\pm0.88)}$ \\
 
 \addlinespace    
 \cmidrule{1-10}
 
-\multirow{3}{*}{\bf GFN} & \bf AUC & 61.97$_{(\pm0.87)}$ & 71.78$_{(\pm3.41)}$ & 74.05$_{(\pm0.84)}$ & 74.84$_{(\pm0.42)}$ & 78.50$_{(\pm1.95)}$ & 67.07$_{(\pm3.25)}$ & 74.91$_{(\pm4.32)}$ & \bf 84.35$_{(\bf\pm1.23)}$ \\
+\multirow{4}{*}{\bf GFN} & \bf AUPR & 76.97$_{(\pm0.58)}$ & 87.81$_{(\pm1.51)}$ & 88.60$_{(\pm0.40)}$ & 88.65$_{(\pm0.14)}$ & 90.19$_{(\pm0.65)}$ & 84.49$_{(\pm3.33)}$ & 89.63$_{(\pm1.99)}$ & \bf 93.60$_{(\bf\pm0.52)}$ \\
+& \bf AUC & 61.97$_{(\pm0.87)}$ & 71.78$_{(\pm3.41)}$ & 74.05$_{(\pm0.84)}$ & 74.84$_{(\pm0.42)}$ & 78.50$_{(\pm1.95)}$ & 67.07$_{(\pm3.25)}$ & 74.91$_{(\pm4.32)}$ & \bf 84.35$_{(\bf\pm1.23)}$ \\
  & \bf F1 & 74.12$_{(\pm0.71)}$ & 75.51$_{(\pm2.11)}$ & 74.05$_{(\pm0.84)}$ & 77.80$_{(\pm0.38)}$ & 81.20$_{(\pm2.61)}$ & 74.25$_{(\pm2.93)}$ & 76.76$_{(\pm2.71)}$ & \bf 82.88$_{(\bf\pm0.96)}$ \\
  & \bf MCC & 17.07$_{(\pm1.27)}$ & 24.26$_{(\pm6.56)}$ & 28.08$_{(\pm0.14)}$ & 31.40$_{(\pm1.22)}$ & 37.46$_{(\pm3.87)}$ & 17.86$_{(\pm6.27)}$ & 28.19$_{(\pm8.39)}$ & \bf 47.27$_{(\bf\pm1.49)}$ \\
 
 \addlinespace    
 \cmidrule{1-10}
 
-\multirow{3}{*}{\bf XC} & \bf AUC & 78.71$_{(\pm1.13)}$ & 67.32$_{(\pm6.52)}$ & 89.18$_{(\pm2.31)}$ & 89.97$_{(\pm0.26)}$ & 85.81$_{(\pm3.17)}$ & 83.35$_{(\pm10.6)}$ & \bf 96.96$_{(\bf\pm1.36)}$ & 96.10$_{(\pm0.41)}$ \\
+\multirow{4}{*}{\bf XC} & \bf AUPR & 67.19$_{(\pm1.61)}$ & 61.99$_{(\pm7.61)}$ & 84.21$_{(\pm3.24)}$ & 83.34$_{(\pm0.31)}$ & 80.55$_{(\pm2.93)}$ & 76.44$_{(\pm13.4)}$ & \bf 95.01$_{(\bf\pm1.75)}$ & 93.65$_{(\pm0.41)}$ \\
+& \bf AUC & 78.71$_{(\pm1.13)}$ & 67.32$_{(\pm6.52)}$ & 89.18$_{(\pm2.31)}$ & 89.97$_{(\pm0.26)}$ & 85.81$_{(\pm3.17)}$ & 83.35$_{(\pm10.6)}$ & \bf 96.96$_{(\bf\pm1.36)}$ & 96.10$_{(\pm0.41)}$ \\
  & \bf F1 & 63.33$_{(\pm1.18)}$ & 50.83$_{(\pm7.69)}$ & 75.94$_{(\pm3.30)}$ & 77.59$_{(\pm0.58)}$ & 70.58$_{(\pm3.45)}$ & 69.09$_{(\pm13.4)}$ & \bf 89.60$_{(\bf\pm2.03)}$ & 86.69$_{(\pm0.83)}$ \\
  & \bf MCC  & 43.42$_{(\pm2.43)}$ & 27.40$_{(\pm11.4)}$ & 63.95$_{(\pm4.63)}$ & 65.35$_{(\pm0.72)}$ & 56.59$_{(\pm4.89)}$ & 52.30$_{(\pm21.3)}$ & \bf 84.07$_{(\bf\pm2.94)}$ & 79.67$_{(\pm0.11)}$ \\
+
+
+\addlinespace    
+\midrule
+
+ \multirow{4}{*}{\bf SMD} & \bf AUPR & 27.96$_{(\pm21.7)}$ & 30.34$_{(\pm21.6)}$ & 42.55$_{(\pm26.5)}$ & 44.14$_{(\pm26.5)}$ & 43.97$_{(\pm26.4)}$ & 38.47$_{(\pm25.9)}$ & 38.75$_{(\pm26.4)}$ & \bf 46.89$_{(\bf\pm26.1)}$ \\
+ & \bf AUC & 77.10$_{(\pm11.9)}$ & 75.31$_{(\pm14.5)}$ & 81.33$_{(\pm13.2)}$ & 81.08$_{(\pm12.5)}$ & 80.83$_{(\pm14.7)}$ & 77.26$_{(\pm14.9)}$ & 74.25$_{(\pm16.6)}$ & \bf 82.21$_{(\bf\pm14.3)}$ \\
+ & \bf F1 & 29.88$_{(\pm20.6)}$ & 34.75$_{(\pm21.5)}$ & 46.00$_{(\pm24.3)}$ & 46.62$_{(\pm26.3)}$ & 46.51$_{(\pm25.7)}$ & 41.82$_{(\pm25.3)}$ & 43.18$_{(\pm25.9)}$ & \bf 50.65$_{(\bf\pm23.6)}$ \\
+ & \bf MCC & 29.62$_{(\pm20.8)}$ & 36.25$_{(\pm22.0)}$ & 47.00$_{(\pm24.1)}$ & 47.98$_{(\pm25.1)}$ & 48.06$_{(\pm24.2)}$ & 43.24$_{(\pm24.9)}$ & 44.95$_{(\pm24.7)}$ & \bf 50.85$_{(\bf\pm23.6)}$ \\
+\addlinespace    
+\cmidrule{1-10}
+
+ \multirow{4}{*}{\bf MSL} & \bf AUPR & 19.17$_{(\pm19.9)}$ & 24.88$_{(\pm24.3)}$ & 22.02$_{(\pm22.0)}$ & 21.62$_{(\pm21.7)}$ & 22.12$_{(\pm22.8)}$ & 20.94$_{(\pm22.3)}$ & 24.93$_{(\pm23.0)}$ & \bf 25.44$_{(\bf\pm23.7)}$ \\
+ & \bf AUC & 56.94$_{(\pm14.1)}$ & 61.38$_{(\pm17.1)}$ & 62.30$_{(\pm16.1)}$ & 63.31$_{(\pm14.3)}$ & 61.09$_{(\pm15.4)}$ & 62.07$_{(\pm14.3)}$ & 63.95$_{(\pm15.0)}$ & \bf 64.98$_{(\bf\pm15.7)}$ \\
+ & \bf F1 & 21.24$_{(\pm21.4)}$ & 27.93$_{(\pm25.6)}$ & 26.02$_{(\pm22.9)}$ & 27.16$_{(\pm23.0)}$ & 25.72$_{(\pm23.1)}$ & 23.78$_{(\pm23.2)}$ & 28.43$_{(\pm24.5)}$ & \bf 29.15$_{(\bf\pm24.2)}$ \\
+ & \bf MCC & 11.09$_{(\pm21.8)}$ & 19.24$_{(\pm29.2)}$ & 16.49$_{(\pm24.4)}$ & 17.33$_{(\pm24.8)}$ & 16.30$_{(\pm25.1)}$ & 14.11$_{(\pm24.0)}$ & 19.86$_{(\pm24.8)}$ & \bf 20.14$_{(\bf\pm27.8)}$ \\
+
+\addlinespace    
+\cmidrule{1-10}
+ \multirow{4}{*}{\bf SMAP} & \bf AUPR & 18.80$_{(\pm22.4)}$ & 26.22$_{(\pm32.0)}$ & 26.55$_{(\pm30.8)}$ & \bf 26.80$_{(\bf\pm30.6)}$ & 25.66$_{(\pm29.0)}$ & 25.10$_{(\pm29.5)}$ & 26.62$_{(\pm30.8)}$ & 26.40$_{(\pm29.8)}$ \\
+ & \bf AUC & 56.98$_{(\pm17.3)}$ & 62.52$_{(\pm19.1)}$ & \bf 64.30$_{(\bf\pm19.6)}$ & 61.11$_{(\pm19.4)}$ & 63.99$_{(\pm17.7)}$ & 62.12$_{(\pm17.1)}$ & 61.42$_{(\pm20.3)}$ & 64.07$_{(\pm18.6)}$ \\
+ & \bf F1 & 22.80$_{(\pm27.2)}$ & 29.20$_{(\pm33.0)}$ & 28.93$_{(\pm33.5)}$ & \bf 30.10$_{(\bf\pm33.1)}$ & 28.23$_{(\pm32.2)}$ & 27.46$_{(\pm33.2)}$ & 28.26$_{(\pm33.2)}$ & 29.07$_{(\pm29.07)}$ \\
+ & \bf MCC & 11.38$_{(\pm29.0)}$ & 23.93$_{(\pm33.1)}$ & 23.96$_{(\pm34.0)}$ & 23.66$_{(\pm34.9)}$ & 22.52$_{(\pm32.2)}$ & 21.44$_{(\pm32.5)}$ &  23.5$_{(\pm32.8)}$ & \bf 24.28$_{(\bf\pm32.7)}$ \\
+
 
 \bottomrule
 \end{tabular*}
@@ -137,62 +148,17 @@ We then report the performance results using AUC, F1 and MCC. Point Adjust (PA) 
 
 
 
-% \begin{table*}[t]
-% \caption{Performance comparison on the datasets. Mean and standard deviation computed over all entities for benchmark datasets and over five runs for case-study datasets. Bold values indicate best results.}
-% \label{tab:chap_5:benchmark}
-% \setlength\tabcolsep{2pt}
-% \footnotesize
-% \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}c | ll | ccccccc | >{\columncolor{FireBrick!40}}c }
-% \toprule
-% & & \bf Models & {\rotatebox{0}{\bf IForest}} &  {\rotatebox{0}{\bf Deep-SVDD}} &  {\rotatebox{0}{\bf AE}} &  {\rotatebox{0}{\bf USAD}} &  {\rotatebox{0}{\bf SimCLR}} &  {\rotatebox{0}{\bf SimSiam}} &  {\rotatebox{0}{\bf TS2Vec}} &  {\rotatebox{0}{\bf CATS}} \\
-% \midrule
-% \multirow{9}{*}{\rotatebox{90}{\bf Benchmark datasets}} & \multirow{3}{*}{\bf SMD} & \bf AUC & 77.10$_{(\pm11.9)}$ & 75.31$_{(\pm14.5)}$ & 81.33$_{(\pm13.2)}$ & 81.08$_{(\pm12.5)}$ & 80.83$_{(\pm14.7)}$ & 77.26$_{(\pm14.9)}$ & 74.25$_{(\pm16.6)}$ & \bf 82.21$_{(\bf\pm14.3)}$ \\
-% & & \bf F1 & 29.88$_{(\pm20.6)}$ & 34.75$_{(\pm21.5)}$ & 46.00$_{(\pm24.3)}$ & 46.62$_{(\pm26.3)}$ & 46.51$_{(\pm25.7)}$ & 41.82$_{(\pm25.3)}$ & 43.18$_{(\pm25.9)}$ & \bf 50.65$_{(\bf\pm23.6)}$ \\
-% & & \bf MCC & 29.62$_{(\pm20.8)}$ & 36.25$_{(\pm22.0)}$ & 47.00$_{(\pm24.1)}$ & 47.98$_{(\pm25.1)}$ & 48.06$_{(\pm24.2)}$ & 43.24$_{(\pm24.9)}$ & 44.95$_{(\pm24.7)}$ & \bf 50.85$_{(\bf\pm23.6)}$ \\
-% \addlinespace    
-% \cmidrule{2-11}
-
-% & \multirow{3}{*}{\bf MSL} & \bf AUC & 56.94$_{(\pm14.1)}$ & 61.38$_{(\pm17.1)}$ & 62.30$_{(\pm16.1)}$ & 63.31$_{(\pm14.3)}$ & 61.09$_{(\pm15.4)}$ & 62.07$_{(\pm14.3)}$ & 63.95$_{(\pm15.0)}$ & \bf 64.98$_{(\bf\pm15.7)}$ \\
-% & & \bf F1 & 21.24$_{(\pm21.4)}$ & 27.93$_{(\pm25.6)}$ & 26.02$_{(\pm22.9)}$ & 27.16$_{(\pm23.0)}$ & 25.72$_{(\pm23.1)}$ & 23.78$_{(\pm23.2)}$ & 28.43$_{(\pm24.5)}$ & \bf 29.15$_{(\bf\pm24.2)}$ \\
-% & & \bf MCC & 11.09$_{(\pm21.8)}$ & 19.24$_{(\pm29.2)}$ & 16.49$_{(\pm24.4)}$ & 17.33$_{(\pm24.8)}$ & 16.30$_{(\pm25.1)}$ & 14.11$_{(\pm24.0)}$ & 19.86$_{(\pm24.8)}$ & \bf 20.14$_{(\bf\pm27.8)}$ \\
-
-% \addlinespace    
-% \cmidrule{2-11}
-% & \multirow{3}{*}{\bf SMAP} & \bf AUC & 56.98$_{(\pm17.3)}$ & 62.52$_{(\pm19.1)}$ & \bf 64.30$_{(\bf\pm19.6)}$ & 61.11$_{(\pm19.4)}$ & 63.99$_{(\pm17.7)}$ & 62.12$_{(\pm17.1)}$ & 61.42$_{(\pm20.3)}$ & 64.07$_{(\pm18.6)}$ \\
-% & & \bf F1 & 22.80$_{(\pm27.2)}$ & 29.20$_{(\pm33.0)}$ & 28.93$_{(\pm33.5)}$ & \bf 30.10$_{(\bf\pm33.1)}$ & 28.23$_{(\pm32.2)}$ & 27.46$_{(\pm33.2)}$ & 28.26$_{(\pm33.2)}$ & 29.07$_{(\pm29.07)}$ \\
-% & & \bf MCC & 11.38$_{(\pm29.0)}$ & 23.93$_{(\pm33.1)}$ & 23.96$_{(\pm34.0)}$ & 23.66$_{(\pm34.9)}$ & 22.52$_{(\pm32.2)}$ & 21.44$_{(\pm32.5)}$ &  23.5$_{(\pm32.8)}$ & \bf 24.28$_{(\bf\pm32.7)}$ \\
-
-% \addlinespace    
-% \midrule
-
-% \multirow{9}{*}{\rotatebox{90}{\bf Case-study datasets}} & \multirow{3}{*}{\bf STD} & \bf AUC & 74.57$_{(\pm1.63)}$ & 91.19$_{(\pm1.08)}$ & 96.04$_{(\pm0.27)}$ & 96.09$_{(\pm0.08)}$ & 95.78$_{(\pm0.39)}$ & 75.65$_{(\pm11.3)}$ & 95.63$_{(\pm1.94)}$ & \bf 97.93$_{(\bf\pm0.13)}$ \\
-% & & \bf F1 & 75.79$_{(\pm1.42)}$ & 87.18$_{(\pm1.24)}$ & 90.35$_{(\pm0.51)}$ & 90.02$_{(\pm0.24)}$ & 90.15$_{(\pm0.52)}$ & 74.21$_{(\pm9.22)}$ & 92.83$_{(\pm1.92)}$ & \bf 94.06$_{(\bf\pm0.45)}$ \\
-% & & \bf MCC & 39.56$_{(\pm3.66)}$ & 71.83$_{(\pm2.77)}$ & 78.93$_{(\pm1.14)}$ & 77.89$_{(\pm0.36)}$ & 78.48$_{(\pm1.17)}$ & 39.31$_{(\pm19.8)}$ & 84.33$_{(\pm4.12)}$ & \bf 86.72$_{(\bf\pm0.88)}$ \\
-
-% \addlinespace    
-% \cmidrule{2-11}
-
-% & \multirow{3}{*}{\bf GFN} & \bf AUC & 61.97$_{(\pm0.87)}$ & 71.78$_{(\pm3.41)}$ & 74.05$_{(\pm0.84)}$ & 74.84$_{(\pm0.42)}$ & 78.50$_{(\pm1.95)}$ & 67.07$_{(\pm3.25)}$ & 74.91$_{(\pm4.32)}$ & \bf 84.35$_{(\bf\pm1.23)}$ \\
-% & & \bf F1 & 74.12$_{(\pm0.71)}$ & 75.51$_{(\pm2.11)}$ & 74.05$_{(\pm0.84)}$ & 77.80$_{(\pm0.38)}$ & 81.20$_{(\pm2.61)}$ & 74.25$_{(\pm2.93)}$ & 76.76$_{(\pm2.71)}$ & \bf 82.88$_{(\bf\pm0.96)}$ \\
-% & & \bf MCC & 17.07$_{(\pm1.27)}$ & 24.26$_{(\pm6.56)}$ & 28.08$_{(\pm0.14)}$ & 31.40$_{(\pm1.22)}$ & 37.46$_{(\pm3.87)}$ & 17.86$_{(\pm6.27)}$ & 28.19$_{(\pm8.39)}$ & \bf 47.27$_{(\bf\pm1.49)}$ \\
-
-% \addlinespace    
-% \cmidrule{2-11}
-
-% & \multirow{3}{*}{\bf XC} & \bf AUC & 78.71$_{(\pm1.13)}$ & 67.32$_{(\pm6.52)}$ & 89.18$_{(\pm2.31)}$ & 89.97$_{(\pm0.26)}$ & 85.81$_{(\pm3.17)}$ & 83.35$_{(\pm10.6)}$ & \bf 96.96$_{(\bf\pm1.36)}$ & 96.10$_{(\pm0.41)}$ \\
-% & & \bf F1 & 63.33$_{(\pm1.18)}$ & 50.83$_{(\pm7.69)}$ & 75.94$_{(\pm3.30)}$ & 77.59$_{(\pm0.58)}$ & 70.58$_{(\pm3.45)}$ & 69.09$_{(\pm13.4)}$ & \bf 89.60$_{(\bf\pm2.03)}$ & 86.69$_{(\pm0.83)}$ \\
-% & & \bf MCC  & 43.42$_{(\pm2.43)}$ & 27.40$_{(\pm11.4)}$ & 63.95$_{(\pm4.63)}$ & 65.35$_{(\pm0.72)}$ & 56.59$_{(\pm4.89)}$ & 52.30$_{(\pm21.3)}$ & \bf 84.07$_{(\bf\pm2.94)}$ & 79.67$_{(\pm0.11)}$ \\
-
-% \bottomrule
-% \end{tabular*}
-% \end{table*}
-
-
-
 
 \subsection{Performance comparison}
 
-Table \ref{tab:chap_5:benchmark} presents the anomaly detection performance of CATS in comparison to other methods, evaluated using the AUC, F1, and MCC metrics.
+
+Table \ref{tab:chap_5:benchmark} summarizes the anomaly detection performance of CATS in comparison to other methods, using the AUPR (Eq. \ref{eq:aupr}), AUC (Eq. \ref{eq:auroc}), F1 (Eq. \ref{eq:f1}), and MCC (Eq. \ref{eq:mcc}) metrics for evaluation. Although AUC have limitations in the context of imbalanced datasets, it is included to facilitate comparison with prior studies. We have chosen not to employ the Point Adjust (PA) method in our evaluation, despite its widespread use in several time series anomaly detection studies, as it has been shown to overestimate model performance \cite{DARBAN2025110874, kim2023contrastive, Ky2023MLMF}. Additionally, the \ac{WAD} window-based approach introduced in Chapter \ref{chap:ml_evaluation} is not used here in order to maintain a fair comparison with previous works.
+
+
+\subsubsection{Cloud Gaming KPIs datasets}
+
+The reported outcomes on the \ac{CG} datasets represent the average of five independent runs, ensuring fair comparisons across methods using the same evaluation metrics as previously mentioned. CATS achieves the best performance on all datasets, except for the XC dataset, where it ranks second.
+
 
 \subsubsection{Benchmark datasets}
 
@@ -201,15 +167,12 @@ Since the benchmark datasets consist of multiple sub-datasets, we report the ave
 
 
 
-\subsubsection{Case-study datasets: Cloud Gaming KPIs}
-
-The reported outcomes on the case study datasets represent the average of five independent runs, ensuring fair comparisons across methods using the same evaluation metrics as previously mentioned. CATS achieves the best performance on all datasets, except for the XC dataset, where it ranks second.
 
 
 %We present in Fig. \ref{fig:chap_5:cdd} the average ranks of the compared models on different datasets using the F1-score and MCC scores. These results demonstrate that our model performs on average better than the other methods on all the datasets. However the Critical Difference is large due to the limited numbers of datasets used. 
 The experimental results show that our model performs on average better than the other methods on all datasets. It also suggests that traditional contrastive learning only is not sufficient for AD since unsupervised models like AE and USAD perform on average better than SimCLR or SimSiam. However, by considering temporal dependencies and introducing knowledge of the anomaly class, the AD performance is enhanced as shown through CATS results.
 
-\takeaway{CATS achieves superior performance across benchmark and Cloud Gaming KPIs datasets, outperforming other methods on most datasets and ranking second on SMAP and XC. By integrating temporal dependencies and anomaly class knowledge, CATS surpasses traditional contrastive learning and unsupervised ML baselines.}
+\takeaway{CATS achieves superior performance across benchmark and CG KPIs datasets, outperforming other methods on most datasets and ranking second on SMAP and XC. By integrating temporal dependencies and anomaly class knowledge, CATS surpasses traditional contrastive learning and unsupervised ML baselines.}
 
 
 \subsection{Ablation studies}
