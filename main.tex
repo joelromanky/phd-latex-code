@@ -331,7 +331,7 @@
 %-------------------------------------------------------------------
 
 \ThesisTitle{Anomaly Detection and Root Cause Diagnosis for Low-Latency Applications in Time-Varying Capacity Networks}
-\ThesisDate{XX avril 2025}
+\ThesisDate{29 avril 2025}
 \ThesisAuthor{Joël Roman Ky}
 
 % Type de la these
@@ -362,30 +362,31 @@
 \NewJuryCategory{Rapporteurs}{\textit{Rapporteur :}}{\textit{Rapporteurs :}}
 \NewJuryCategory{Examinateurs}{\textit{Examinateur :}}{\textit{Examinateurs :}}
 \NewJuryCategory{Directeur}{\textit{Directrice de thèse :}}{\textit{Directrice de thèse :}}
+\NewJuryCategory{CoDirection}{\textit{Co-Directeur :}}{\textit{Co-Directeur :}}
 \NewJuryCategory{Encadrants}{\textit{Encadrant :}}{\textit{Encadrants :}}
-\NewJuryCategory{Entreprise}{\textit{Encadrant entreprise :}}{\textit{Encadrant entreprise :}}
-\NewJuryCategory{Invites}{\textit{Invité :}}{\textit{Invités :}}
+\NewJuryCategory{Invites}{\textit{Invitée :}}{\textit{Invités :}}
 
 
 
 \def\blanc{\hspace*{1cm}}
 
-\President    = {Le président}
+\President    = {Nadjib Aitsaadi & Professeur, UVSQ Paris-Saclay, France}
 
 \Rapporteurs  = {Sandrine Vaton & Professeure, IMT Atlantique, France \\
                  Nadjib Aitsaadi & Professeur, UVSQ Paris-Saclay, France}
 
-\Examinateurs = {Claudia-Lavinia Ignat & Directrice de recherche, INRIA Nancy, France \\
+\Examinateurs = {Hind Castel-Taleb & Professeure, Télécom SudParis, France \\
                 Yacine Ghamri-Doudane & Professeur, Université de la Rochelle, France}
 
-\Encadrants = {Raouf Boutaba & Professor, University of Waterloo, Canada \\
-                Abdelkader Lahmadi & Maître de conférences, Université de Lorraine, France}
+\Encadrants = {Abdelkader Lahmadi & Maître de conférences, HDR,\\
+                                    & Université de Lorraine, France \\
+                Bertrand Mathieu & Chercheur, HDR, Orange Innovation, France}
 
-\Entreprise = {Bertrand Mathieu & Chercheur, HDR, Orange Innovation, France}
+\CoDirection = {Raouf Boutaba & Professor, University of Waterloo, Canada}
 
 \Directeur = {Isabelle Chrisment & Professeure, Université de Lorraine, France}
 
-%\Invites=       {}
+\Invites=   {Claudia-Lavinia Ignat & Directrice de recherche, INRIA Nancy, France }
 
 
 
@@ -411,14 +412,48 @@
 %                            dédicace
 %-------------------------------------------------------------------
 
+%\begin{ThesisDedication}
+%Je dédie cette thèse\\
+%à ma machine.\\
+%Oui, à Pandore,\\
+%qui fut la première de toutes.
+%\end{ThesisDedication}
+
+% You’ve achieved success in your field when you don’t know whether what you’re
+% doing is work or play.
+% - Warren Beatty
+
+
+% Our most exciting discoveries come from studying anomalies. The once-in-1000 occurrence is worth getting detail on.
+
+% Michael J. Silverstein
+
+
 \begin{ThesisDedication}
-Je dédie cette thèse\\
-à ma machine.\\
-Oui, à Pandore,\\
-qui fut la première de toutes.
+    À ma famille, \\
+pour son amour inconditionnel et son soutien indéfectible. \\
+
+Aux camarades du PMK, \\
+ayant consenti au sacrifice ultime, \\
+que ce travail soit un modeste hommage à leur mémoire et leur courage.
+\end{ThesisDedication}
+
+\begin{ThesisDedication}
+    You kinda want to look for the anomalies. \\
+    You don't actually want to look for the expected behaviour. \\
+    
+
+    - Keith Rabois
 \end{ThesisDedication}
 
 
+
+% Keith Rabois
+
+
+% Donald Rumsfeld:
+
+% "There are known knowns; there are things we know we know. We also know there are known unknowns; that is to say we know there are some things we do not know. But there are also unknown unknowns—the ones we don't know we don't know."
 %-------------------------------------------------------------------
 %                  écriture de `Chapitre' et `Partie' 
 %                      dans la table des matières
@@ -430,11 +465,11 @@ qui fut la première de toutes.
 
 
 
-%\SpecialSection{Résumé en Français}\label{french_summary}
-\chapter*{Résumé en Français}\label{french_summary}
-% \renewcommand\thesection{\arabic{section}}
-% \renewcommand\thesubsection{\arabic{section}.\arabic{subsection}}
-\input{chapters/annexes/french_resume}
+% %\SpecialSection{Résumé en Français}\label{french_summary}
+% \chapter*{Résumé en Français}\label{french_summary}
+% % \renewcommand\thesection{\arabic{section}}
+% % \renewcommand\thesubsection{\arabic{section}.\arabic{subsection}}
+% \input{chapters/annexes/french_resume}
 
 %-------------------------------------------------------------------
 %                        table des matières
@@ -485,6 +520,11 @@ qui fut la première de toutes.
 %\SpecialSection{Conclusion}\label{chap:conclusion}
 \input{chapters/chapter_7/main}
 
+%\SpecialSection{Résumé en Français}\label{french_summary}
+\chapter*{Résumé en Français}\label{french_summary}
+% \renewcommand\thesection{\arabic{section}}
+% \renewcommand\thesubsection{\arabic{section}.\arabic{subsection}}
+\input{chapters/annexes/french_resume}
 
 
 
@@ -492,16 +532,20 @@ qui fut la première de toutes.
 % \renewcommand\thesection{\thechapter.\arabic{section}}
 % \renewcommand\thesubsection{\thechapter.\arabic{section}.\arabic{subsection}}
 
-% \DontFrameChaptersInToc
 
-% \Annexes
 
-\FrameChaptersInToc
+\Annexes
+
+
+%\FrameChaptersInToc
+%\DontFrameChaptersInToc
+
+
 
 % \Annex{Résumé en français}\label{french_summary}
 % \input{chapters/annexes/french_resume}
 
-\Annex{Characterisation of Orange 4G transmission opportunities} \label{txops_annex}
+\Annex{Characterization of Orange 4G transmission opportunities} \label{txops_annex}
 \input{chapters/annexes/txops_file}
 
 \Annex{Supplemental results for Chapter 4} \label{wad-cats}
@@ -534,12 +578,11 @@ qui fut la première de toutes.
 \SpecialSection{Acronyms}\label{chap:acronyms}
 \input{chapters/acronyms}
 
-\EmptyPageStyle{empty}
+
 
 %-------------------------------------------------------------------
 %               Abstract
 %-------------------------------------------------------------------
-
 
 
 %\footnotesize
@@ -548,7 +591,7 @@ qui fut la première de toutes.
 \begin{mdframed}
     \textbf{\underline{Titre:}} Détection d'Anomalies et Diagnostic des Causes Racines des Applications à Faible-Latence sur les Réseaux à Capacité Variable. \\
     
-        L'évolution des réseaux a conduit à l'émergence d'applications à faible latence (FL) telles que le cloud gaming (CG) et la réalité virtuelle basée sur le cloud (Cloud VR), qui exigent des conditions réseau strictes, notamment une faible latence et une bande passante élevée. Cependant, les réseaux à capacité variable introduisent des dégradations, telles que du délai, des fluctuations de bande passante et des pertes de paquets, qui peuvent significativement altérer l'expérience utilisateur sur les applications LL. Cette thèse vise à concevoir des méthodologies pour détecter et diagnostiquer les anomalies de performance des applications FL fonctionnant sur des réseaux cellulaires et Wi-Fi.
+        L'évolution des réseaux a conduit à l'émergence d'applications à faible latence (FL) telles que le cloud gaming (CG) et la réalité virtuelle basée sur le cloud (Cloud VR), qui exigent des conditions réseau strictes, notamment une faible latence et une bande passante élevée. Cependant, les réseaux à capacité variable introduisent des dégradations, telles que du délai, des fluctuations de bande passante et des pertes de paquets, qui peuvent significativement altérer l'expérience utilisateur sur les applications FL. Cette thèse vise à concevoir des méthodologies pour détecter et diagnostiquer les anomalies de performance des applications FL fonctionnant sur des réseaux cellulaires et Wi-Fi.
 
         Pour atteindre cet objectif, des bancs d'essai expérimentaux réalistes ont été mis en place pour collecter des bases de données caractérisant les performances du réseau et capturant les indicateurs clés de performance (KPI) des applications CG et Cloud VR dans des environnements 4G et Wi-Fi. Ces données constituent la base de l'évaluation et du développement d'algorithmes de détection d'anomalies et de diagnostic basés sur l'apprentissage automatique.
 
@@ -582,163 +625,4 @@ qui fut la première de toutes.
 
 
 \end{document}
-
-
-
- @article{Wang2012CloudMG,
-  title={Cloud mobile gaming: modeling and measuring user experience in mobile wireless networks},
-  author={Shaoxuan Wang and Sujit Dey},
-  journal={ACM SIGMOBILE Mob. Comput. Commun. Rev.},
-  year={2012},
-  volume={16},
-  pages={10-21}
-}
-
-@inproceedings{Zadtootaghaj2022QualityOE,
-  title={Quality of Experience Modeling for Cloud Gaming Services},
-  author={Saman Zadtootaghaj},
-  booktitle={T-Labs Series in Telecommunication Services},
-  year={2022},
-}
-
-@inproceedings{kamarainen2018cloudvr,
-  title={CloudVR: Cloud accelerated interactive mobile virtual reality},
-  author={K{\"a}m{\"a}r{\"a}inen, Teemu and Siekkinen, Matti and Eerik{\"a}inen, Jukka and Yl{\"a}-J{\"a}{\"a}ski, Antti},
-  booktitle={Proceedings of the 26th ACM international conference on Multimedia},
-  pages={1181--1189},
-  year={2018}
-}
-
-@article{penaherrera2022kqi,
-  title={KQI assessment of VR services: A case study on 360-video over 4G and 5G},
-  author={Pe{\~n}aherrera-Pulla, Oswaldo Sebastian and Baena, Carlos and Fortes, Sergio and Baena, Eduardo and Barco, Raquel},
-  journal={IEEE Transactions on Network and Service Management},
-  volume={19},
-  number={4},
-  pages={5366--5382},
-  year={2022},
-  publisher={IEEE}
-}
-
-@article{rukh2023measuring,
-  title={Measuring and Localising Congestion in Mobile Broadband Networks},
-  author={Rukh, Mah and Elmokashfi, Ahmed},
-  journal={Authorea Preprints},
-  year={2023},
-  publisher={Authorea}
-}
-
-@inproceedings{sundqvist2022uncovering,
-  title={Uncovering latency anomalies in 5G RAN-A combination learner approach},
-  author={Sundqvist, Tobias and Bhuyan, Monowar and Elmroth, Erik},
-  booktitle={2022 14th International Conference on COMmunication Systems \& NETworkS (COMSNETS)},
-  pages={621--629},
-  year={2022},
-  organization={IEEE}
-}
-
-@article{zhao2024fault,
-  title={A Fault Diagnosis Method for 5G Cellular Networks Based on Knowledge and Data Fusion},
-  author={Zhao, Lingyu and He, Chuhong and Zhu, Xiaorong},
-  journal={Sensors},
-  volume={24},
-  number={2},
-  pages={401},
-  year={2024},
-  publisher={MDPI}
-}
-
-@article{galeano2004outlier,
-  title={Outlier detection in multivariate time series via projection pursuit},
-  author={Galeano, Pedro and Pea, Daniel and Tsay, Ruey S},
-  journal={Statistics and Econometrics Working Papers ws044211, Universidad Carlos III, Departamento de Estad{\i}stica y Econometr{\i}ca. Sep},
-  year={2004}
-}
-
- @article{Boutaba2018ACS,
-  title={A comprehensive survey on machine learning for networking: evolution, applications and research opportunities},
-  author={Raouf Boutaba and Mohammad Ali Salahuddin and Noura Limam and Sara Ayoubi and Nashid Shahriar and Felipe Estrada Solano and Oscar Mauricio Caicedo Rendon},
-  journal={Journal of Internet Services and Applications},
-  year={2018},
-  volume={9},
-  pages={1-99}
-}
-
- @article{Fernandes2019ACS,
-  title={A comprehensive survey on network anomaly detection},
-  author={Gilberto Fernandes and Joel J.P.C. Rodrigues and Luiz Fernando Carvalho and Jalal Al-Muhtadi and Mario Lemes Proença},
-  journal={Telecommunication Systems},
-  year={2019},
-  volume={70},
-  pages={447-489}
-}
-
- @article{BlazquezGarcia2021ARO,
-@article{blazquez2021review,
-  title={A review on outlier/anomaly detection in time series data},
-  author={Bl{\'a}zquez-Garc{\'\i}a, Ane and Conde, Angel and Mori, Usue and Lozano, Jose A},
-  journal={ACM computing surveys (CSUR)},
-  volume={54},
-  number={3},
-  pages={1--33},
-  year={2021},
-  publisher={ACM New York, NY, USA}
-}
-
-@inproceedings{Wang2022DeepCO,
-  title={Deep Contrastive One-Class Time Series Anomaly Detection},
-  author={Wang, Rui and Liu, Chongwei and Mou, Xudong and Gao, Kai and Guo, Xiaohui and Liu, Pin and Wo, Tianyu and Liu, Xudong},
-  booktitle={Proceedings of the 2023 SIAM International Conference on Data Mining (SDM)},
-  pages={694--702},
-  year={2023},
-  organization={SIAM}
-}
-
-@misc{P4_N2NET,
-      title={In-network Neural Networks}, 
-      author={Giuseppe Siracusano and Roberto Bifulco},
-      year={2018},
-      eprint={1801.05731},
-      archivePrefix={arXiv},
-      primaryClass={cs.DC}
-}
-
-@inproceedings{Zhou2019BeatGANAR,
-  title={BeatGAN: Anomalous Rhythm Detection using Adversarially Generated Time Series},
-  author={Bin Zhou and Shenghua Liu and Bryan Hooi and Xueqi Cheng and Jing Ye},
-  booktitle={International Joint Conference on Artificial Intelligence},
-  year={2019},
-}
-
-@ARTICLE{tsagen_wang,
-  author={Wang, Chengyu and Wu, Kui and Zhou, Tongqing and Yu, Guang and Cai, Zhiping},
-  journal={IEEE Transactions on Network and Service Management}, 
-  title={TSAGen: Synthetic Time Series Generation for KPI Anomaly Detection}, 
-  year={2022},
-  volume={19},
-  number={1},
-  pages={130-145},
-  doi={10.1109/TNSM.2021.3098784}}
-
-@ARTICLE{gan_ids_araujo,
-  author={de Araujo-Filho, Paulo Freitas and Naili, Mohamed and Kaddoum, Georges and Fapi, Emmanuel Thepie and Zhu, Zhongwen},
-  journal={IEEE Transactions on Network and Service Management}, 
-  title={Unsupervised GAN-Based Intrusion Detection System Using Temporal Convolutional Networks and Self-Attention}, 
-  year={2023},
-  volume={20},
-  number={4},
-  pages={4951-4963},
-  doi={10.1109/TNSM.2023.3260039}}
-
-
-@ARTICLE{iot_ad,
-  author={Yin, Chunyong and Zhang, Sun and Wang, Jin and Xiong, Neal N.},
-  journal={IEEE Transactions on Systems, Man, and Cybernetics: Systems}, 
-  title={Anomaly Detection Based on Convolutional Recurrent Autoencoder for IoT Time Series}, 
-  year={2022},
-  volume={52},
-  number={1},
-  pages={112-122},
-  keywords={Feature extraction;Time series analysis;Anomaly detection;Internet of Things;Deep learning;Monitoring;Anomaly detection;deep learning;Internet of Things (IoT);time series},
-  doi={10.1109/TSMC.2020.2968516}}
 

@@ -1,0 +1,169 @@
+\squarebox[LightBlue]{
+\chapterabstract{This chapter introduces a hybrid P4/NFV architecture combining hardware-based feature extraction using Tofino switches with an unsupervised machine learning model to improve the generalization of CG traffic detection. The proposed solution enhances processing rates while maintaining high identification accuracy through model adaptations addressing P4 limitations.}
+}
+
+
+\minitoc
+
+% Introduction
+\section{Introduction}
+\input{chapters/chapter_4/intro}
+
+\section{Related Work} 
+\label{chap_4:related_work}
+\input{chapters/chapter_4/related}
+
+\section{Datasets and ML Models}
+\label{chap_4:method}
+\input{chapters/chapter_4/method}
+
+\section{Architecture and Implementation}
+\label{chap_4:implement}
+\input{chapters/chapter_4/implementation}
+
+
+\section{Evaluation}
+\label{chap_4:eval}
+\input{chapters/chapter_4/evaluation}
+
+
+\section{Conclusion}
+\label{chap_4:conclusion}
+\input{chapters/chapter_4/conclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                             Chapter 4 references
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % 2008
+% @article{OpenFlow,
+%   title={OpenFlow: enabling innovation in campus networks},
+%   author={Nick McKeown and Thomas E. Anderson and H. Balakrishnan and Guru M. Parulkar and Larry L. Peterson and Jennifer Rexford and Scott Shenker and Jonathan S. Turner},
+%   journal={Comput. Commun. Rev.},
+%   year={2008},
+%   volume={38},
+%   pages={69-74}
+% }
+
+% % 2014
+% @article{P4,
+%   title={P4: programming protocol-independent packet processors},
+%   author={Patrick W. Bosshart and Dan Daly and Glen Gibb and Martin Izzard and Nick McKeown and Jennifer Rexford and Cole Schlesinger and Daniel E. Talayco and Amin Vahdat and George Varghese and David Walker},
+%   journal={Comput. Commun. Rev.},
+%   year={2013},
+%   volume={44},
+%   pages={87-95}
+% }
+
+% % 2017
+% @article{P4_HeavyHitter,
+%   title={Heavy-Hitter Detection Entirely in the Data Plane},
+%   author={Vibhaalakshmi Sivaraman and Srinivas Narayana and Ori Rottenstreich and S. Muthukrishnan and Jennifer Rexford},
+%   journal={Proceedings of the Symposium on SDN Research},
+%   year={2016}
+% }
+
+% % 2018
+% @article{P4_HeavyHitter2,
+%   title={Network-Wide Heavy Hitter Detection with Commodity Switches},
+%   author={Rob Harrison and Qizhe Cai and Arpit Gupta and Jennifer Rexford},
+%   journal={Proceedings of the Symposium on SDN Research},
+%   year={2018}
+% }
+
+% % 2018
+% @INPROCEEDINGS{P4_HeavyHitter3,
+%   author={da Silva, Marcus Vinicius Brito and Jacobs, Arthur Selle and Pfitscher, Ricardo Jose and Granville, Lisandro Zambenedetti},
+%   booktitle={IEEE Global Communications Conference (GLOBECOM 18)},
+%   title={IDEAFIX: Identifying Elephant Flows in P4-Based IXP Networks},
+%   year={2018},
+%   volume={},
+%   number={},
+%   pages={1-6},
+%   doi={10.1109/GLOCOM.2018.8647685}}
+
+% % 2018
+
+
+% % 2019
+% @article{P4_Switches_ML,
+%   title={Do Switches Dream of Machine Learning?: Toward In-Network Classification},
+%   author={Zhaoqi Xiong and Noa Zilberman},
+%   journal={Proceedings of the 18th ACM Workshop on Hot Topics in Networks},
+%   year={2019}
+% }
+
+% % 2020
+% @INPROCEEDINGS{P4_Seior,
+%   title={Sei{\dh}r: Dataplane assisted flow classification using ML},
+%   author={Simpson, Kyle A and Cziva, Richard and Pezaros, Dimitrios P},
+%   booktitle={GLOBECOM 2020-2020 IEEE Global Communications Conference},
+%   pages={1--6},
+%   year={2020},
+%   organization={IEEE}
+% }
+
+% % 2021
+% @INPROCEEDINGS{P4_Flow_Classif,
+%   author={Kamath, Radhakrishna and Sivalingam, Krishna M},
+%   booktitle={2021 International Conference on Computer Communications and Networks (ICCCN)}, 
+%   title={Machine Learning based Flow Classification in DCNs using P4 Switches}, 
+%   year={2021},
+%   volume={},
+%   number={},
+%   pages={1-10},
+%   doi={10.1109/ICCCN52240.2021.9522272}}
+
+
+% %%%%%%%%%%%%%%%%
+
+
+% % 2020
+% @article{LearningClassif,
+%   title={Learning to Classify: A Flow-Based Relation Network for Encrypted Traffic Classification},
+%   author={Wenbo Zheng and Chao Gou and Lan Yan and Shaocong Mo},
+%   journal={Proceedings of The Web Conference 2020},
+%   year={2020}
+% }
+
+
+
+ 
+ 
+% @inproceedings{NOMS,
+%   title={Efficient identification of cloud gaming traffic at the edge},
+%   author={Graff, Philippe and Marchal, Xavier and Cholez, Thibault and Mathieu, Bertrand and Festor, Olivier},
+%   booktitle={NOMS 2023-2023 IEEE/IFIP Network Operations and Management Symposium},
+%   pages={1--10},
+%   year={2023},
+%   organization={IEEE}
+% }
+
+
+
+% @INPROCEEDINGS{9838674,
+%   author={Gombos, Gergő and Mouw, Maurice and Laki, Sándor and Papagianni, Chrysa and De Schepper, Koen},
+%   booktitle={ICC 2022 - IEEE International Conference on Communications}, 
+%   title={Active Queue Management on the Tofino programmable switch: The (Dual)PI2 case}, 
+%   year={2022},
+%   volume={},
+%   number={},
+%   pages={1685-1691},
+%   doi={10.1109/ICC45855.2022.9838674}}
+
+
+% @article{Nunes2014ASO,
+%   title={A Survey of Software-Defined Networking: Past, Present, and Future of Programmable Networks},
+%   author={Bruno Astuto A. Nunes and Marc Mendonca and Xuan Nam Nguyen and Katia Obraczka and Thierry Turletti},
+%   journal={IEEE Communications Surveys \& Tutorials},
+%   year={2014},
+%   volume={16},
+%   pages={1617-1634}
+% }
+
+
+
+
+

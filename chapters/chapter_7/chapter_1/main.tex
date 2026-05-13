@@ -1,0 +1,52 @@
+\squarebox[LightBlue]{
+\chapterabstract{This chapter reviews the key concepts underlying this thesis, beginning with an overview of low-latency applications and time-varying capacity networks, such as 4G, 5G, and Wi-Fi. Subsequently, the chapter introduces machine learning paradigms and a background on anomaly detection techniques for time series. Finally, it explores root cause diagnosis approaches for cellular and Wi-Fi networks.}
+% add that we address xthe limitations in the thesis
+}
+
+\minitoc
+%\newpage
+
+% \contributions{
+% This is an example of a rounded color box with cyan background and black border. 
+% You can adjust the color and content as needed.
+% }
+
+\section{Low-latency applications}
+\input{chapters/chapter_1/ll_app}
+
+\section{Time varying capacity networks}
+\input{chapters/chapter_1/time_network}
+
+\section{Machine Learning paradigms}
+\input{chapters/chapter_1/ml}
+
+\section{Anomaly Detection in time series}
+\input{chapters/chapter_1/anomaly}
+
+
+\section{Root-Cause diagnosis in time varying capacity networks}
+\input{chapters/chapter_1/root_cause}
+
+\takeaway{
+\begin{itemize}
+    \item \ac{LL} applications like cloud gaming, Cloud VR, video conferencing, and remote medical surgery share a need for minimal end-to-end delay, but their bandwidth and latency requirements differ. CG and Cloud VR, the focus of this thesis, demand high network reliability to deliver interactive and immersive experiences. These applications involve complex architectures and protocols, with network factors like delay, jitter, bitrate, and packet loss significantly impacting user experience as highlighted by many studies in the literature.
+    \item Cellular networks have evolved from 1G to 5G, with 5G offering ultra-low latency, enhanced bandwidth, and novel concepts like network slicing and edge computing. Similarly, Wi-Fi standards have progressed from IEEE 802.11 to Wi-Fi 7, delivering higher throughput and reduced latency. Despite these advancements, both network types face multiple challenges resulting in bandwidth unavailability and latency instability, which impact performance of \ac{LL} applications.
+    \item \ac{ML} and \ac{DL} have become essential for addressing complex problems across various domains. DL leverages neural networks, which excel in capturing intricate patterns, to design inference functions that solve tasks through various learning paradigms, including supervised, unsupervised, and self-supervised learning. Building a DL solution involves several key steps such as data preparation, model design, training, evaluation, and deployment, ensuring the performance and generalizability required for deployment in real-world scenarios
+    \item \ac{AD} techniques in time series involves identifying deviations from normal patterns, often crucial in monitoring systems like networking. Multivariate time series data pose unique challenges, addressed by unsupervised methods leveraging statistical models, clustering, reconstruction-based approaches, or forecasting. Recent advancements in self-supervised learning, particularly contrastive learning, have further improved detection capabilities. Evaluating AD techniques relies on metrics like F1-score, MCC or AU-PR to better assess the AD accuracy.
+    \item \ac{RCD} aims to pinpoint specific factors causing performance degradation in networks, such as congestion, interference, signal attenuation... Traditional expert-based methods are increasingly complemented by automated, ML-driven approaches. Time varying network RCD often employs clustering, statistical methods, supervised \ac{ML} and deep neural networks to analyze vast telemetry data and classify impairments. These techniques enhance network performance by addressing underlying issues efficiently.
+\end{itemize}}
+
+\usage{
+This thesis focuses on anomaly detection and root-cause diagnosis for the performance of low-latency (LL) applications, with a specific emphasis on CG and Cloud VR. These applications were chosen due to their growing business relevance for Orange and their sensitivity to network performance issues. In Chapter \ref{chap:measurements}, we conduct data collection using commercial CG platforms and experimental Cloud VR systems under time-varying network conditions (4G and Wi-Fi networks). These conditions are designed to replicate real-world scenarios prone to the network factors which can cause performance anomalies in LL applications. The resulting datasets provide the foundation for evaluating anomaly detection techniques in Chapters \ref{chap:ml_evaluation} and \ref{chap:cats}. Furthermore, they are used to evaluate our proposed solution for root-cause diagnosis of LL application performance issues, detailed in Chapter \ref{chap:diagnosis}.
+
+% This thesis focuses on evaluating \ac{LL} applications under challenging network environments, specifically 4G and Wi-Fi. The experimental testbeds for data collection (Chapter \ref{chap:measurements}) were designed to reproduce realistic scenarios within these networks, thus capturing the performance impacts and challenges faced by LL applications in such environments.
+
+We follow the same DL implementation procedure when designing ML solutions, whether for anomaly detection (Chapters \ref{chap:ml_evaluation}, \ref{chap:cats}) or root-cause diagnosis (Chapter \ref{chap:diagnosis}).
+
+In this thesis, we adopt the unsupervised learning paradigm for \ac{AD} to address the limitations of supervised learning, which requires labeling all collected data—a process that would be impractical. This approach enables us to evaluate and compare existing \ac{UL}-based AD solutions for detecting QoE degradation in Chapter \ref{chap:ml_evaluation}. Furthermore, in Chapter \ref{chap:cats}, we propose a UL-based solution, specifically leveraging contrastive learning for time-series AD, which outperforms existing methods on our CG datasets and other benchmark datasets. Building on this approach, we also propose in Chapter \ref{chap:diagnosis}, a technique for \ac{RCD} in Cloud VR applications operating on Wi-Fi networks. }
+% reformuler lien choix UL
+
+% \usage{In this thesis, we perform AD on time series to identify QoE degradation on CG KPIs. This section serves as the basis for methods evaluated on Chapter \ref{chap:ml_evaluation} and \ref{chap:cats}.
+
+
+% \usage{In this thesis, we propose in Chapter \ref{chap:diagnosis} a novel approach for RCD of QoE degradation in CloudVR applications used on WiFi networks.} % in contrast with the sota solutions 

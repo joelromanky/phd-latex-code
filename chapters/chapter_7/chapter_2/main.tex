@@ -1,0 +1,37 @@
+\squarebox[LightBlue]{
+\chapterabstract{This chapter presents the methodologies and experiments used to collect datasets for training machine learning models for anomaly detection and root cause diagnosis in low-latency applications. We conduct three data collection experiments, each performed in a lab environment, with careful attention to ensuring they were both reproducible and as realistic as possible. The experiments focus on 4G networks, cloud gaming applications under emulated 4G conditions, and Cloud VR applications in Wi-Fi scenarios. These datasets form the foundation for the machine learning models developed and evaluated in subsequent chapters.}}
+
+% The first set of experiments focused on achieving reproducible conditions for cellular networks. We collected 4G network conditions using the Saturator tool, generating transmission opportunity (txops) files that emulate realistic, time-varying network behaviors. Using these files, we collected cloud gaming datasets under emulated 4G conditions, leveraging Mahimahi-LinkShell and DECAF tools to capture detailed Quality of Experience (QoE) and Quality of Service (QoS) metrics.
+% The final experiment extended the scope to Cloud VR applications operating under Wi-Fi network conditions. We conducted experiments to collect Cloud VR datasets under both normal and impaired Wi-Fi network conditions, simulating scenarios such as interference and signal attenuation.
+
+\minitoc
+%\newpage
+
+%The techniques developed in this thesis for anomaly detection and root-cause analysis of low-latency (LL) applications require data collected from a series of controlled experiments. All experiments were conducted in a lab environment, with careful attention to ensuring they were both reproducible and as close as possible to real-world conditions.
+
+%Given our objective of studying LL applications on networks with time-varying capacity, the first set of experiments focused on cloud gaming (CG) applications over cellular networks. To achieve reproducibility in data collection for CG on these networks, we first set up a testbed to capture 4G network conditions from Orange’s commercial network. This provided a realistic baseline of cellular network behavior. Using these recorded network conditions, the second phase of our experimentation involved collecting Key Performance Indicators (KPIs) for CG applications, allowing us to analyze Quality of Experience (QoE) degradation and performance under different network scenarios.
+
+%The final experiment extended the scope to CloudVR gaming applications, where we studied their behavior over WiFi network.
+
+
+\contributions{
+The main contributions of this chapter can be summarized as follows:
+\begin{itemize}
+    \item We collect 4G network conditions using the Saturator tool, generating transmission opportunity (txops) files that emulate realistic, time-varying network behaviors.
+    \item We collect cloud gaming datasets under emulated 4G conditions by leveraging the collected txops files, Mahimahi-LinkShell, and DECAF tools to capture detailed Quality of Experience (QoE) and Quality of Service (QoS) metrics.
+    \item We extend the data collection to Cloud VR applications operating under Wi-Fi network conditions. Experiments are conducted to collect Cloud VR datasets under both normal and impaired Wi-Fi conditions, simulating scenarios such as interference and signal attenuation.
+
+\end{itemize}
+}
+
+
+
+\section{Measurements and data collection of 4G network conditions on Orange commercial network}
+\input{chapters/chapter_2/txops_collection}
+
+
+\section{Data collection of user-KPI time series data for cloud gaming sessions over 4G networks}
+\input{chapters/chapter_2/cg_measurements}
+
+\section{Data collection of CloudVR data over Wi-Fi networks}
+\input{chapters/chapter_2/vr_measurements}
